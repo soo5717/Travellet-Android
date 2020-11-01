@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignUp2Activity">
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/backButton"
+        android:layout_margin="16dp"
+        android:background="@drawable/backspace_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/back" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/signup_2_progress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/progress" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/title"
+        android:layout_marginTop="76dp"
+        android:layout_marginStart="24dp"
+        android:text="@string/sign_up1"
+        android:textSize="28sp"
+        android:textColor="@color/light_blue"
+        android:lineSpacingExtra="5sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text1"
+        android:layout_marginTop="76dp"
+        android:layout_marginStart="24dp"
+        android:text="@string/username"
+        android:textSize="14sp"
+        android:textColor="@color/six_grey"
+        android:letterSpacing="0.03"
+        android:lineSpacingExtra="6sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/title"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/usernameText"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:hint="@string/please_enter_your_name"
+        android:textColorHint="@color/hint_grey"
+        android:backgroundTint="@color/hint_grey"
+        android:textStyle="normal"
+        android:textSize="16sp"
+        android:letterSpacing="0.03"
+        android:lineSpacingExtra="8sp"
+        app:layout_constraintTop_toBottomOf="@+id/text1"
+        android:autofillHints=""
+        android:inputType="text" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text2"
+        android:layout_marginTop="76dp"
+        android:layout_marginStart="24dp"
+        android:text="@string/country"
+        android:textSize="14sp"
+        android:textColor="@color/six_grey"
+        android:letterSpacing="0.03"
+        android:lineSpacingExtra="6sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/usernameText"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/countryText"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:hint="@string/please_select_your_country"
+        android:textColorHint="@color/hint_grey"
+        android:backgroundTint="@color/hint_grey"
+        android:textStyle="normal"
+        android:textSize="16sp"
+        android:letterSpacing="0.03"
+        android:lineSpacingExtra="8sp"
+        app:layout_constraintTop_toBottomOf="@+id/text2"
+        android:autofillHints=""
+        android:inputType="text" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text3"
+        android:layout_marginBottom="16dp"
+        android:textSize="12sp"
+        android:textColor="@color/icon_grey"
+        android:letterSpacing="0.03"
+        android:lineSpacingExtra="12sp"
+        android:text="@string/already_have_an_account"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintBottom_toTopOf="@+id/okButton"
+        app:layout_constraintRight_toLeftOf="@+id/signInButton"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <TextView
+        android:id="@+id/signInButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="3dp"
+        android:letterSpacing="0.03"
+        android:lineSpacingExtra="12sp"
+        android:text="@string/sign_in2"
+        android:textColor="@color/light_blue"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/okButton"
+        app:layout_constraintLeft_toRightOf="@+id/text3"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <Button
+        android:layout_width="312dp"
+        android:layout_height="56dp"
+        android:id="@+id/okButton"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/blue_button_background"
+        android:stateListAnimator="@null"
+        android:text="@string/ok"
+        android:textColor="@color/white"
+        android:letterSpacing="0.03"
+        android:lineSpacingExtra="6sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

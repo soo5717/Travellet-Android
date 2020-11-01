@@ -9,6 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".InputCostActivity"></activity>
+        <activity android:name=".AddPlanActivity" />
+        <activity android:name=".InputBudgetActivity" />
+        <activity android:name=".PlaceDetailActivity" />
+        <activity android:name=".SetBudgetActivity" />
+        <activity android:name=".SetDateActivity" />
+        <activity android:name=".SetTitleActivity" />
+        <activity android:name=".SignUp2Activity" />
+        <activity android:name=".SignUp1Activity" />
+        <activity android:name=".SignInActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
