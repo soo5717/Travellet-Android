@@ -12,17 +12,27 @@
         android:layout_height="wrap_content"
         android:id="@+id/const1"
         android:background="#1aa8b6c8"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/backButton"
-            android:layout_margin="16dp"
-            android:background="@drawable/backspace_24"
-            app:layout_constraintStart_toStartOf="parent"
+        <androidx.appcompat.widget.Toolbar
             app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/back" />
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/backButton"
+                android:layout_margin="16dp"
+                android:background="@drawable/backspace_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/back" />
+
+        </androidx.appcompat.widget.Toolbar>
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -45,7 +55,7 @@
             android:textColor="#323643"
             android:fontFamily="@font/rubik_medium"
             android:lineSpacingExtra="0sp"
-            app:layout_constraintTop_toBottomOf="@+id/backButton"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
         <TextView
@@ -59,7 +69,7 @@
             android:textSize="28sp"
             android:textColor="#323643"
             android:lineSpacingExtra="0sp"
-            app:layout_constraintTop_toBottomOf="@+id/backButton"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
             app:layout_constraintLeft_toRightOf="@id/krw"/>
 
         <TextView
@@ -125,6 +135,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginRight="32dp"
         android:layout_marginLeft="32dp"
+        android:scrollbars="none"
         app:layout_constraintTop_toBottomOf="@+id/memo"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">

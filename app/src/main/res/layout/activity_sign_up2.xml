@@ -4,55 +4,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     tools:context=".SignUp2Activity">
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/backButton"
-        android:layout_margin="16dp"
-        android:background="@drawable/backspace_24"
-        app:layout_constraintStart_toStartOf="parent"
+    <androidx.appcompat.widget.Toolbar
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/back" />
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/backButton"
+            android:layout_margin="16dp"
+            android:background="@drawable/backspace_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/back" />
+    </androidx.appcompat.widget.Toolbar>
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
-        android:background="@drawable/signup_2_progress"
+        android:background="@drawable/ic_signup_2_progress"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         android:contentDescription="@string/progress" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/title"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="24dp"
         android:text="@string/sign_up1"
         android:textSize="28sp"
         android:fontFamily="@font/rubik_medium"
         android:textColor="#323643"
-        android:lineSpacingExtra="5sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/toolbar"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/text1"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="60dp"
         android:layout_marginStart="24dp"
         android:text="@string/username"
         android:textSize="14sp"
         android:textColor="@color/six_grey"
         android:letterSpacing="0.03"
-        android:lineSpacingExtra="6sp"
         android:fontFamily="@font/noto_sans_regular"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/title"/>
+        app:layout_constraintTop_toBottomOf="@+id/title"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -67,9 +74,10 @@
         android:textStyle="normal"
         android:textSize="16sp"
         android:letterSpacing="0.03"
-        android:lineSpacingExtra="8sp"
         android:fontFamily="@font/noto_sans_demilight"
         app:layout_constraintTop_toBottomOf="@+id/text1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         android:autofillHints=""
         android:inputType="text" />
 
@@ -77,16 +85,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/text2"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="24dp"
         android:text="@string/country"
         android:textSize="14sp"
         android:textColor="@color/six_grey"
         android:letterSpacing="0.03"
-        android:lineSpacingExtra="6sp"
         android:fontFamily="@font/noto_sans_regular"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/usernameText"/>
+        app:layout_constraintTop_toBottomOf="@+id/usernameText"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -101,9 +108,10 @@
         android:textStyle="normal"
         android:textSize="16sp"
         android:letterSpacing="0.03"
-        android:lineSpacingExtra="8sp"
         android:fontFamily="@font/noto_sans_demilight"
         app:layout_constraintTop_toBottomOf="@+id/text2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         android:autofillHints=""
         android:inputType="text" />
 
@@ -115,7 +123,6 @@
         android:textSize="12sp"
         android:textColor="@color/icon_grey"
         android:letterSpacing="0.03"
-        android:lineSpacingExtra="12sp"
         android:text="@string/already_have_an_account"
         android:fontFamily="@font/noto_sans_regular"
         app:layout_constraintHorizontal_chainStyle="packed"
@@ -130,7 +137,6 @@
         android:layout_marginBottom="16dp"
         android:layout_marginStart="3dp"
         android:letterSpacing="0.03"
-        android:lineSpacingExtra="12sp"
         android:text="@string/sign_in2"
         android:textColor="@color/light_blue"
         android:textSize="12sp"
@@ -149,7 +155,6 @@
         android:text="@string/ok"
         android:textColor="@color/white"
         android:letterSpacing="0.03"
-        android:lineSpacingExtra="6sp"
         android:fontFamily="@font/noto_sans_medium"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

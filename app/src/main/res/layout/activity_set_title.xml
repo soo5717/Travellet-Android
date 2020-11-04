@@ -4,40 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     tools:context=".SetTitleActivity">
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/backButton"
-        android:layout_margin="16dp"
-        android:background="@drawable/backspace_24"
-        app:layout_constraintStart_toStartOf="parent"
+    <androidx.appcompat.widget.Toolbar
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/back" />
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/backButton"
+            android:layout_margin="16dp"
+            android:background="@drawable/backspace_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/back" />
+    </androidx.appcompat.widget.Toolbar>
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
-        android:background="@drawable/settitle_progress"
+        android:background="@drawable/ic_settitle_progress"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         android:contentDescription="@string/progress" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/title"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="24dp"
         android:text="@string/what"
         android:textSize="28sp"
         android:textColor="#323643"
         android:fontFamily="@font/rubik_medium"
-        android:lineSpacingExtra="5sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/toolbar"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -49,7 +56,6 @@
         android:textSize="16sp"
         android:textColor="@color/six_grey"
         android:letterSpacing="0.03"
-        android:lineSpacingExtra="3sp"
         android:fontFamily="@font/rubik_regular"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title"/>
@@ -67,9 +73,10 @@
         android:textStyle="normal"
         android:textSize="16sp"
         android:letterSpacing="0.03"
-        android:lineSpacingExtra="8sp"
         android:fontFamily="@font/noto_sans_demilight"
         app:layout_constraintTop_toBottomOf="@+id/text1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         android:autofillHints=""
         android:inputType="text" />
 
@@ -85,7 +92,6 @@
         android:text="@string/next"
         android:textColor="@color/white"
         android:letterSpacing="0.03"
-        android:lineSpacingExtra="6sp"
         android:fontFamily="@font/noto_sans_medium"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
