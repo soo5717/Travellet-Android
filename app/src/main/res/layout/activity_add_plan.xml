@@ -39,6 +39,7 @@
         android:lineSpacingExtra="8sp"
         android:backgroundTint="@color/hint_grey"
         android:hint="Search the place"
+        android:fontFamily="@font/noto_sans_demilight"
         app:layout_constraintTop_toBottomOf="@+id/time"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
@@ -56,6 +57,7 @@
         android:lineSpacingExtra="8sp"
         android:backgroundTint="@color/hint_grey"
         android:hint="@string/memo"
+        android:fontFamily="@font/noto_sans_demilight"
         app:layout_constraintTop_toBottomOf="@+id/place"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -119,7 +121,7 @@
         </LinearLayout>
     </HorizontalScrollView>
 
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/hint_grey"
@@ -135,12 +137,13 @@
         android:layout_marginBottom="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
-        android:background="@drawable/blue_button_background"
+        android:background="@drawable/gradation"
         android:stateListAnimator="@null"
         android:text="@string/add"
         android:textColor="@color/white"
         android:letterSpacing="0.03"
         android:lineSpacingExtra="6sp"
+        android:fontFamily="@font/noto_sans_medium"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
