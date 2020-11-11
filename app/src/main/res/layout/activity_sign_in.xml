@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    tools:context=".SignInActivity">
+    tools:context=".feature.sign.SignInActivity">
 
     <androidx.appcompat.widget.Toolbar
         app:layout_constraintTop_toTopOf="parent"
@@ -21,6 +21,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginStart="24dp"
         android:text="@string/sign_in"
+        android:includeFontPadding="false"
         android:textSize="28sp"
         android:textColor="#323643"
         android:fontFamily="@font/rubik_medium"
@@ -34,6 +35,7 @@
         android:layout_marginTop="60dp"
         android:layout_marginStart="24dp"
         android:text="@string/e_mail"
+        android:includeFontPadding="false"
         android:textSize="14sp"
         android:textColor="@color/six_grey"
         android:fontFamily="@font/noto_sans_regular"
@@ -54,6 +56,8 @@
         android:textStyle="normal"
         android:textSize="16sp"
         android:letterSpacing="0.03"
+        android:includeFontPadding="false"
+        android:background="@drawable/bg_underline_vaild_success"
         android:fontFamily="@font/noto_sans_demilight"
         app:layout_constraintTop_toBottomOf="@+id/text1"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -68,6 +72,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginStart="24dp"
         android:text="@string/password"
+        android:includeFontPadding="false"
         android:textSize="14sp"
         android:textColor="@color/six_grey"
         android:fontFamily="@font/noto_sans_regular"
@@ -87,6 +92,8 @@
         android:backgroundTint="@color/hint_grey"
         android:textStyle="normal"
         android:textSize="16sp"
+        android:includeFontPadding="false"
+        android:background="@drawable/bg_underline_vaild_success"
         android:fontFamily="@font/noto_sans_demilight"
         android:letterSpacing="0.03"
         app:layout_constraintTop_toBottomOf="@+id/text2"
@@ -104,6 +111,7 @@
         android:textColor="@color/icon_grey"
         android:letterSpacing="0.03"
         android:text="@string/don_t_have_an_account"
+        android:includeFontPadding="false"
         android:fontFamily="@font/noto_sans_regular"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintBottom_toTopOf="@+id/okButton"
@@ -118,7 +126,8 @@
         android:layout_marginStart="3dp"
         android:letterSpacing="0.03"
         android:text="@string/sign_up"
-        android:textColor="@color/light_blue"
+        android:includeFontPadding="false"
+        android:textColor="@color/deep_blue"
         android:textSize="12sp"
         android:fontFamily="@font/noto_sans_regular"
         app:layout_constraintBottom_toTopOf="@+id/okButton"
@@ -126,20 +135,21 @@
         app:layout_constraintRight_toRightOf="parent"/>
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
         android:id="@+id/okButton"
-        android:layout_marginBottom="24dp"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
-        android:background="@drawable/gradation"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/bg_gradation"
+        android:fontFamily="@font/noto_sans_medium"
+        android:letterSpacing="0.03"
         android:stateListAnimator="@null"
         android:text="@string/ok"
-        android:textColor="@color/white"
-        android:letterSpacing="0.03"
-        android:fontFamily="@font/noto_sans_medium"
+        android:includeFontPadding="false"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

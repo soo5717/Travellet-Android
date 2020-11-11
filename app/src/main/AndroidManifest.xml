@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.travellet">
 
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -12,27 +11,31 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat">
-        <activity android:name=".InputCostActivity">
+        android:theme="@style/AppTheme"
+        android:name=".feature.util.MyApplication">
+        <!-- sign -->
+        <activity android:name=".feature.sign.SignInActivity" />
+        <activity android:name=".feature.sign.SignUp1Activity" />
+        <activity android:name=".feature.sign.SignUp2Activity" />
+        <!-- setting -->
+        <activity android:name=".feature.setting.SettingActivity" />
+        <!-- travel -->
+        <activity android:name=".feature.travel.SetTitleActivity" />
+        <activity android:name=".feature.travel.SetDateActivity" />
+        <activity android:name=".feature.travel.SetBudgetActivity" />
+        <!-- place -->
+        <activity android:name=".feature.place.PlaceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddPlanActivity" />
-        <activity android:name=".InputBudgetActivity" />
-        <activity android:name=".PlaceDetailActivity">
-
-        </activity>
-        <activity android:name=".SetBudgetActivity" />
-        <activity android:name=".SetDateActivity" />
-        <activity android:name=".SetTitleActivity" />
-        <activity android:name=".SignUp2Activity" />
-        <activity android:name=".SignUp1Activity" />
-        <activity android:name=".SignInActivity" />
-        <activity android:name=".MainActivity">
-        </activity>
+        <activity android:name=".feature.place.PlaceDetailActivity" />
+        <!-- plan -->
+        <activity android:name=".feature.plan.AddPlaceActivity" />
+        <activity android:name=".feature.plan.input.InputCostActivity" />
+        <activity android:name=".feature.plan.input.InputBudgetActivity" />
     </application>
 
 </manifest>

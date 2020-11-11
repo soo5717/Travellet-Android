@@ -4,12 +4,18 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
 
-    <color name="light_blue">#427dff</color>
-    <color name="six_grey">#666666</color>
-    <color name="hint_grey">#e1e3e8</color>
-    <color name="icon_grey">#c5ccd6</color>
-    <color name="white">#ffffff</color>
+    <!--  Point color  -->
+    <color name="deep_blue">#427dff</color>
+    <color name="text_blue">#459efb</color>
+    <color name="light_blue">#48bff8</color>
+
+    <!--  Grey color  -->
+    <color name="soft_black">#323643</color>
     <color name="four_grey">#444444</color>
+    <color name="six_grey">#666666</color>
+    <color name="icon_grey">#c5ccd6</color>
+    <color name="hint_grey">#e1e3e8</color>
+
+    <!--  Etc color  -->
     <color name="coral_red">#f3534a</color>
-    <color name="black">#000000</color>
 </resources>

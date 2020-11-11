@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Travellet</string>
+    <string name="appbar_scrolling_view_behavior" translatable="false">
+        com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior
+    </string>
+
+    <!--  정리 필요함  -->
     <string name="sign_in">Sign In</string>
     <string name="e_mail">E-mail</string>
     <string name="please_enter_your_email">Please enter your email</string>
@@ -51,4 +56,11 @@
     <string name="_9">9</string>
     <string name="dot">.</string>
     <string name="del">del</string>
+    <string name="setting">Setting</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="edit">Edit</string>
+    <string name="search_the_place">Search the place</string>
+    <string name="place_thumbnail">Place thumbnail</string>
+    <string name="like_button">Like button</string>
 </resources>

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
-    tools:context=".PlaceDetailActivity">
+    android:background="@android:color/white"
+    tools:context=".feature.place.PlaceDetailActivity">
 
     <androidx.appcompat.widget.Toolbar
         app:layout_constraintTop_toTopOf="parent"
@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/backButton"
             android:layout_margin="16dp"
-            android:background="@drawable/backspace_24"
+            android:background="@drawable/ic_backspace_24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:contentDescription="@string/back" />
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/likeButton"
         android:layout_margin="16dp"
-        android:background="@drawable/favorite_border_24_dp"
+        android:background="@drawable/ic_favorite_border_24dp"
         app:layout_constraintEnd_toEndOf="@id/toolbar"
         app:layout_constraintTop_toTopOf="parent"
         android:contentDescription="@string/like" />
@@ -67,13 +67,14 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginRight="24dp"
                 android:text="Lotte Hotel Seoul"
+                android:includeFontPadding="false"
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:textColor="@color/four_grey"
                 android:fontFamily="@font/noto_sans_regular"
                 app:layout_constraintTop_toBottomOf="@+id/placeImage"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRit_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"/>
 
             <TextView
@@ -83,6 +84,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="24dp"
                 android:text="# Lodging"
+                android:includeFontPadding="false"
                 android:textStyle="normal"
                 android:textSize="12sp"
                 android:textColor="@color/icon_grey"
@@ -92,21 +94,23 @@
                 app:layout_constraintLeft_toLeftOf="parent"/>
 
             <TextView
+                android:id="@+id/overview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/overview"
-                android:layout_marginTop="20dp"
                 android:layout_marginLeft="24dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="24dp"
-                android:text="Lotte Hotels and Resorts"
-                android:textStyle="normal"
-                android:textSize="16sp"
-                android:textColor="@color/six_grey"
-                android:letterSpacing="0.03"
                 android:fontFamily="@font/noto_sans_light"
-                app:layout_constraintTop_toBottomOf="@+id/category"
+                android:letterSpacing="0.03"
+                android:text="Lotte Hotels and Resorts"
+                android:includeFontPadding="false"
+                android:textColor="@color/six_grey"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"/>
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/category" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -115,6 +119,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="24dp"
                 android:text="@string/more"
+                android:includeFontPadding="false"
                 android:textStyle="normal"
                 android:textSize="12sp"
                 android:textColor="#459efb"
@@ -142,6 +147,7 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginStart="24dp"
                 android:text="@string/contact_info"
+                android:includeFontPadding="false"
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:textColor="@color/four_grey"
@@ -155,6 +161,7 @@
                 android:layout_marginTop="89dp"
                 android:layout_marginStart="24dp"
                 android:text="@string/tell"
+                android:includeFontPadding="false"
                 android:textSize="14sp"
                 android:textColor="@color/icon_grey"
                 android:letterSpacing="0.03"
@@ -168,6 +175,7 @@
                 android:layout_marginTop="129dp"
                 android:layout_marginStart="24dp"
                 android:text="@string/address"
+                android:includeFontPadding="false"
                 android:textSize="14sp"
                 android:textColor="@color/icon_grey"
                 android:letterSpacing="0.03"
@@ -182,6 +190,7 @@
                 android:layout_marginTop="89dp"
                 android:layout_marginStart="104dp"
                 android:text="+82-02-123-1234"
+                android:includeFontPadding="false"
                 android:textSize="16sp"
                 android:textColor="@color/six_grey"
                 android:letterSpacing="0.03"
@@ -199,6 +208,7 @@
                 android:fontFamily="@font/noto_sans_light"
                 android:text="30, Eulji-ro, Jung-gu, Seoul
 address address"
+                android:includeFontPadding="false"
                 android:textSize="16sp"
                 android:textColor="@color/six_grey"
                 android:letterSpacing="0.03"
@@ -223,21 +233,22 @@ address address"
 
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
         android:id="@+id/moreInfoButton"
-        android:layout_marginBottom="24dp"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
-        android:background="@drawable/gradation"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/bg_gradation"
+        android:fontFamily="@font/noto_sans_medium"
+        android:letterSpacing="0.03"
         android:stateListAnimator="@null"
         android:text="@string/more_info"
-        android:textColor="@color/white"
-        android:letterSpacing="0.03"
-        android:fontFamily="@font/noto_sans_medium"
+        android:includeFontPadding="false"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

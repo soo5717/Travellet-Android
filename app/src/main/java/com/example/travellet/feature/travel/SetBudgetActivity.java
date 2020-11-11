@@ -1,14 +1,16 @@
-package com.example.travellet;
+package com.example.travellet.feature.travel;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class SignUp2Activity extends AppCompatActivity {
+import com.example.travellet.R;
+
+public class SetBudgetActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up2);
+        setContentView(R.layout.activity_set_budget);
     }
 }

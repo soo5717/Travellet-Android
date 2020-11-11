@@ -1,14 +1,16 @@
-package com.example.travellet;
+package com.example.travellet.feature.plan;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class SetDateActivity extends AppCompatActivity {
+import com.example.travellet.R;
+
+public class AddPlanActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_set_date);
+        setContentView(R.layout.activity_add_plan);
     }
 }
