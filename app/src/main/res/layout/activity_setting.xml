@@ -52,7 +52,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
-        android:id="@+id/textview_setting_name"
+        android:id="@+id/text_view_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -76,10 +76,10 @@
         android:includeFontPadding="false"
         android:letterSpacing="0.03"
         app:layout_constraintStart_toStartOf="@+id/guideline1"
-        app:layout_constraintTop_toBottomOf="@+id/textview_setting_name" />
+        app:layout_constraintTop_toBottomOf="@+id/text_view_name" />
 
     <TextView
-        android:id="@+id/textview_setting_country"
+        android:id="@+id/text_view_country"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -103,10 +103,10 @@
         android:includeFontPadding="false"
         android:letterSpacing="0.03"
         app:layout_constraintStart_toStartOf="@+id/guideline1"
-        app:layout_constraintTop_toBottomOf="@+id/textview_setting_country" />
+        app:layout_constraintTop_toBottomOf="@+id/text_view_country" />
 
     <TextView
-        android:id="@+id/textview_setting_email"
+        android:id="@+id/text_view_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -128,22 +128,23 @@
         android:background="@color/hint_grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_setting_email" />
+        app:layout_constraintTop_toBottomOf="@+id/text_view_email" />
 
     <Button
-        android:id="@+id/button_setting_sign_out"
+        android:id="@+id/button_sign_out"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/sign_out"
-        android:textSize="18sp"
-        android:textColor="@color/icon_grey"
+        android:background="@null"
         android:fontFamily="@font/noto_sans_bold"
         android:includeFontPadding="false"
-        android:textAllCaps="false"
-        android:background="@null"
         android:minWidth="0dp"
         android:minHeight="0dp"
+        android:onClick="signOutButtonClick"
+        android:text="@string/sign_out"
+        android:textAllCaps="false"
+        android:textColor="@color/icon_grey"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/guideline1"
         app:layout_constraintTop_toBottomOf="@+id/line1" />
 
@@ -157,60 +158,61 @@
         android:background="@color/hint_grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_setting_sign_out" />
+        app:layout_constraintTop_toBottomOf="@+id/button_sign_out" />
 
     <Button
-        android:id="@+id/button_setting_delete_account"
+        android:id="@+id/button_delete_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/delete_account"
-        android:textSize="18sp"
-        android:textColor="@color/icon_grey"
+        android:background="@null"
         android:fontFamily="@font/noto_sans_bold"
         android:includeFontPadding="false"
-        android:textAllCaps="false"
-        android:background="@null"
         android:minWidth="0dp"
         android:minHeight="0dp"
+        android:onClick="deleteAccountButtonClick"
+        android:text="@string/delete_account"
+        android:textAllCaps="false"
+        android:textColor="@color/icon_grey"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/guideline1"
         app:layout_constraintTop_toBottomOf="@+id/line2" />
 
     <Button
-        android:id="@+id/button_setting_name_edit"
+        android:id="@+id/button_name_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
-        android:text="@string/edit"
-        android:textSize="16sp"
-        android:textColor="@color/text_blue"
+        android:background="@null"
         android:fontFamily="@font/noto_sans_demilight"
         android:includeFontPadding="false"
         android:letterSpacing="0.03"
-        android:textAllCaps="false"
-        android:background="@null"
         android:minWidth="0dp"
         android:minHeight="0dp"
+        android:text="@string/edit"
+        android:textAllCaps="false"
+        android:textColor="@color/text_blue"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <Button
-        android:id="@+id/button_setting_country_edit"
+        android:id="@+id/button_country_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
-        android:text="@string/edit"
-        android:textSize="16sp"
-        android:textColor="@color/text_blue"
+        android:background="@null"
         android:fontFamily="@font/noto_sans_demilight"
         android:includeFontPadding="false"
         android:letterSpacing="0.03"
-        android:textAllCaps="false"
-        android:background="@null"
         android:minWidth="0dp"
         android:minHeight="0dp"
+        android:text="@string/edit"
+        android:textAllCaps="false"
+        android:textColor="@color/text_blue"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 

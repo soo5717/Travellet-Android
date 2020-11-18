@@ -4,6 +4,11 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+/**
+ * Created by 수연 on 2020-11-14.
+ * Class: PreferenceManager
+ * Description: SharedPreference을 활용하여 token을 관리함
+ */
 public class PreferenceManager {
         private static final String PREFERENCES_NAME = "rebuild_preference";
         private static final String DEFAULT_VALUE_STRING = "";
@@ -27,7 +32,7 @@ public class PreferenceManager {
         return sharedPreferences.getString(key, DEFAULT_VALUE_STRING);
     }
 
-    //key 값 삭제
+    //Key 값 삭제
     public static void removeKey(String key){
         SharedPreferences sharedPreferences = getPreferences();
         SharedPreferences.Editor editor = sharedPreferences.edit();

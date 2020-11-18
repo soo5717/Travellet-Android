@@ -7,25 +7,14 @@
     android:background="@android:color/white"
     tools:context=".feature.sign.SignUp1Activity">
 
-    <androidx.appcompat.widget.Toolbar
+    <include
         android:id="@+id/toolbar"
-        android:layout_width="match_parent"
+        layout="@layout/toolbar"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageButton
-            android:id="@+id/backButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:background="@drawable/ic_backspace_24dp"
-            android:contentDescription="@string/back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.appcompat.widget.Toolbar>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -33,23 +22,23 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         android:background="@drawable/ic_signup1_progress"
+        android:contentDescription="@string/progress"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        android:contentDescription="@string/progress" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="24dp"
-        android:text="@string/sign_up1"
-        android:textSize="28sp"
-        android:textColor="@color/soft_black"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/rubik_medium"
         android:includeFontPadding="false"
+        android:text="@string/sign_up1"
+        android:textColor="@color/soft_black"
+        android:textSize="28sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"/>
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <TextView
         android:id="@+id/text1"
@@ -66,25 +55,25 @@
         app:layout_constraintTop_toBottomOf="@+id/title"/>
 
     <EditText
-        android:id="@+id/edittext_signup1_email"
-        android:layout_width="match_parent"
+        android:id="@+id/edit_text_email"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
         android:layout_marginRight="24dp"
-        android:hint="@string/please_enter_your_email"
-        android:textSize="16sp"
-        android:textColorHint="@color/hint_grey"
-        android:textColor="@color/four_grey"
-        android:fontFamily="@font/noto_sans_demilight"
-        android:includeFontPadding="false"
-        android:letterSpacing="0.03"
+        android:autofillHints=""
         android:background="@drawable/bg_underline_vaild_success"
-        app:layout_constraintTop_toBottomOf="@+id/text1"
+        android:fontFamily="@font/noto_sans_demilight"
+        android:hint="@string/please_enter_your_email"
+        android:includeFontPadding="false"
+        android:inputType="textEmailAddress"
+        android:letterSpacing="0.03"
+        android:textColor="@color/four_grey"
+        android:textColorHint="@color/hint_grey"
+        android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:autofillHints=""
-        android:inputType="textEmailAddress" />
+        app:layout_constraintTop_toBottomOf="@+id/text1" />
 
     <TextView
         android:id="@+id/text2"
@@ -98,28 +87,28 @@
         android:includeFontPadding="false"
         android:letterSpacing="0.03"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittext_signup1_email"/>
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_email"/>
 
     <EditText
-        android:id="@+id/edittext_signup1_password"
-        android:layout_width="match_parent"
+        android:id="@+id/edit_text_pwd"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
         android:layout_marginRight="24dp"
+        android:autofillHints=""
+        android:background="@drawable/bg_underline_vaild_success"
+        android:fontFamily="@font/noto_sans_demilight"
         android:hint="@string/please_enter_your_password"
-        android:textSize="16sp"
+        android:includeFontPadding="false"
+        android:inputType="textPassword"
+        android:letterSpacing="0.03"
         android:textColor="@color/four_grey"
         android:textColorHint="@color/hint_grey"
-        android:fontFamily="@font/noto_sans_demilight"
-        android:includeFontPadding="false"
-        android:letterSpacing="0.03"
-        android:background="@drawable/bg_underline_vaild_success"
-        app:layout_constraintTop_toBottomOf="@+id/text2"
+        android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:autofillHints=""
-        android:inputType="textPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/text2" />
 
     <TextView
         android:id="@+id/text3"
@@ -133,47 +122,49 @@
         android:includeFontPadding="false"
         android:letterSpacing="0.03"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintBottom_toTopOf="@+id/button_signup1_next"
-        app:layout_constraintRight_toLeftOf="@+id/button_signup1_signin"
+        app:layout_constraintBottom_toTopOf="@+id/button_next"
+        app:layout_constraintRight_toLeftOf="@+id/button_sign_in"
         app:layout_constraintLeft_toLeftOf="parent"/>
 
     <Button
-        android:id="@+id/button_signup1_signin"
+        android:id="@+id/button_sign_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:background="@null"
+        android:fontFamily="@font/noto_sans_medium"
+        android:includeFontPadding="false"
+        android:letterSpacing="0.03"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:onClick="signInButtonClick"
         android:paddingStart="4dp"
         android:paddingTop="16dp"
         android:paddingEnd="16dp"
         android:paddingBottom="8dp"
-        android:background="@null"
-        android:minHeight="0dp"
-        android:minWidth="0dp"
-        android:textAllCaps="false"
         android:text="@string/sign_in2"
-        android:textSize="12sp"
+        android:textAllCaps="false"
         android:textColor="@color/deep_blue"
-        android:fontFamily="@font/noto_sans_medium"
-        android:includeFontPadding="false"
-        android:letterSpacing="0.03"
-        app:layout_constraintBottom_toTopOf="@+id/button_signup1_next"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/button_next"
         app:layout_constraintLeft_toRightOf="@+id/text3"
         app:layout_constraintRight_toRightOf="parent" />
 
     <Button
-        android:id="@+id/button_signup1_next"
+        android:id="@+id/button_next"
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
         android:layout_marginBottom="24dp"
-        android:text="@string/next"
-        android:textColor="@android:color/white"
+        android:background="@drawable/bg_gradation"
         android:fontFamily="@font/noto_sans_medium"
         android:includeFontPadding="false"
         android:letterSpacing="0.03"
-        android:background="@drawable/bg_gradation"
+        android:onClick="nextButtonClick"
         android:stateListAnimator="@null"
+        android:text="@string/next"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />

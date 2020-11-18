@@ -7,24 +7,14 @@
     android:background="@android:color/white"
     tools:context=".feature.sign.SignUp2Activity">
 
-    <androidx.appcompat.widget.Toolbar
+    <include
         android:id="@+id/toolbar"
-        android:layout_width="match_parent"
+        layout="@layout/toolbar"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageButton
-            android:id="@+id/backButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:background="@drawable/ic_backspace_24dp"
-            android:contentDescription="@string/back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.appcompat.widget.Toolbar>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -65,25 +55,25 @@
         app:layout_constraintTop_toBottomOf="@+id/title"/>
 
     <EditText
-        android:id="@+id/edittext_signup2_username"
-        android:layout_width="match_parent"
+        android:id="@+id/edit_text_name"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
         android:layout_marginRight="24dp"
-        android:hint="@string/please_enter_your_name"
-        android:textSize="16sp"
-        android:textColorHint="@color/hint_grey"
-        android:textColor="@color/four_grey"
-        android:fontFamily="@font/noto_sans_demilight"
-        android:includeFontPadding="false"
-        android:letterSpacing="0.03"
+        android:autofillHints=""
         android:background="@drawable/bg_underline_vaild_success"
-        app:layout_constraintTop_toBottomOf="@+id/text1"
+        android:fontFamily="@font/noto_sans_demilight"
+        android:hint="@string/please_enter_your_name"
+        android:includeFontPadding="false"
+        android:inputType="text"
+        android:letterSpacing="0.03"
+        android:textColor="@color/four_grey"
+        android:textColorHint="@color/hint_grey"
+        android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:autofillHints=""
-        android:inputType="text" />
+        app:layout_constraintTop_toBottomOf="@+id/text1" />
 
     <TextView
         android:id="@+id/text2"
@@ -97,25 +87,27 @@
         android:includeFontPadding="false"
         android:letterSpacing="0.03"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittext_signup2_username"/>
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_name"/>
 
-    <EditText
-        android:id="@+id/edittext_signup2_country"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/button_country"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="24dp"
-        android:autofillHints=""
+        android:minHeight="0dp"
+        android:minWidth="0dp"
         android:background="@drawable/bg_underline_vaild_success"
         android:fontFamily="@font/noto_sans_demilight"
         android:hint="@string/please_select_your_country"
         android:includeFontPadding="false"
-        android:inputType="text"
         android:letterSpacing="0.03"
         android:textColor="@color/four_grey"
         android:textColorHint="@color/hint_grey"
         android:textSize="16sp"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -133,35 +125,36 @@
         android:includeFontPadding="false"
         android:letterSpacing="0.03"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintBottom_toTopOf="@+id/button_signup2_ok"
-        app:layout_constraintRight_toLeftOf="@+id/button_signup2_signin"
+        app:layout_constraintBottom_toTopOf="@+id/button_ok"
+        app:layout_constraintRight_toLeftOf="@+id/button_sign_in"
         app:layout_constraintLeft_toLeftOf="parent"/>
 
     <Button
-        android:id="@+id/button_signup2_signin"
+        android:id="@+id/button_sign_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:background="@null"
+        android:fontFamily="@font/noto_sans_medium"
+        android:includeFontPadding="false"
+        android:letterSpacing="0.03"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:onClick="signInButtonClick"
         android:paddingStart="4dp"
         android:paddingTop="16dp"
         android:paddingEnd="16dp"
         android:paddingBottom="8dp"
-        android:background="@null"
-        android:minHeight="0dp"
-        android:minWidth="0dp"
-        android:textAllCaps="false"
         android:text="@string/sign_in2"
-        android:textSize="12sp"
+        android:textAllCaps="false"
         android:textColor="@color/deep_blue"
-        android:fontFamily="@font/noto_sans_medium"
-        android:includeFontPadding="false"
-        android:letterSpacing="0.03"
-        app:layout_constraintBottom_toTopOf="@+id/button_signup2_ok"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/button_ok"
         app:layout_constraintLeft_toRightOf="@+id/text3"
         app:layout_constraintRight_toRightOf="parent" />
 
     <Button
-        android:id="@+id/button_signup2_ok"
+        android:id="@+id/button_ok"
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:layout_marginLeft="24dp"
@@ -169,10 +162,11 @@
         android:layout_marginBottom="24dp"
         android:background="@drawable/bg_gradation"
         android:fontFamily="@font/noto_sans_medium"
+        android:includeFontPadding="false"
         android:letterSpacing="0.03"
+        android:onClick="okButtonClick"
         android:stateListAnimator="@null"
         android:text="@string/ok"
-        android:includeFontPadding="false"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

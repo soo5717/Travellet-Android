@@ -7,6 +7,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--  AlertDialog theme  -->
+    <style name="AlertDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:fontFamily">@font/noto_sans_demilight</item>
+        <item name="android:overScrollMode">never</item>
+    </style>
+
     <!--  TabLayout font  -->
     <style name="TabText" parent="@android:style/TextAppearance.Widget.TabWidget">
         <item name="android:textSize">14sp</item>
