@@ -2,6 +2,7 @@ package com.example.travellet.feature.place;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -10,6 +11,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,7 +45,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 public class PlaceActivity extends AppCompatActivity {
     //탭 리스트
     List<String> tabList = Arrays.asList("all", "lodging", "food", "shopping",
-                                                    "tourism", "culture","leisure");
+                                                    "tourism", "culture","leisure", "transportation", "etc");
 
     //카테고리 관련 변수
     boolean lodgingState=false, foodState=false, shoppingState=false, tourismState=false, etcState=false, cultureState=false, leisureState = false, transportationState=false;
@@ -64,6 +67,10 @@ public class PlaceActivity extends AppCompatActivity {
     ArrayList<PlaceItem> placeItems = new ArrayList<PlaceItem>();
     GridLayoutManager layoutManager;
 
+    //좋아요 관련 변수
+    boolean likeState=false; //db연결하고 나면 초기화 수정해야 함/////////////////////
+    ArrayList<Boolean> placeLike = new ArrayList<Boolean>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +84,46 @@ public class PlaceActivity extends AppCompatActivity {
         placeRecyclerView.setAdapter(placeAdapter);
         layoutManager = new GridLayoutManager(getApplicationContext(), 2); // 리사이클러뷰 그리드 레이아웃
         placeRecyclerView.setLayoutManager(layoutManager);
+
+        //리사이클러뷰 어댑터 클릭 이벤트
+        placeAdapter.setOnItemClickListener(
+                new PlaceAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View v, int position) {
+                        Intent intent = new Intent(getApplicationContext(), PlaceDetailActivity.class);
+                        intent.putExtra("id", placeID.get(position));
+                        intent.putExtra("title", placeTitle.get(position));
+                        intent.putExtra("address", placeAddr.get(position));
+                        intent.putExtra("like", placeLike.get(position));
+                        Log.d("deliver like", Boolean.toString(placeLike.get(position)));
+                        intent.putExtra("x", placeX.get(position));
+                        intent.putExtra("y", placeY.get(position));
+                        Log.d("intent id: ", String.valueOf(placeID.get(position)));
+                        Log.d("intent title: ", String.valueOf(placeTitle.get(position)));
+                        startActivity(intent);
+                    }
+                }
+        );
+
+        //좋아요 버튼 클릭 이벤트
+        placeAdapter.setOnLikeClickListener(
+                new PlaceAdapter.OnLikeClickListener() {
+                    @Override
+                    public void onLikeClick(View v, int position) {
+                        ImageButton likeButton = v.findViewById(R.id.button_place_like);
+                        PlaceItem item = placeItems.get(position);
+                        if(!item.getlikeState()){
+                            likeButton.setImageResource(R.drawable.ic_favorite_selected_24_dp);
+                            item.setlikeState(true);
+                            placeLike.set(position, true);
+                        } else {
+                            likeButton.setImageResource(R.drawable.ic_favorite_border_list_24dp);
+                            item.setlikeState(false);
+                            placeLike.set(position, false);
+                        }
+                    }
+                }
+        );
     }
 
     //툴바 메뉴 설정
@@ -264,22 +311,6 @@ public class PlaceActivity extends AppCompatActivity {
                 foodState = false;
                 shoppingState = false;
                 tourismState = false;
-                etcState = true;
-                cultureState = false;
-                leisureState = false;
-                transportationState = false;
-                if(keywordState){
-                    searchType = 85;
-                    placeItems.clear();
-                    placeID.clear();
-                    getPlaceListData(searchKeyword, searchType);
-                }
-                break;
-            case 6:
-                lodgingState = false;
-                foodState = false;
-                shoppingState = false;
-                tourismState = false;
                 etcState = false;
                 cultureState = true;
                 leisureState = false;
@@ -291,7 +322,7 @@ public class PlaceActivity extends AppCompatActivity {
                     getPlaceListData(searchKeyword, searchType);
                 }
                 break;
-            case 7:
+            case 6:
                 lodgingState = false;
                 foodState = false;
                 shoppingState = false;
@@ -307,7 +338,7 @@ public class PlaceActivity extends AppCompatActivity {
                     getPlaceListData(searchKeyword, searchType);
                 }
                 break;
-            case 8:
+            case 7:
                 lodgingState = false;
                 foodState = false;
                 shoppingState = false;
@@ -317,6 +348,23 @@ public class PlaceActivity extends AppCompatActivity {
                 leisureState = false;
                 transportationState = true;
                 if(keywordState){
+                    searchType = 77;
+                    placeItems.clear();
+                    placeID.clear();
+                    getPlaceListData(searchKeyword, searchType);
+                }
+                break;
+            case 8:
+                lodgingState = false;
+                foodState = false;
+                shoppingState = false;
+                tourismState = false;
+                etcState = true;
+                cultureState = false;
+                leisureState = false;
+                transportationState = true;
+                if(keywordState){
+                    searchType = 85;
                     placeItems.clear();
                     placeID.clear();
                     getPlaceListData(searchKeyword, searchType);
@@ -327,11 +375,12 @@ public class PlaceActivity extends AppCompatActivity {
     }
 
     //장소 어댑터 아이템 추가
-    public void addItem(String thumb, String title, String addr) {
-        PlaceItem item = new PlaceItem(thumb, title, addr);
+    public void addItem(String thumb, String title, String addr, boolean like) {
+        PlaceItem item = new PlaceItem(thumb, title, addr, like);
         item.setPlaceListThumb(thumb);
         item.setPlaceListTitle(title);
         item.setPlaceListAddr(addr);
+        item.setlikeState(like);
         placeItems.add(item);
     }
 
@@ -341,21 +390,21 @@ public class PlaceActivity extends AppCompatActivity {
         try {
             String serviceKey = "x%2FB48ucBtE1tDbI%2FOOc%2B0Qh3MP%2BlYEETjSL5Q8G0L912refn%2FEii%2FgZ5E0S%2Bdqs%2BAmxagAo%2B9%2BieRWWN80QxNA%3D%3D";
 
-            StringBuilder urlBuilder = new StringBuilder("http://api.visitkorea.or.kr/openapi/service/rest/EngService/searchKeyword"); /*URL*/
-            urlBuilder.append("?" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + serviceKey); /*Service Key*/
-            urlBuilder.append("&" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + URLEncoder.encode(serviceKey, "UTF-8")); /*공공데이터포털에서 발급받은 인증키*/
-            urlBuilder.append("&" + URLEncoder.encode("numOfRows", "UTF-8") + "=" + URLEncoder.encode("100", "UTF-8")); /*한 페이지 결과 수*/
-            urlBuilder.append("&" + URLEncoder.encode("pageNo", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*현재 페이지 번호*/
-            urlBuilder.append("&" + URLEncoder.encode("MobileOS", "UTF-8") + "=" + URLEncoder.encode("AND", "UTF-8")); /*IOS(아이폰),AND(안드로이드),WIN(원도우폰),ETC*/
-            urlBuilder.append("&" + URLEncoder.encode("MobileApp", "UTF-8") + "=" + URLEncoder.encode("Travellet", "UTF-8")); /*서비스명=어플명*/
-            urlBuilder.append("&" + URLEncoder.encode("listYN", "UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); /*목록 구분(Y=목록, N=개수)*/
-            urlBuilder.append("&" + URLEncoder.encode("arrange", "UTF-8") + "=" + URLEncoder.encode("B", "UTF-8")); /*(A=제목순,B=조회순,C=수정일순,D=생성일순) 대표이미지가 반드시 있는 정렬(O=제목순, P=조회순, Q=수정일순, R=생성일순)*/
+            StringBuilder urlBuilder1 = new StringBuilder("http://api.visitkorea.or.kr/openapi/service/rest/EngService/searchKeyword"); /*URL*/
+            urlBuilder1.append("?" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + serviceKey); /*Service Key*/
+            urlBuilder1.append("&" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + URLEncoder.encode(serviceKey, "UTF-8")); /*공공데이터포털에서 발급받은 인증키*/
+            urlBuilder1.append("&" + URLEncoder.encode("numOfRows", "UTF-8") + "=" + URLEncoder.encode("100", "UTF-8")); /*한 페이지 결과 수*/
+            urlBuilder1.append("&" + URLEncoder.encode("pageNo", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*현재 페이지 번호*/
+            urlBuilder1.append("&" + URLEncoder.encode("MobileOS", "UTF-8") + "=" + URLEncoder.encode("AND", "UTF-8")); /*IOS(아이폰),AND(안드로이드),WIN(원도우폰),ETC*/
+            urlBuilder1.append("&" + URLEncoder.encode("MobileApp", "UTF-8") + "=" + URLEncoder.encode("Travellet", "UTF-8")); /*서비스명=어플명*/
+            urlBuilder1.append("&" + URLEncoder.encode("listYN", "UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); /*목록 구분(Y=목록, N=개수)*/
+            urlBuilder1.append("&" + URLEncoder.encode("arrange", "UTF-8") + "=" + URLEncoder.encode("B", "UTF-8")); /*(A=제목순,B=조회순,C=수정일순,D=생성일순) 대표이미지가 반드시 있는 정렬(O=제목순, P=조회순, Q=수정일순, R=생성일순)*/
             if(searchType != -1){
-                urlBuilder.append("&" + URLEncoder.encode("contentTypeId", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(searchType), "UTF-8")); /*관광타입(관광지, 숙박 등)ID*/
+                urlBuilder1.append("&" + URLEncoder.encode("contentTypeId", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(searchType), "UTF-8")); /*관광타입(관광지, 숙박 등)ID*/
             }
-            urlBuilder.append("&" + URLEncoder.encode("areaCode", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*지역코드*/
-            urlBuilder.append("&" + URLEncoder.encode("keyword", "UTF-8") + "=" + URLEncoder.encode(keyword, "UTF-8")); /*검색 요청할 키워드(국문=인코딩 필요)*/
-            URL url = new URL(urlBuilder.toString());
+            urlBuilder1.append("&" + URLEncoder.encode("areaCode", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*지역코드*/
+            urlBuilder1.append("&" + URLEncoder.encode("keyword", "UTF-8") + "=" + URLEncoder.encode(keyword, "UTF-8")); /*검색 요청할 키워드(국문=인코딩 필요)*/
+            URL url = new URL(urlBuilder1.toString());
 
             ConnectivityManager conManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo netInfo = conManager.getActiveNetworkInfo();
@@ -395,14 +444,19 @@ public class PlaceActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Document doc) {
-            String title = "", address = "", type = "", mapx="", mapy="";
+            String id="", title = "", address = "", sigungu = "",  mapx="", mapy="";
             NodeList nodeList = doc.getElementsByTagName("item");
 
             for (int i = 0; i < nodeList.getLength(); i++) {
-                String thumbnail = " ";
-
+                String thumbnail=" ";
                 Node node = nodeList.item(i);
                 Element element = (Element) node;
+
+                if (!nodeList.item(0).getNodeName().equals("contentid")) {
+                    NodeList idNode = element.getElementsByTagName("contentid");
+                    id = idNode.item(0).getChildNodes().item(0).getNodeValue();
+                    placeID.add(Integer.parseInt(id));
+                }
 
                 if (!nodeList.item(0).getNodeName().equals("firstimage")) {
                     NodeList imageNode = element.getElementsByTagName("firstimage");
@@ -411,87 +465,125 @@ public class PlaceActivity extends AppCompatActivity {
                     }
                 }
 
-                if (!nodeList.item(0).getNodeName().equals("contentid")) {
-                    NodeList idNode = element.getElementsByTagName("contentid");
-
-                    //placeID.add(Integer.parseInt(idNode.item(0).getChildNodes().item(0).getNodeValue()));
-                }
-
                 if (!nodeList.item(0).getNodeName().equals("title")) {
                     NodeList titleNode = element.getElementsByTagName("title");
                     title = titleNode.item(0).getChildNodes().item(0).getNodeValue();
-                    placeTitle.add(titleNode.item(0).getChildNodes().item(0).getNodeValue());
+                    placeTitle.add(title);
                 }
+
                 if (!nodeList.item(0).getNodeName().equals("addr1")) {
-                    NodeList addressNode = element.getElementsByTagName("addr1");
-                    address = addressNode.item(0).getChildNodes().item(0).getNodeValue();
-                    placeAddr.add(addressNode.item(0).getChildNodes().item(0).getNodeValue());
+                    NodeList addrNode = element.getElementsByTagName("addr1");
+                    if(addrNode.item(0) !=null){
+                        address = addrNode.item(0).getChildNodes().item(0).getNodeValue();
+                        placeAddr.add(address);
+                    }
                 }
-                if (!nodeList.item(0).getNodeName().equals("contenttypeid")) {
-                    NodeList typeNode = element.getElementsByTagName("contenttypeid");
-                    int typeid = Integer.valueOf(typeNode.item(0).getChildNodes().item(0).getNodeValue());
 
-                    switch (typeid) {
-                        case 76:
-                            type = "Tourism";
-                            break;
-
-                        case 78:
-                            type = "culture";
-                            break;
-
-                        case 85:
-                            type = "etc.";
-                            break;
-
-                        case 75:
-                            type = "leisure/sports";
-                            break;
-
-                        case 80:
-                            type = "Lodging";
-                            break;
-
-                        case 79:
-                            type = "Shopping";
-                            break;
-
-                        case 82:
-                            type = "Food";
-                            break;
-
-                        case 77:
-                            type = "transportation";
-                            break;
-                    }
-                    if (!nodeList.item(0).getNodeName().equals("mapx")) {
-                        NodeList xNode = element.getElementsByTagName("mapx");
-                        if(xNode.item(0) !=null){
-                            mapx = xNode.item(0).getChildNodes().item(0).getNodeValue();
-                            placeX.add(Double.parseDouble(xNode.item(0).getChildNodes().item(0).getNodeValue()));
-                            Log.d("placeX: ", mapx);
+                if (!nodeList.item(0).getNodeName().equals("sigungucode")) {
+                    NodeList sigunguNode = element.getElementsByTagName("sigungucode");
+                    if (sigunguNode.item(0) != null) {
+                        int guCode = Integer.parseInt(sigunguNode.item(0).getChildNodes().item(0).getNodeValue());
+                        switch (guCode) {
+                            case 1:
+                                sigungu = "Gangnam-gu, Seoul";
+                                break;
+                            case 2:
+                                sigungu = "Gangdong-gu, Seoul";
+                                break;
+                            case 3:
+                                sigungu = "Gangbuk-gu, Seoul";
+                                break;
+                            case 4:
+                                sigungu = "Gangseo-gu, Seoul";
+                                break;
+                            case 5:
+                                sigungu = "Gwanak-gu, Seoul";
+                                break;
+                            case 6:
+                                sigungu = "Gwangjin-gu, Seoul";
+                                break;
+                            case 7:
+                                sigungu = "Guro-gu, Seoul";
+                                break;
+                            case 8:
+                                sigungu = "Geumcheon-gu, Seoul";
+                                break;
+                            case 9:
+                                sigungu = "Nowon-gu, Seoul";
+                                break;
+                            case 10:
+                                sigungu = "Dobong-gu, Seoul";
+                                break;
+                            case 11:
+                                sigungu = "Dongdaemun-gu, Seoul";
+                                break;
+                            case 12:
+                                sigungu = "Dongjak-gu, Seoul";
+                                break;
+                            case 13:
+                                sigungu = "Mapo-gu, Seoul";
+                                break;
+                            case 14:
+                                sigungu = "Seodaemun-gu, Seoul";
+                                break;
+                            case 15:
+                                sigungu = "Seocho-gu, Seoul";
+                                break;
+                            case 16:
+                                sigungu = "Seongdong-gu, Seoul";
+                                break;
+                            case 17:
+                                sigungu = "Seongbuk-gu, Seoul";
+                                break;
+                            case 18:
+                                sigungu = "Songpa-gu, Seoul";
+                                break;
+                            case 19:
+                                sigungu = "Yangcheon-gu, Seoul";
+                                break;
+                            case 20:
+                                sigungu = "Yeongdeungpo-gu, Seoul";
+                                break;
+                            case 21:
+                                sigungu = "Yongsan-gu, Seoul";
+                                break;
                         }
                     }
 
-                    if (!nodeList.item(0).getNodeName().equals("mapy")) {
-                        NodeList yNode = element.getElementsByTagName("mapy");
-                        if(yNode.item(0) !=null){
-                            mapy = yNode.item(0).getChildNodes().item(0).getNodeValue();
-                            placeY.add(Double.parseDouble(yNode.item(0).getChildNodes().item(0).getNodeValue()));
-                            Log.d("placeY: ", mapy);
-                        }
+                }
+
+                if (!nodeList.item(0).getNodeName().equals("mapx")) {
+                    NodeList xNode = element.getElementsByTagName("mapx");
+                    if(xNode.item(0) !=null){
+                        mapx = xNode.item(0).getChildNodes().item(0).getNodeValue();
+                        placeX.add(Double.parseDouble(xNode.item(0).getChildNodes().item(0).getNodeValue()));
+                    }
+                }
+
+                if (!nodeList.item(0).getNodeName().equals("mapy")) {
+                    NodeList yNode = element.getElementsByTagName("mapy");
+                    if(yNode.item(0) !=null){
+                        mapy = yNode.item(0).getChildNodes().item(0).getNodeValue();
+                        placeY.add(Double.parseDouble(yNode.item(0).getChildNodes().item(0).getNodeValue()));
                     }
                 }
 
                 //db에 좋아요 눌렀던 항목 저장, 리스트뷰에 추가할 때 db에 등록되어 있는 애들은 true로 넘길 수 있도록
                 if(thumbnail.equals(" ")){
-                    addItem("NULL", title, address);
+                    addItem("NULL", title, sigungu, false);
+                    placeLike.add(false); // db 추가한 후 수정해야함
+
                 }
-                else
-                    addItem(thumbnail, title, address);
+                else {
+                    addItem(thumbnail, title, sigungu, false);
+                    placeLike.add(false); // db 추가한 후 수정해야함
+                }
+
             }
             placeRecyclerView.setAdapter(placeAdapter);
+
         }
 
     }
+
 }

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -42,7 +43,7 @@
         android:id="@+id/textview_place_place"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="24dp"
         app:drawableLeftCompat="@drawable/ic_place_16dp"
         android:drawablePadding="4dp"
@@ -70,7 +71,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/cardView"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ic_favorite_border_24dp"
+        app:srcCompat="@drawable/ic_favorite_border_list_24dp"
         android:contentDescription="@string/like_button" />
 
 

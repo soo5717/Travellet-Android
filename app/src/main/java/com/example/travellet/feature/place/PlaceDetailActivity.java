@@ -49,9 +49,10 @@ public class PlaceDetailActivity extends AppCompatActivity implements OnMapReady
     int placeID;
     TextView detailTitle, detailType, detailOverview, detailAddr, detailTel, moreButton;
     ImageView detailImage;
-    ImageButton back;
+    ImageButton back, likeButton;
     Button moreInfo;
     String title=" ", address;
+    boolean likeState;
     double x=0.0, y=0.0;
 
     private GoogleMap mMap;
@@ -74,9 +75,11 @@ public class PlaceDetailActivity extends AppCompatActivity implements OnMapReady
         //장소 리스트 화면에서 선택한 아이템 정보 인텐트로 받아오기
         Intent intent = getIntent();
         placeID = intent.getIntExtra("id", 0);
-        x=intent.getDoubleExtra("x", 0);
+        title = intent.getStringExtra("title");
+        address = intent.getStringExtra("address");
+        likeState = intent.getBooleanExtra("like", false);
+;       x=intent.getDoubleExtra("x", 0);
         y=intent.getDoubleExtra("y", 0);
-
 
         //구글맵 보여주기
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -91,6 +94,29 @@ public class PlaceDetailActivity extends AppCompatActivity implements OnMapReady
                 finish();
             }
         });
+
+        likeButton = (ImageButton) findViewById(R.id.like_button_place_detail);
+        if(likeState){
+            //좋아요 버튼 누른 상태일 때 처음 모습
+            likeButton.setBackgroundResource(R.drawable.ic_favorite_selected_24_dp);
+        } else{
+            likeButton.setBackgroundResource(R.drawable.ic_favorite_border_24dp);
+        }
+
+        likeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(likeState){
+                    //좋아요 버튼 누른 상태일 때 처음 모습
+                    likeButton.setBackgroundResource(R.drawable.ic_favorite_border_24dp);
+                    likeState = false;
+                } else{
+                    likeButton.setBackgroundResource(R.drawable.ic_favorite_selected_24_dp);
+                    likeState = true;
+                }
+            }
+        });
+
 
         //more info 버튼을 누르면 구글 검색 결과가 나오게 하기
         moreInfo = (Button) findViewById(R.id.more_info_button_place_detail);
@@ -109,6 +135,7 @@ public class PlaceDetailActivity extends AppCompatActivity implements OnMapReady
             @Override
             public void onClick(View view) {
                 detailOverview.setMaxLines(100);
+                moreButton.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -122,14 +149,13 @@ public class PlaceDetailActivity extends AppCompatActivity implements OnMapReady
     public void getPlaceDetail(int placeID) {
         try {
             String serviceKey = "x%2FB48ucBtE1tDbI%2FOOc%2B0Qh3MP%2BlYEETjSL5Q8G0L912refn%2FEii%2FgZ5E0S%2Bdqs%2BAmxagAo%2B9%2BieRWWN80QxNA%3D%3D";
-
             StringBuilder urlBuilder = new StringBuilder(" http://api.visitkorea.or.kr/openapi/service/rest/EngService/detailCommon"); /*URL*/
             urlBuilder.append("?" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + serviceKey); /*Service Key*/
             urlBuilder.append("&" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + URLEncoder.encode(serviceKey, "UTF-8")); /*공공데이터포털에서 발급받은 인증키*/
             urlBuilder.append("&" + URLEncoder.encode("numOfRows", "UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /*한 페이지 결과 수*/
             urlBuilder.append("&" + URLEncoder.encode("pageNo", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*현재 페이지 번호*/urlBuilder.append("&" + URLEncoder.encode("MobileOS","UTF-8") + "=" + URLEncoder.encode("ETC", "UTF-8")); /*IOS(아이폰),AND(안드로이드),WIN(원도우폰),ETC*/
             urlBuilder.append("&" + URLEncoder.encode("MobileApp","UTF-8") + "=" + URLEncoder.encode("AppTest", "UTF-8")); /*서비스명=어플명*/
-            urlBuilder.append("&" + URLEncoder.encode("contentId","UTF-8") + "=" + URLEncoder.encode(String.valueOf(1891502), "UTF-8")); /*콘텐츠 ID*/
+            urlBuilder.append("&" + URLEncoder.encode("contentId","UTF-8") + "=" + URLEncoder.encode(String.valueOf(placeID), "UTF-8")); /*콘텐츠 ID*/
             urlBuilder.append("&" + URLEncoder.encode("countentTypeId","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*관광타입(관광지,숙박 등) ID*/
             urlBuilder.append("&" + URLEncoder.encode("defaultYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); /*기본정보 조회여부*/
             urlBuilder.append("&" + URLEncoder.encode("firstImageYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); /*원본, 썸네일 대표이미지 조회여부*/
@@ -140,13 +166,12 @@ public class PlaceDetailActivity extends AppCompatActivity implements OnMapReady
             urlBuilder.append("&" + URLEncoder.encode("overviewYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); /*콘텐츠 개요 조회여부*/
             urlBuilder.append("&" + URLEncoder.encode("transGuideYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); /*길안내조회*/
 
+            //api url 생성
             URL url1 = new URL(urlBuilder.toString());
 
+            //xml로 이루어진 내용들 파싱하기
             ConnectivityManager conManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo netInfo = conManager.getActiveNetworkInfo();
-
-            //Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url.toString()));
-            //startActivity(intent);
 
             if (netInfo != null && netInfo.isConnected()) {
                 DownloadXml downloadXml = new DownloadXml();
@@ -158,6 +183,7 @@ public class PlaceDetailActivity extends AppCompatActivity implements OnMapReady
         }
     }
 
+    //xml 파싱하는 메소드
     private class DownloadXml extends AsyncTask<String, Void, Document> {
         @Override
         protected Document doInBackground(String... urls) {
@@ -194,46 +220,47 @@ public class PlaceDetailActivity extends AppCompatActivity implements OnMapReady
                 Node node = nodeList.item(i);
                 Element element = (Element) node;
 
+                //장소 타입 구별하기
                 if (!nodeList.item(0).getNodeName().equals("contenttypeid")) {
                     NodeList typeNode = element.getElementsByTagName("contenttypeid");
                     int typeid = Integer.valueOf(typeNode.item(0).getChildNodes().item(0).getNodeValue());
 
                     switch (typeid) {
                         case 76:
-                            type = "Tourism";
+                            type = "# Tourism";
                             break;
 
                         case 78:
-                            type = "Culture";
+                            type = "# Culture";
                             break;
 
                         case 85:
-                            type = "etc";
+                            type = "# etc";
                             break;
 
                         case 75:
-                            type = "Leisure/Sports";
+                            type = "# Leisure";
                             break;
 
                         case 80:
-                            type = "Lodging";
+                            type = "# Lodging";
                             break;
 
                         case 79:
-                            type = "Shopping";
+                            type = "# Shopping";
                             break;
 
                         case 82:
-                            type = "Food";
+                            type = "# Food";
                             break;
 
                         case 77:
-                            type = "Transportation";
+                            type = "# Transportation";
                             break;
                     }
                 }
 
-
+                //장소 번호 가져오기
                 if (!nodeList.item(0).getNodeName().equals("tel")) {
                     NodeList telNode = element.getElementsByTagName("tel");
                     if(telNode.item(0) !=null){
@@ -243,11 +270,13 @@ public class PlaceDetailActivity extends AppCompatActivity implements OnMapReady
                     }
                 }
 
+                //장소 이름 가져오기
                 if (!nodeList.item(0).getNodeName().equals("title")) {
                     NodeList titleNode = element.getElementsByTagName("title");
                     title = titleNode.item(0).getChildNodes().item(0).getNodeValue();
                 }
 
+                //장소 썸네일 가져오기
                 if (!nodeList.item(0).getNodeName().equals("firstimage")) {
                     NodeList imageNode = element.getElementsByTagName("firstimage");
                     if(imageNode.item(0) !=null){
@@ -255,6 +284,7 @@ public class PlaceDetailActivity extends AppCompatActivity implements OnMapReady
                     }
                 }
 
+                //장소 개요 가져오기
                 if (!nodeList.item(0).getNodeName().equals("overview")) {
                     NodeList overviewNode = element.getElementsByTagName("overview");
                     if(overviewNode.item(0) !=null){
@@ -263,7 +293,7 @@ public class PlaceDetailActivity extends AppCompatActivity implements OnMapReady
                         overview = overviewDoc.text();
                     }
                 }
-
+                //장소 상세 주소 가져오기
                 if (!nodeList.item(0).getNodeName().equals("addr1")) {
                     NodeList addressNode = element.getElementsByTagName("addr1");
                     address = addressNode.item(0).getChildNodes().item(0).getNodeValue();
@@ -271,13 +301,7 @@ public class PlaceDetailActivity extends AppCompatActivity implements OnMapReady
                     address = overviewDoc.text();
                 }
 
-                if (!nodeList.item(0).getNodeName().equals("overview")) {
-                    NodeList overviewNode = element.getElementsByTagName("overview");
-                    if(overviewNode.item(0) !=null){
-                        overview = overviewNode.item(0).getChildNodes().item(0).getNodeValue();
-                    }
-                }
-
+                //장소 x좌표
                 if (!nodeList.item(0).getNodeName().equals("mapx")) {
                     NodeList mapxNode = element.getElementsByTagName("mapx");
                     if(mapxNode.item(0) !=null){
@@ -285,6 +309,7 @@ public class PlaceDetailActivity extends AppCompatActivity implements OnMapReady
                     }
                 }
 
+                //장소 y좌표
                 if (!nodeList.item(0).getNodeName().equals("mapy")) {
                     NodeList mapyNode = element.getElementsByTagName("mapy");
                     if(mapyNode.item(0) !=null){
@@ -293,35 +318,30 @@ public class PlaceDetailActivity extends AppCompatActivity implements OnMapReady
                 }
 
             }
+
+            //api에서 가져온 정보들 화면에 띄우기
             detailTitle.setText(title);
             detailType.setText(type);
             detailOverview.setText(overview);
             detailAddr.setText(address);
             detailTel.setText(tel);
-            x = Double.parseDouble(mapx);
-            y = Double.parseDouble(mapy);
-            //GradientDrawable drawable = (GradientDrawable) getApplicationContext().getDrawable(R.drawable.image_rounding);
-            //detailImage.setBackground(drawable);
+            //썸네일이 존재할 경우 이미지 뜨도록(썸네일 없는 애들은 그냥 회색 화면)
             if(!image.equals(" ")){
-                //detailImage.setClipToOutline(true);
                 Glide.with(getApplicationContext()).load(image).apply(new RequestOptions().centerCrop()).into(detailImage);
             }
         }
     }
 
 
+    //구글맵 마커 찍기
     @Override
     public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
-
         LatLng SEOUL = new LatLng(y, x);
-        Log.d("SEOUL x: ", String.valueOf(x));
-        Log.d("SEOUL y: ", String.valueOf(y));
 
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(SEOUL);
         markerOptions.title(title);
-        //markerOptions.snippet(address);
         mMap.addMarker(markerOptions);
         this.mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SEOUL, 14));
 

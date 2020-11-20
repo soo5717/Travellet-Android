@@ -2,14 +2,15 @@ package com.example.travellet.feature.place;
 
 public class PlaceItem {
     String placeListThumb, placeListTitle, placeListAddr;
-    int placeLike;
+    boolean likeState;
 
-    public PlaceItem(String placeListThumb, String placeListTitle, String placeListAddr) {
+    public PlaceItem(String placeListThumb, String placeListTitle, String placeListAddr, boolean likeState) {
         this.placeListThumb = placeListThumb;
         this.placeListTitle = placeListTitle;
         this.placeListAddr = placeListAddr;
-        this.placeLike = 0;
+        this.likeState = likeState;
     }
+
 
 
     public String getPlaceListThumb() {
@@ -36,12 +37,12 @@ public class PlaceItem {
         this.placeListAddr = placeListAddr;
     }
 
-    public int getPlaceLike() {
-        return placeLike;
+    public boolean getlikeState() {
+        return likeState;
     }
 
-    public void setPlaceLike(int placeLike) {
-        this.placeLike = placeLike;
+    public void setlikeState(boolean likeState) {
+        this.likeState = likeState;
     }
 
 
