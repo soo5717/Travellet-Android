@@ -63,4 +63,6 @@
     <string name="search_the_place">Search the place</string>
     <string name="place_thumbnail">Place thumbnail</string>
     <string name="like_button">Like button</string>
+    <string name="past">past</string>
+    <string name="upcomig">upcomig</string>
 </resources>

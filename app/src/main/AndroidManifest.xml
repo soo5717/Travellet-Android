@@ -13,20 +13,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".feature.util.BaseActivity" />
-
-        <activity android:name=".feature.sign.SignInActivity" >
+        <activity
+            android:name=".feature.util.SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".feature.util.BaseActivity" />
+
+        <activity android:name=".feature.sign.SignInActivity" />
         <activity android:name=".feature.sign.SignUp1Activity" />
         <activity android:name=".feature.sign.SignUp2Activity" />
 
         <activity android:name=".feature.setting.SettingActivity" />
 
+        <activity android:name=".feature.travel.TravelActivity" />
         <activity android:name=".feature.travel.SetTitleActivity" />
         <activity android:name=".feature.travel.SetDateActivity" />
         <activity android:name=".feature.travel.SetBudgetActivity" />
