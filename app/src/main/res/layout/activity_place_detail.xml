@@ -9,14 +9,14 @@
 
     <androidx.appcompat.widget.Toolbar
         app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbar_place_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/backButton"
+            android:id="@+id/back_button_place_detail"
             android:layout_margin="16dp"
             android:background="@drawable/ic_backspace_24dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -29,211 +29,211 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/likeButton"
+        android:id="@+id/like_button_place_detail"
         android:layout_margin="16dp"
         android:background="@drawable/ic_favorite_border_24dp"
-        app:layout_constraintEnd_toEndOf="@id/toolbar"
+        app:layout_constraintEnd_toEndOf="@id/toolbar_place_detail"
         app:layout_constraintTop_toTopOf="parent"
         android:contentDescription="@string/like" />
-
 
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        android:layout_marginTop="56dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_place_detail">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/place_image_place_detail"
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
-                android:id="@+id/placeImage"
                 android:background="@color/hint_grey"
-                android:layout_marginTop="56dp"
-                app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="@string/place" />
+                android:contentDescription="@string/place"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/title_place_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/title"
-                android:layout_marginTop="20dp"
                 android:layout_marginStart="24dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="24dp"
-                android:text="Lotte Hotel Seoul"
-                android:includeFontPadding="false"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:textColor="@color/four_grey"
                 android:fontFamily="@font/noto_sans_regular"
-                app:layout_constraintTop_toBottomOf="@+id/placeImage"
+                android:includeFontPadding="false"
+                android:text="Lotte Hotel Seoul"
+                android:textColor="@color/four_grey"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"/>
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/place_image_place_detail" />
 
             <TextView
+                android:id="@+id/category_place_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/category"
-                android:layout_marginTop="8dp"
                 android:layout_marginStart="24dp"
-                android:text="# Lodging"
-                android:includeFontPadding="false"
-                android:textStyle="normal"
-                android:textSize="12sp"
-                android:textColor="@color/icon_grey"
-                android:letterSpacing="0.03"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/noto_sans_regular"
-                app:layout_constraintTop_toBottomOf="@+id/title"
-                app:layout_constraintLeft_toLeftOf="parent"/>
+                android:includeFontPadding="false"
+                android:letterSpacing="0.03"
+                android:text="# Lodging"
+                android:textColor="@color/icon_grey"
+                android:textSize="12sp"
+                android:textStyle="normal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title_place_detail" />
 
             <TextView
-                android:id="@+id/overview"
+                android:id="@+id/overview_place_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="24dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="24dp"
+                android:ellipsize="end"
                 android:fontFamily="@font/noto_sans_light"
-                android:letterSpacing="0.03"
-                android:text="Lotte Hotels and Resorts"
                 android:includeFontPadding="false"
+                android:letterSpacing="0.03"
+                android:maxLines="4"
+                android:text="Lotte Hotels and Resorts Lotte Hotels and Resorts "
                 android:textColor="@color/six_grey"
                 android:textSize="16sp"
                 android:textStyle="normal"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/category" />
+                app:layout_constraintTop_toBottomOf="@+id/category_place_detail" />
 
             <TextView
+                android:id="@+id/more_button_place_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/moreButton"
-                android:layout_marginTop="20dp"
                 android:layout_marginStart="24dp"
-                android:text="@string/more"
-                android:includeFontPadding="false"
-                android:textStyle="normal"
-                android:textSize="12sp"
-                android:textColor="#459efb"
-                android:letterSpacing="0.03"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/noto_sans_medium"
-                app:layout_constraintTop_toBottomOf="@+id/overview"
-                app:layout_constraintLeft_toLeftOf="parent"/>
+                android:includeFontPadding="false"
+                android:letterSpacing="0.03"
+                android:text="@string/more"
+                android:textColor="#459efb"
+                android:textSize="12sp"
+                android:textStyle="normal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/overview_place_detail" />
 
             <View
+                android:id="@+id/line_place_detail"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:id="@+id/line"
-                android:layout_marginTop="40dp"
                 android:layout_marginLeft="24dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginRight="24dp"
                 android:background="@color/hint_grey"
-                app:layout_constraintTop_toBottomOf="@+id/moreButton"
                 app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintRight_toLeftOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@+id/more_button_place_detail" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="40dp"
-                android:layout_marginStart="24dp"
+                android:fontFamily="@font/noto_sans_regular"
+                android:includeFontPadding="false"
                 android:text="@string/contact_info"
-                android:includeFontPadding="false"
-                android:textStyle="bold"
-                android:textSize="20sp"
                 android:textColor="@color/four_grey"
-                android:fontFamily="@font/noto_sans_regular"
-                app:layout_constraintTop_toBottomOf="@+id/line"
-                app:layout_constraintLeft_toLeftOf="parent"/>
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line_place_detail" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="89dp"
                 android:layout_marginStart="24dp"
+                android:layout_marginTop="89dp"
+                android:fontFamily="@font/noto_sans_regular"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.03"
                 android:text="@string/tell"
-                android:includeFontPadding="false"
-                android:textSize="14sp"
                 android:textColor="@color/icon_grey"
-                android:letterSpacing="0.03"
-                android:fontFamily="@font/noto_sans_regular"
-                app:layout_constraintTop_toBottomOf="@+id/line"
-                app:layout_constraintLeft_toLeftOf="parent"/>
+                android:textSize="14sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line_place_detail" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="129dp"
                 android:layout_marginStart="24dp"
-                android:text="@string/address"
-                android:includeFontPadding="false"
-                android:textSize="14sp"
-                android:textColor="@color/icon_grey"
-                android:letterSpacing="0.03"
+                android:layout_marginTop="129dp"
                 android:fontFamily="@font/noto_sans_regular"
-                app:layout_constraintTop_toBottomOf="@+id/line"
-                app:layout_constraintLeft_toLeftOf="parent"/>
+                android:includeFontPadding="false"
+                android:letterSpacing="0.03"
+                android:text="@string/address"
+                android:textColor="@color/icon_grey"
+                android:textSize="14sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line_place_detail" />
 
             <TextView
+                android:id="@+id/tell_text_place_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tellText"
-                android:layout_marginTop="89dp"
                 android:layout_marginStart="104dp"
-                android:text="+82-02-123-1234"
-                android:includeFontPadding="false"
-                android:textSize="16sp"
-                android:textColor="@color/six_grey"
-                android:letterSpacing="0.03"
+                android:layout_marginTop="89dp"
                 android:fontFamily="@font/noto_sans_light"
-                app:layout_constraintTop_toBottomOf="@+id/line"
-                app:layout_constraintLeft_toLeftOf="parent"/>
+                android:includeFontPadding="false"
+                android:letterSpacing="0.03"
+                android:text="+82-02-123-1234"
+                android:textColor="@color/six_grey"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line_place_detail" />
 
             <TextView
+                android:id="@+id/addr_text_place_detail"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/addrText"
-                android:layout_marginTop="129dp"
                 android:layout_marginStart="104dp"
+                android:layout_marginTop="129dp"
                 android:layout_marginEnd="24dp"
                 android:fontFamily="@font/noto_sans_light"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.03"
                 android:text="30, Eulji-ro, Jung-gu, Seoul
 address address"
-                android:includeFontPadding="false"
-                android:textSize="16sp"
                 android:textColor="@color/six_grey"
-                android:letterSpacing="0.03"
-                app:layout_constraintTop_toBottomOf="@+id/line"
-                app:layout_constraintLeft_toLeftOf="parent"/>
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line_place_detail" />
 
-            <ImageView
+            <fragment
+                android:id="@+id/map_place_detail"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:id="@+id/map"
-                android:background="@color/hint_grey"
                 android:layout_marginTop="40dp"
                 android:layout_marginBottom="100dp"
-                app:layout_constraintTop_toBottomOf="@id/addrText"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/addr_text_place_detail"
+                tools:ignore="MissingConstraints" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </ScrollView>
 
-
     <Button
-        android:id="@+id/moreInfoButton"
+        android:id="@+id/more_info_button_place_detail"
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:layout_marginLeft="24dp"
