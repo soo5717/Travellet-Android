@@ -28,7 +28,7 @@ public class SplashActivity extends AppCompatActivity {
         handler.postDelayed(this::requestAuth, 500);
     }
 
-    /** 추후 추가해야 할 부분 */
+    //TODO (suyeon) : 자동 로그인 기능 구현 필요함!
     //토큰 검증 요청 - POST : Retrofit2
     private void requestAuth() {
         //토큰 인증 실패 시 -> 로그인 페이지로 이동

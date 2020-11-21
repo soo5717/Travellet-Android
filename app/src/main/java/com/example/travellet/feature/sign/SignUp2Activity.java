@@ -8,8 +8,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.travellet.R;
-import com.example.travellet.data.SignUpData;
-import com.example.travellet.data.StatusResponse;
+import com.example.travellet.data.sign.SignUpData;
+import com.example.travellet.data.utill.StatusResponse;
 import com.example.travellet.databinding.ActivitySignUp2Binding;
 import com.example.travellet.feature.util.BaseActivity;
 import com.example.travellet.network.RetrofitClient;

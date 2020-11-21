@@ -10,8 +10,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.travellet.R;
-import com.example.travellet.data.SettingResponse;
-import com.example.travellet.data.StatusResponse;
+import com.example.travellet.data.setting.SettingResponse;
+import com.example.travellet.data.utill.StatusResponse;
 import com.example.travellet.databinding.ActivitySettingBinding;
 import com.example.travellet.feature.sign.SignInActivity;
 import com.example.travellet.feature.util.BaseActivity;
@@ -44,8 +44,8 @@ public class SettingActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         //다이얼로그 구현
-        setNameAlertDialog();
-//        setCountryAlertDialog();
+//        setNameAlertDialog();
+        setCountryAlertDialog();
 
         //회원정보 요청 메소드 호출
 //        requestSetting();
@@ -88,7 +88,7 @@ public class SettingActivity extends BaseActivity {
         });
     }
 
-    /** 디자인 + 에러 수정 필요함! */
+    //TODO (suyeon) : 디자인 + 에러 수정 필요
     //NameEdit 다이얼로그 설정
     void setNameAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

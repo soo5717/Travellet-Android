@@ -1,19 +1,21 @@
-package com.example.travellet.data;
+package com.example.travellet.data.sign;
 
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by 수연 on 2020-11-18.
- * Class: StatusResponse
- * Description: 공통 응답 데이터
+ * Class: SignInResponse
+ * Description: 로그인 응답 데이터
  */
-public class StatusResponse {
+public class SignInResponse {
     @SerializedName("status")
     private Integer status;
     @SerializedName("success")
     private Boolean success;
     @SerializedName("message")
     private String message;
+    @SerializedName("token")
+    private String token;
 
     public Integer getStatus() {
         return status;
@@ -25,5 +27,9 @@ public class StatusResponse {
 
     public String getMessage() {
         return message;
+    }
+
+    public String getToken() {
+        return token;
     }
 }

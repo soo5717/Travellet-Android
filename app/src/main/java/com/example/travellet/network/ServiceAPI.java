@@ -1,10 +1,10 @@
 package com.example.travellet.network;
 
-import com.example.travellet.data.SettingResponse;
-import com.example.travellet.data.SignInData;
-import com.example.travellet.data.SignInResponse;
-import com.example.travellet.data.SignUpData;
-import com.example.travellet.data.StatusResponse;
+import com.example.travellet.data.setting.SettingResponse;
+import com.example.travellet.data.sign.SignInData;
+import com.example.travellet.data.sign.SignInResponse;
+import com.example.travellet.data.sign.SignUpData;
+import com.example.travellet.data.utill.StatusResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

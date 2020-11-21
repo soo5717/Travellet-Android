@@ -37,8 +37,7 @@
         <activity android:name=".feature.travel.SetBudgetActivity" />
 
         <activity android:name=".feature.place.PlaceDetailActivity" />
-        <activity android:name=".feature.place.PlaceActivity">
-        </activity>
+        <activity android:name=".feature.place.PlaceActivity"/>
 
         <activity android:name=".feature.plan.AddPlaceActivity" />
         <activity android:name=".feature.plan.input.InputCostActivity" />
