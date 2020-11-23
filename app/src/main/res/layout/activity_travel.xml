@@ -7,14 +7,42 @@
     android:background="@android:color/white"
     tools:context=".feature.travel.TravelActivity">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar"
+    <Button
+        android:id="@+id/button_search"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="56dp"
+        android:background="@null"
+        android:drawableStart="@drawable/ic_search24_dp"
+        android:drawablePadding="24dp"
+        android:fontFamily="@font/noto_sans_demilight"
+        android:gravity="center_vertical"
+        android:includeFontPadding="false"
+        android:letterSpacing="0.03"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:onClick="searchButtonClick"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="@string/search_the_place"
+        android:textAllCaps="false"
+        android:textColor="@color/hint_grey"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/button_setting"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/button_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:contentDescription="@string/setting"
+        android:onClick="settingButtonClick"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_settings_24dp" />
 
     <Button
         android:id="@+id/button_upcoming"
@@ -22,32 +50,34 @@
         android:layout_height="48dp"
         android:layout_marginStart="24dp"
         android:background="@drawable/bg_underline_gradation"
-        android:minWidth="0dp"
-        android:minHeight="0dp"
-        android:stateListAnimator="@null"
-        android:text="@string/upcomig"
         android:fontFamily="@font/noto_sans_medium"
         android:includeFontPadding="false"
-        android:textColor="@color/text_blue"
         android:letterSpacing="0.03"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:onClick="upcomingButtonClick"
+        android:stateListAnimator="@null"
+        android:text="@string/upcomig"
+        android:textColor="@color/text_blue"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/button_search" />
 
     <Button
         android:id="@+id/button_past"
         android:layout_width="90dp"
         android:layout_height="48dp"
         android:background="@null"
-        android:minWidth="0dp"
-        android:minHeight="0dp"
-        android:stateListAnimator="@null"
-        android:text="@string/past"
         android:fontFamily="@font/noto_sans_medium"
         android:includeFontPadding="false"
-        android:textColor="@color/icon_grey"
         android:letterSpacing="0.03"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:onClick="pastButtonClick"
+        android:stateListAnimator="@null"
+        android:text="@string/past"
+        android:textColor="@color/icon_grey"
         app:layout_constraintStart_toEndOf="@+id/button_upcoming"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/button_search" />
 
     <ImageButton
         android:id="@+id/button_add"
@@ -55,13 +85,14 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
         android:background="@null"
+        android:contentDescription="@string/add"
         android:minWidth="0dp"
         android:minHeight="0dp"
+        android:onClick="addButtonClick"
         android:padding="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:srcCompat="@drawable/ic_add_24dp"
-        android:contentDescription="@string/add" />
+        app:layout_constraintTop_toBottomOf="@+id/button_search"
+        app:srcCompat="@drawable/ic_add_24dp" />
 
     <View
         android:id="@+id/line"
@@ -73,7 +104,7 @@
         app:layout_constraintTop_toBottomOf="@+id/button_upcoming" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview"
+        android:id="@+id/recycler_view_travel_list"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"

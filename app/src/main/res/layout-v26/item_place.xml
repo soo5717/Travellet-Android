@@ -68,6 +68,7 @@
             android:ellipsize="end"
             android:fontFamily="@font/noto_sans_regular"
             android:includeFontPadding="false"
+            android:justificationMode="inter_word"
             android:maxLines="2"
             android:textColor="@color/four_grey"
             android:textSize="14sp"
