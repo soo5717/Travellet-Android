@@ -7,22 +7,14 @@
     android:background="#ffffff"
     tools:context=".feature.travel.SetTitleActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/toolbar_set_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/back_button_set_title"
-            android:layout_margin="16dp"
-            android:background="@drawable/ic_backspace_24dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/back" />
-    </androidx.appcompat.widget.Toolbar>
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -31,7 +23,7 @@
         android:layout_marginEnd="24dp"
         android:background="@drawable/ic_settitle_progress"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_set_title"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         android:contentDescription="@string/progress" />
     <TextView
         android:layout_width="wrap_content"
@@ -45,7 +37,7 @@
         android:textColor="#323643"
         android:fontFamily="@font/rubik_medium"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_set_title"/>
+        app:layout_constraintTop_toBottomOf="@id/toolbar"/>
 
     <TextView
         android:layout_width="wrap_content"

@@ -19,6 +19,16 @@
             android:layout_height="?attr/actionBarSize"
             android:layout_width="match_parent"
             app:layout_scrollFlags="scroll|enterAlways">
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/place_search"
+                app:showAsAction="ifRoom"
+                app:iconifiedByDefault="false"
+                app:queryHint="Search the place"
+                android:title="search"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"/>
+
         </androidx.appcompat.widget.Toolbar>
 
 

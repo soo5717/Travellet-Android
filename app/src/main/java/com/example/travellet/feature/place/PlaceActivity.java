@@ -3,21 +3,24 @@ package com.example.travellet.feature.place;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageButton;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -74,6 +77,7 @@ public class PlaceActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_place);
         initToolbar();
         initTab();
@@ -126,17 +130,63 @@ public class PlaceActivity extends AppCompatActivity {
         );
     }
 
-    //툴바 메뉴 설정
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu, menu);
+    // 검색 확장, 축소를 버튼으로 생성
 
-        placeSearch = menu.findItem(R.id.place_search); //돋보기 버튼 등록
-        SearchView searchView = (SearchView)placeSearch.getActionView(); //MenuItem으로 SearchView 변수 생성
-        searchView.setSubmitButtonEnabled(true); // 확인 버튼 활성화
-        //searchView의 검색 이벤트
+
+    //툴바 초기화 메소드
+    private void initToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar_place);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_backspace_24dp);
+
+
+        androidx.appcompat.widget.SearchView searchView = findViewById(R.id.place_search);
+        searchView.setMaxWidth(Integer.MAX_VALUE);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String keyword) {
+                //스트링 변수 keyword는 입력한 검색어
+                keywordState = true;
+                searchKeyword = keyword;
+                if(lodgingState) {
+                    searchType = 80;
+                }
+                else if(foodState) {
+                    searchType = 82;
+                }
+                else if(shoppingState) {
+                    searchType = 79;
+                }
+                else if(tourismState) {
+                    searchType = 76;
+                }
+                else if(cultureState) {
+                    searchType = 78;
+                }
+                else if(leisureState) {
+                    searchType = 75;
+                }
+                else if(transportationState){
+                    searchType = 77;
+                }
+                else if(etcState) {
+                    searchType = 85;
+                }
+                else
+                    searchType = -1;
+                placeItems.clear();
+                placeID.clear();
+                getPlaceListData(keyword, searchType);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        /*searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             //검색 버튼을 눌렀을 경우
             @Override
             public boolean onQueryTextSubmit(String keyword) {
@@ -180,19 +230,8 @@ public class PlaceActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String place) {
                 return false;
             }
-        });
-        return true;
-    }
+        });*/
 
-    // 검색 확장, 축소를 버튼으로 생성
-
-
-    //툴바 초기화 메소드
-    private void initToolbar() {
-        Toolbar toolbar = findViewById(R.id.toolbar_place);
-        setSupportActionBar(toolbar);
-
-        //추가적으로 searchView 구현 필요함.
     }
 
     //탭 초기화 메소드
@@ -546,6 +585,9 @@ public class PlaceActivity extends AppCompatActivity {
                                 break;
                             case 21:
                                 sigungu = "Yongsan-gu, Seoul";
+                                break;
+                            default:
+                                sigungu = "Seoul";
                                 break;
                         }
                     }

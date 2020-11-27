@@ -140,6 +140,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/more_button_place_detail" />
 
             <TextView
+                android:id="@+id/contact"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -154,10 +155,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/line_place_detail" />
 
             <TextView
+                android:id="@+id/tel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="89dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/noto_sans_regular"
                 android:includeFontPadding="false"
                 android:letterSpacing="0.03"
@@ -165,13 +167,13 @@
                 android:textColor="@color/icon_grey"
                 android:textSize="14sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/line_place_detail" />
+                app:layout_constraintTop_toBottomOf="@+id/contact" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="129dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/noto_sans_regular"
                 android:includeFontPadding="false"
                 android:letterSpacing="0.03"
@@ -179,28 +181,28 @@
                 android:textColor="@color/icon_grey"
                 android:textSize="14sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/line_place_detail" />
+                app:layout_constraintTop_toBottomOf="@+id/tel" />
 
             <TextView
                 android:id="@+id/tell_text_place_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="104dp"
-                android:layout_marginTop="89dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/noto_sans_light"
                 android:includeFontPadding="false"
                 android:letterSpacing="0.03"
                 android:textColor="@color/six_grey"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/line_place_detail" />
+                app:layout_constraintTop_toBottomOf="@+id/contact" />
 
             <TextView
                 android:id="@+id/addr_text_place_detail"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="104dp"
-                android:layout_marginTop="129dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="24dp"
                 android:fontFamily="@font/noto_sans_light"
                 android:includeFontPadding="false"
@@ -208,7 +210,7 @@
                 android:textColor="@color/six_grey"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/line_place_detail" />
+                app:layout_constraintTop_toBottomOf="@+id/tel" />
 
             <fragment
                 android:id="@+id/map_place_detail"

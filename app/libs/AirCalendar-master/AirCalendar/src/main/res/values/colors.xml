@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="normal_day">#000000</color>
-    <color name="colorMonthDayLabelPaint">#424242</color>
-    <color name="selected_day_background">#4a4a4a</color>
-    <color name="selected_day_interval_text">#ffffff</color>
-    <color name="selected_day_text">#ffffff</color>
+    <color name="normal_day">#444444</color>
+    <color name="colorMonthDayLabelPaint">#444444</color>
+    <color name="selected_day_background">#d4e9ff</color>
+    <color name="selected_day_interval_text">#444444</color>
+    <color name="selected_day_text">#444444</color>
     <color name="colorWeekDayLineColor">#d8d8d8</color>
-    <color name="colorWeekEndColor">#000000</color>
-    <color name="colorTest">#1abc9c</color>
-    <color name="colorMonthTextColor">#252525</color>
+    <color name="colorWeekEndColor">#444444</color>
+    <color name="colorTest">#427dff</color>
+    <color name="colorMonthTextColor">#444444</color>
     <color name="color_old_day_text_color">#bbbbbb</color>
 </resources>

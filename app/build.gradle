@@ -46,6 +46,7 @@ dependencies {
 
     //AirCalendar
     implementation project(path: ':AirCalendar')
+    implementation 'joda-time:joda-time:2.10.1'
 
     //CoordinatorLayout
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
