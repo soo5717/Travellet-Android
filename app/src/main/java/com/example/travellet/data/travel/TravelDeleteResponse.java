@@ -1,4 +1,4 @@
-package com.example.travellet.data;
+package com.example.travellet.data.travel;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -10,9 +10,15 @@ public class TravelDeleteResponse {
     @SerializedName("message")
     public String message;
 
-    public TravelDeleteResponse(Integer status, Boolean success, String message) {
-        this.status = status;
-        this.success = success;
-        this.message = message;
+    public Integer getStatus() {
+        return status;
+    }
+
+    public Boolean getSuccess() {
+        return success;
+    }
+
+    public String getMessage() {
+        return message;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.travellet.data;
+package com.example.travellet.data.travel;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -16,12 +16,27 @@ public class TravelCreateResponse {
     @SerializedName("totalBudget")
     public double totalBudget;
 
-    public TravelCreateResponse(Integer status, Boolean success, String title, String startDate, String endDate, double totalBudget) {
-        this.status = status;
-        this.success = success;
-        this.title = title;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.totalBudget = totalBudget;
+    public Integer getStatus() {
+        return status;
+    }
+
+    public Boolean getSuccess() {
+        return success;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public double getTotalBudget() {
+        return totalBudget;
     }
 }
