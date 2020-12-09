@@ -26,7 +26,7 @@ public class SetTitleActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_set_title);
+
         Intent intent = getIntent();
         Edittext_title = (EditText) findViewById(R.id.title_text_set_title);
         //next 버튼 눌러서 다음 페이지로

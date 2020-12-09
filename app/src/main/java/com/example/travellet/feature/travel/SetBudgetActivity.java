@@ -34,7 +34,6 @@ public class SetBudgetActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_set_budget);
 
         Edittext_budget = (EditText) findViewById(R.id.budget_edit_set_budget);
         btn_Next = (Button) findViewById(R.id.next_button_set_budget);

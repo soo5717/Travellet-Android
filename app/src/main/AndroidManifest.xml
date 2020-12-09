@@ -16,38 +16,29 @@
         <activity
             android:name=".feature.util.SplashActivity"
             android:theme="@style/SplashTheme">
-
-
         </activity>
         <activity android:name=".feature.util.BaseActivity" />
 
         <activity android:name=".feature.sign.SignInActivity" />
         <activity android:name=".feature.sign.SignUp1Activity" />
-        <activity android:name=".feature.sign.SignUp2Activity">
-
-        </activity>
-
+        <activity android:name=".feature.sign.SignUp2Activity" />
         <activity android:name=".feature.setting.SettingActivity" />
 
-        <activity android:name=".feature.travel.TravelActivity" />
-        <activity android:name=".feature.travel.SetTitleActivity">
-
-        </activity>
-        <activity android:name=".feature.travel.SetDateActivity">
-
-        </activity>
-        <activity android:name=".feature.travel.SetBudgetActivity">
-
-        </activity>
-
-        <activity android:name=".feature.place.PlaceDetailActivity" />
-        <activity android:name=".feature.place.PlaceActivity">
+        <activity android:name=".feature.travel.TravelActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".feature.travel.SetTitleActivity" />
+        <activity android:name=".feature.travel.SetDateActivity" />
+        <activity android:name=".feature.travel.SetBudgetActivity">
+
+        </activity>
+
+        <activity android:name=".feature.place.PlaceDetailActivity" />
+        <activity android:name=".feature.place.PlaceActivity" />
 
         <activity android:name=".feature.plan.AddPlaceActivity" />
         <activity android:name=".feature.plan.input.InputCostActivity" />
@@ -57,5 +48,4 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCvnWf43FkeqO5OhkhsuX4V2_qzfZcDB3o" />
     </application>
-
 </manifest>
