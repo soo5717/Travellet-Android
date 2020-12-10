@@ -8,8 +8,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.travellet.R;
-import com.example.travellet.data.sign.SignUpData;
-import com.example.travellet.data.utill.StatusResponse;
+import com.example.travellet.data.requestBody.SignUpData;
+import com.example.travellet.data.StatusResponse;
 import com.example.travellet.databinding.ActivitySignUp2Binding;
 import com.example.travellet.feature.util.BaseActivity;
 import com.example.travellet.network.RetrofitClient;
@@ -26,7 +26,7 @@ import retrofit2.Response;
 
 /**
  * Created by 수연 on 2020-11-18.
- * Class: SignUp2Activity (네트워킹 미완료)
+ * Class: SignUp2Activity
  * Description: 회원가입2 클래스
  */
 public class SignUp2Activity extends BaseActivity {
@@ -48,16 +48,24 @@ public class SignUp2Activity extends BaseActivity {
 
     //회원가입 요청 - POST : Retrofit2
     private void reqeustSignUp(SignUpData data) {
-        RetrofitClient.getService().userSignUp(data).enqueue(new Callback<StatusResponse>() {
+        RetrofitClient.getService().signUp(data).enqueue(new Callback<StatusResponse>() {
             @Override
             public void onResponse(@NotNull Call<StatusResponse> call, @NotNull Response<StatusResponse> response) {
-
+                if(response.isSuccessful()) { //상태코드 200~300일 경우 (요청 성공 시)
+                    StatusResponse result = response.body();
+                    Toast.makeText(SignUp2Activity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+                    //로그인 페이지로 이동
+                    Intent intent = new Intent(SignUp2Activity.this, SignInActivity.class);
+                    //회원가입 엑티비티 스택에서 제거하고 로그인만 남김
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
             }
 
             @Override
             public void onFailure(@NotNull Call<StatusResponse> call, @NotNull Throwable t) {
                 Toast.makeText(SignUp2Activity.this, "SignUp Error", Toast.LENGTH_SHORT).show();
-                Log.e("SignUp Error", Objects.requireNonNull(t.getMessage()));
+                Log.e("회원가입 에러", Objects.requireNonNull(t.getMessage()));
             }
         });
     }
@@ -97,13 +105,13 @@ public class SignUp2Activity extends BaseActivity {
             country = binding.buttonCountry.getText().toString();
 
             //테스트 코드 => 추후 삭제
-//            Log.d("이메일", email);
-//            Log.d("비밀번호", encryptPwd);
-//            Log.d("이름", name);
-//            Log.d("국가", country);
+            Log.d("이메일", email);
+            Log.d("비밀번호", encryptPwd);
+            Log.d("이름", name);
+            Log.d("국가", country);
 
             //회원가입 요청 메소드 호출
-//            reqeustSignUp(new SignUpData(email, encryptPwd, name, country));
+            reqeustSignUp(new SignUpData(email, encryptPwd, name, country));
 
         } else { //Fail
             Toast.makeText(getApplicationContext(), "Please complete the entry!", Toast.LENGTH_SHORT).show();

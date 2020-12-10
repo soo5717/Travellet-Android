@@ -10,8 +10,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.travellet.R;
-import com.example.travellet.data.setting.SettingResponse;
-import com.example.travellet.data.utill.StatusResponse;
+import com.example.travellet.data.responseBody.ProfileResponse;
+import com.example.travellet.data.StatusResponse;
 import com.example.travellet.databinding.ActivitySettingBinding;
 import com.example.travellet.feature.sign.SignInActivity;
 import com.example.travellet.feature.util.BaseActivity;
@@ -48,7 +48,8 @@ public class SettingActivity extends BaseActivity {
         setCountryAlertDialog();
 
         //회원정보 요청 메소드 호출
-//        requestSetting();
+        requestReadProfile();
+        showProgress(true);
     }
 
     @Override //Activity 뷰 바인딩
@@ -58,23 +59,31 @@ public class SettingActivity extends BaseActivity {
     }
 
     //회원정보 요청 - GET : Retroifit2
-    private void requestSetting() {
-        RetrofitClient.getService().userSetting().enqueue(new Callback<SettingResponse>() {
+    private void requestReadProfile() {
+        RetrofitClient.getService().readProfile().enqueue(new Callback<ProfileResponse>() {
             @Override
-            public void onResponse(@NotNull Call<SettingResponse> call, @NotNull Response<SettingResponse> response) {
-
+            public void onResponse(@NotNull Call<ProfileResponse> call, @NotNull Response<ProfileResponse> response) {
+                if(response.isSuccessful()) { //상태코드 200~300일 경우 (요청 성공 시)
+                    ProfileResponse result = response.body();
+                    //프로필 setText
+                    binding.textViewName.setText(result.getData().getName());
+                    binding.textViewCountry.setText(result.getData().getCountry());
+                    binding.textViewEmail.setText(result.getData().getEmail());
+                    showProgress(false);
+                }
             }
 
             @Override
-            public void onFailure(@NotNull Call<SettingResponse> call, @NotNull Throwable t) {
-                Log.e("Setting Read Error", Objects.requireNonNull(t.getMessage()));
+            public void onFailure(@NotNull Call<ProfileResponse> call, @NotNull Throwable t) {
+                Log.e("프로필 조회 에러", Objects.requireNonNull(t.getMessage()));
+                showProgress(false);
             }
         });
     }
 
     //회원탈퇴 요청 - DELETE : Retrofit2
-    private void requestDelteAccount() {
-        RetrofitClient.getService().userDeleteAccount().enqueue(new Callback<StatusResponse>() {
+    private void requestDeleteProfile() {
+        RetrofitClient.getService().deleteProfile().enqueue(new Callback<StatusResponse>() {
             @Override
             public void onResponse(@NotNull Call<StatusResponse> call, @NotNull Response<StatusResponse> response) {
 
@@ -105,9 +114,7 @@ public class SettingActivity extends BaseActivity {
         //다이얼로그 Cancel 버튼 클릭 이벤트
         builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
         //NameEdit 버튼 클릭 이벤트
-        binding.buttonNameEdit.setOnClickListener(v -> {
-            builder.show();
-        });
+        binding.buttonNameEdit.setOnClickListener(v -> builder.show());
     }
 
     //CountryEdit 다이얼로그 설정
@@ -140,6 +147,11 @@ public class SettingActivity extends BaseActivity {
     //DeleteAccount 버튼 클릭 이벤트 : 회원탈퇴
     public void deleteAccountButtonClick(View view) {
         //회원탈퇴 요청 메소드 호출
-//        requestDelteAccount();
+//        requestDeleteProfile();
+    }
+
+    //ProgressBar (확정 코드 아님)
+    private void showProgress(boolean show) {
+        binding.progressBar.setVisibility(show? View.VISIBLE : View.GONE);
     }
 }

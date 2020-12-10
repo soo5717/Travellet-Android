@@ -1,10 +1,10 @@
 package com.example.travellet.network;
 
-import com.example.travellet.data.setting.SettingResponse;
-import com.example.travellet.data.sign.SignInData;
-import com.example.travellet.data.sign.SignInResponse;
-import com.example.travellet.data.sign.SignUpData;
-import com.example.travellet.data.utill.StatusResponse;
+import com.example.travellet.data.responseBody.ProfileResponse;
+import com.example.travellet.data.requestBody.SignInData;
+import com.example.travellet.data.responseBody.SignInResponse;
+import com.example.travellet.data.requestBody.SignUpData;
+import com.example.travellet.data.StatusResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -19,17 +19,12 @@ import retrofit2.http.POST;
  */
 public interface ServiceAPI {
 
-    //로그인 요청
-    @POST("/sign-in")
-    Call<SignInResponse> userSignIn(@Body SignInData data);
-    //회원가입 요청 - UPDATE
-    @POST("/sign-up")
-    Call<StatusResponse> userSignUp(@Body SignUpData data);
-
-    //회원탈퇴 요청 - DELETE
-    @DELETE("/users")
-    Call<StatusResponse> userDeleteAccount();
-    //회원정보 요청 - GET
-    @GET("/users")
-    Call<SettingResponse> userSetting();
+    @POST("/users/signin") //로그인
+    Call<SignInResponse> signIn(@Body SignInData data);
+    @POST("/users/signup") //회원가입
+    Call<StatusResponse> signUp(@Body SignUpData data);
+    @GET("/users") //프로필 조회
+    Call<ProfileResponse> readProfile();
+    @DELETE("/users") //회원탈퇴
+    Call<StatusResponse> deleteProfile();
 }

@@ -1,14 +1,12 @@
-package com.example.travellet.data.place;
+package com.example.travellet.data.responseBody;
 
 import com.google.gson.annotations.SerializedName;
 
-public class PlaceLikeCancelResponse {
+public class PlaceLikeResponse {
     @SerializedName("status")
     public Integer status;
     @SerializedName("success")
     public Boolean success;
-    @SerializedName("message")
-    public Boolean message;
 
     public Integer getStatus() {
         return status;
@@ -16,9 +14,5 @@ public class PlaceLikeCancelResponse {
 
     public Boolean getSuccess() {
         return success;
-    }
-
-    public Boolean getMessage() {
-        return message;
     }
 }

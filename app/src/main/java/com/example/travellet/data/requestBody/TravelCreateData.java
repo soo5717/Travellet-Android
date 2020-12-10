@@ -1,4 +1,4 @@
-package com.example.travellet.data.travel;
+package com.example.travellet.data.requestBody;
 
 import com.google.gson.annotations.SerializedName;
 

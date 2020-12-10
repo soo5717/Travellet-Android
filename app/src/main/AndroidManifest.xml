@@ -19,17 +19,18 @@
         </activity>
         <activity android:name=".feature.util.BaseActivity" />
 
-        <activity android:name=".feature.sign.SignInActivity" />
-        <activity android:name=".feature.sign.SignUp1Activity" />
-        <activity android:name=".feature.sign.SignUp2Activity" />
-        <activity android:name=".feature.setting.SettingActivity" />
-
-        <activity android:name=".feature.travel.TravelActivity" >
+        <activity android:name=".feature.sign.SignInActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".feature.sign.SignUp1Activity" />
+        <activity android:name=".feature.sign.SignUp2Activity" />
+        <activity android:name=".feature.setting.SettingActivity" />
+
+        <activity android:name=".feature.travel.TravelActivity" >
         </activity>
         <activity android:name=".feature.travel.SetTitleActivity" />
         <activity android:name=".feature.travel.SetDateActivity" />

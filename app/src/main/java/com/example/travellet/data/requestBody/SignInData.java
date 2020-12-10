@@ -1,4 +1,4 @@
-package com.example.travellet.data.sign;
+package com.example.travellet.data.requestBody;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -10,12 +10,12 @@ import com.google.gson.annotations.SerializedName;
 public class SignInData {
     @SerializedName("email")
     public String email;
-    @SerializedName("password")
-    public String password;
+    @SerializedName("pwd")
+    public String pwd;
 
-    public SignInData(String email, String password) {
+    public SignInData(String email, String pwd) {
         super();
         this.email = email;
-        this.password = password;
+        this.pwd = pwd;
     }
 }
