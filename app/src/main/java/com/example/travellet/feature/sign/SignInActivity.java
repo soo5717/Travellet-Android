@@ -53,7 +53,7 @@ public class SignInActivity extends AppCompatActivity {
         RetrofitClient.getService().signIn(data).enqueue(new Callback<SignInResponse>() {
             @Override
             public void onResponse(@NotNull Call<SignInResponse> call, @NotNull Response<SignInResponse> response) {
-                if(response.isSuccessful()) { //상태코드 200~300일 경우 (요청 성공 시)
+                if(response.isSuccessful() && response.body() != null) { //상태코드 200~300일 경우 (요청 성공 시)
                     SignInResponse result = response.body();
                     Toast.makeText(SignInActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
                     //Shared Preferences 토큰 저장
@@ -72,12 +72,11 @@ public class SignInActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NotNull Call<SignInResponse> call, @NotNull Throwable t) {
-                Toast.makeText(SignInActivity.this, "SignIn Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SignInActivity.this, "Sign in Error", Toast.LENGTH_SHORT).show();
                 Log.e("로그인 에러", Objects.requireNonNull(t.getMessage()));
             }
         });
     }
-
 
     //Ok 버튼 클릭 이벤트
     public void okButtonClick(View view) {

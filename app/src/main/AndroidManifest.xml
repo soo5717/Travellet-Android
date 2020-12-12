@@ -30,8 +30,7 @@
         <activity android:name=".feature.sign.SignUp2Activity" />
         <activity android:name=".feature.setting.SettingActivity" />
 
-        <activity android:name=".feature.travel.TravelActivity" >
-        </activity>
+        <activity android:name=".feature.travel.TravelActivity" />
         <activity android:name=".feature.travel.SetTitleActivity" />
         <activity android:name=".feature.travel.SetDateActivity" />
         <activity android:name=".feature.travel.SetBudgetActivity">

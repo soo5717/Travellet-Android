@@ -1,5 +1,6 @@
 package com.example.travellet.network;
 
+import com.example.travellet.data.requestBody.ProfileData;
 import com.example.travellet.data.responseBody.ProfileResponse;
 import com.example.travellet.data.requestBody.SignInData;
 import com.example.travellet.data.responseBody.SignInResponse;
@@ -11,6 +12,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 /**
  * Created by 수연 on 2020-11-18.
@@ -19,12 +21,14 @@ import retrofit2.http.POST;
  */
 public interface ServiceAPI {
 
-    @POST("/users/signin") //로그인
+    @POST("/users/signin") //로그인 요청
     Call<SignInResponse> signIn(@Body SignInData data);
-    @POST("/users/signup") //회원가입
+    @POST("/users/signup") //회원가입 요청
     Call<StatusResponse> signUp(@Body SignUpData data);
-    @GET("/users") //프로필 조회
+    @GET("/users") //회원정보 요청
     Call<ProfileResponse> readProfile();
-    @DELETE("/users") //회원탈퇴
+    @PUT("/users") //회원정보 수정 요청
+    Call<StatusResponse> updateProfile(@Body ProfileData data);
+    @DELETE("/users") //회원탈퇴 요청
     Call<StatusResponse> deleteProfile();
 }

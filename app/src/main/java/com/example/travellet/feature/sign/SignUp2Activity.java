@@ -51,7 +51,7 @@ public class SignUp2Activity extends BaseActivity {
         RetrofitClient.getService().signUp(data).enqueue(new Callback<StatusResponse>() {
             @Override
             public void onResponse(@NotNull Call<StatusResponse> call, @NotNull Response<StatusResponse> response) {
-                if(response.isSuccessful()) { //상태코드 200~300일 경우 (요청 성공 시)
+                if(response.isSuccessful() && response.body() != null) { //상태코드 200~300일 경우 (요청 성공 시)
                     StatusResponse result = response.body();
                     Toast.makeText(SignUp2Activity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
                     //로그인 페이지로 이동
@@ -64,7 +64,7 @@ public class SignUp2Activity extends BaseActivity {
 
             @Override
             public void onFailure(@NotNull Call<StatusResponse> call, @NotNull Throwable t) {
-                Toast.makeText(SignUp2Activity.this, "SignUp Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SignUp2Activity.this, "회원가입 에러", Toast.LENGTH_SHORT).show();
                 Log.e("회원가입 에러", Objects.requireNonNull(t.getMessage()));
             }
         });
