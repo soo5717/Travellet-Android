@@ -7,14 +7,16 @@ public class TravelCreateResponse {
     public Integer status;
     @SerializedName("success")
     public Boolean success;
+    @SerializedName("message")
+    public String message;
     @SerializedName("title")
     public String title;
     @SerializedName("startDate")
     public String startDate;
     @SerializedName("endDate")
     public String endDate;
-    @SerializedName("totalBudget")
-    public double totalBudget;
+    @SerializedName("budget")
+    public double budget;
 
     public Integer getStatus() {
         return status;
@@ -22,6 +24,10 @@ public class TravelCreateResponse {
 
     public Boolean getSuccess() {
         return success;
+    }
+
+    public String getMessage() {
+        return message;
     }
 
     public String getTitle() {
@@ -36,7 +42,7 @@ public class TravelCreateResponse {
         return endDate;
     }
 
-    public double getTotalBudget() {
-        return totalBudget;
+    public double getBudget() {
+        return budget;
     }
 }

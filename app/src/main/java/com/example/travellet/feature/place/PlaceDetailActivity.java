@@ -18,10 +18,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.travellet.R;
+import com.example.travellet.data.StatusResponse;
+import com.example.travellet.data.requestBody.PlaceLikeData;
+import com.example.travellet.network.RetrofitClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -31,6 +37,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.jetbrains.annotations.NotNull;
 import org.jsoup.Jsoup;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -40,6 +47,7 @@ import org.xml.sax.InputSource;
 
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Objects;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -106,9 +114,11 @@ public class PlaceDetailActivity extends AppCompatActivity implements OnMapReady
             public void onClick(View view) {
                 if(likeState){
                     //좋아요 버튼 누른 상태일 때 처음 모습
+                    requestDeleteLike(new PlaceLikeData(placeID));
                     likeButton.setBackgroundResource(R.drawable.ic_favorite_border_24dp);
                     likeState = false;
                 } else{
+                    reqeustPlaceLike(new PlaceLikeData(placeID));
                     likeButton.setBackgroundResource(R.drawable.ic_favorite_selected_24_dp);
                     likeState = true;
                 }
@@ -345,4 +355,40 @@ public class PlaceDetailActivity extends AppCompatActivity implements OnMapReady
 
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
     }
+
+    //장소 좋아요 추가 - POST : Retrofit2
+    private void reqeustPlaceLike(PlaceLikeData data) {
+        RetrofitClient.getService().createPlaceLike(data).enqueue(new Callback<StatusResponse>() {
+            @Override
+            public void onResponse(@NotNull Call<StatusResponse> call, @NotNull Response<StatusResponse> response) {
+                if(response.isSuccessful()) { //상태코드 200~300일 경우 (요청 성공 시)
+                    StatusResponse result = response.body();
+                    //Toast.makeText(PlaceActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<StatusResponse> call, @NotNull Throwable t) {
+                Toast.makeText(PlaceDetailActivity.this, "Like Error", Toast.LENGTH_SHORT).show();
+                Log.e("좋아요 에러", Objects.requireNonNull(t.getMessage()));
+            }
+        });
+    }
+
+    //장소 좋아요 취소 - DELETE : Retrofit2
+    private void requestDeleteLike(PlaceLikeData data) {
+        RetrofitClient.getService().cancelPlaceLike(data).enqueue(new Callback<StatusResponse>() {
+            @Override
+            public void onResponse(@NotNull Call<StatusResponse> call, @NotNull Response<StatusResponse> response) {
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<StatusResponse> call, @NotNull Throwable t) {
+                Toast.makeText(PlaceDetailActivity.this, "Cancel Error", Toast.LENGTH_SHORT).show();
+                Log.e("좋아요 취소 에러", Objects.requireNonNull(t.getMessage()));
+            }
+        });
+    }
+
 }

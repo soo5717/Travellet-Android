@@ -3,10 +3,10 @@ package com.example.travellet.data.requestBody;
 import com.google.gson.annotations.SerializedName;
 
 public class PlaceLikeData {
-    @SerializedName("placeID")
-    public int placeID;
+    @SerializedName("contentId")
+    public int contentId;
 
-    public PlaceLikeData(int placeID) {
-        this.placeID = placeID;
+    public PlaceLikeData(int contentId) {
+        this.contentId = contentId;
     }
 }

@@ -81,6 +81,13 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
         //장소 이름, 주소
         holder.title.setText(item.getPlaceListTitle()) ;
         holder.addr.setText(item.getPlaceListAddr()) ;
+
+        //좋아요 여부
+        if(item.getlikeState()){
+            holder.like.setImageResource(R.drawable.ic_favorite_selected_24_dp);
+        } else{
+            holder.like.setImageResource(R.drawable.ic_favorite_border_list_24dp);
+        }
     }
 
     // getItemCount() - 전체 데이터 갯수 리턴.
