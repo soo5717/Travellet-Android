@@ -32,11 +32,10 @@ import retrofit2.Response;
 
 /**
  * Created by 수연 on 2020-11-18.
- * Class: SettingActivity (네트워킹 + 기능 미완료)
+ * Class: SettingActivity (기능 미완료)
  * Description: 마이페이지 클래스
  * 사용자 정보에 대한 READ, UPDATE, DELETE 가능
  * => 이름 다이얼로그 디자인 수정 필요!!
- * => 회원정보 수정 요청 메소드 추가 필요!!
  */
 public class SettingActivity extends BaseActivity {
     private ActivitySettingBinding binding; //바인딩 선언
@@ -72,8 +71,8 @@ public class SettingActivity extends BaseActivity {
                     binding.textViewName.setText(result.getData().getName());
                     binding.textViewCountry.setText(result.getData().getCountry());
                     binding.textViewEmail.setText(result.getData().getEmail());
-                    showProgress(false);
                 }
+                showProgress(false);
             }
 
             @Override
