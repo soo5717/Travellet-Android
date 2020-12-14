@@ -18,6 +18,7 @@ import com.example.travellet.feature.sign.SignInActivity;
 import com.example.travellet.feature.util.BaseActivity;
 import com.example.travellet.feature.util.ErrorBodyManager;
 import com.example.travellet.feature.util.PreferenceManager;
+import com.example.travellet.feature.util.ProgressBarManager;
 import com.example.travellet.network.RetrofitClient;
 
 import org.jetbrains.annotations.NotNull;
@@ -51,7 +52,7 @@ public class SettingActivity extends BaseActivity {
 
         //회원정보 요청 메소드 호출
         requestReadProfile();
-        showProgress(true);
+        ProgressBarManager.showProgress(binding.progressBar, true);
     }
 
     @Override //Activity 뷰 바인딩
@@ -72,13 +73,13 @@ public class SettingActivity extends BaseActivity {
                     binding.textViewCountry.setText(result.getData().getCountry());
                     binding.textViewEmail.setText(result.getData().getEmail());
                 }
-                showProgress(false);
+                ProgressBarManager.showProgress(binding.progressBar, false);
             }
 
             @Override
             public void onFailure(@NotNull Call<ProfileResponse> call, @NotNull Throwable t) {
                 Log.e("프로필 조회 에러", Objects.requireNonNull(t.getMessage()));
-                showProgress(false);
+                ProgressBarManager.showProgress(binding.progressBar, false);
             }
         });
     }
@@ -191,10 +192,5 @@ public class SettingActivity extends BaseActivity {
         //Alert을 한 번 띄워야할까? 나중에 고민하자..^^
         //회원탈퇴 요청 메소드 호출
         requestDeleteProfile();
-    }
-
-    //ProgressBar (확정 코드 아님)
-    private void showProgress(boolean show) {
-        binding.progressBar.setVisibility(show? View.VISIBLE : View.GONE);
     }
 }
