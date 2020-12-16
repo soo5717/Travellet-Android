@@ -195,7 +195,6 @@ public class PlaceActivity extends AppCompatActivity {
                 placeID.clear();
                 requestReadLike();
                 getPlaceListData(keyword, searchType);
-                //getPlaceListData(keyword, searchType);
                 return true;
             }
 
@@ -503,7 +502,8 @@ public class PlaceActivity extends AppCompatActivity {
                     @Override
                     public void run()
                     {
-                        Log.e("error", String.valueOf(e));                                                 }
+                        Log.e("error", String.valueOf(e));
+                    }
                 }, 0);
             }
             return doc;

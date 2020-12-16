@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".feature.plan.AddPlaceActivity">
+    tools:context=".feature.plan.AddPlace.AddPlaceActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_add_place"
@@ -16,7 +16,18 @@
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/place_add_search"
+            app:showAsAction="ifRoom"
+            app:iconifiedByDefault="false"
+            app:queryHint="Search the place"
+            android:title="search"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"/>
+
+    </androidx.appcompat.widget.Toolbar>
 
     <FrameLayout
         android:id="@+id/framelayout_add_place"

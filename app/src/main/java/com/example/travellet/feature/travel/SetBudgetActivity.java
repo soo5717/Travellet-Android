@@ -4,29 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import com.example.travellet.R;
-import com.example.travellet.data.StatusResponse;
-import com.example.travellet.data.requestBody.SignUpData;
 import com.example.travellet.data.requestBody.TravelCreateData;
 import com.example.travellet.data.responseBody.TravelCreateResponse;
 import com.example.travellet.databinding.ActivitySetBudgetBinding;
-import com.example.travellet.databinding.ActivitySignUp1Binding;
-import com.example.travellet.feature.place.PlaceActivity;
-import com.example.travellet.feature.plan.AddPlaceActivity;
-import com.example.travellet.feature.plan.AddPlanActivity;
-import com.example.travellet.feature.sign.SignInActivity;
-import com.example.travellet.feature.sign.SignUp2Activity;
 import com.example.travellet.feature.util.BaseActivity;
 import com.example.travellet.network.RetrofitClient;
 
