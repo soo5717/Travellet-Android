@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -60,7 +61,12 @@ public class AddPlaceActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(View v, int position) {
                         //TODO: 거 뭐시기냐 누르면 화면 destroy하고 타이틀이랑, xy좌표 넘기기
-                        onDestroy();
+                        Intent intent=new Intent();
+                        intent.putExtra("title", addPlaceItems.get(position).getTitle());
+                        intent.putExtra("x", addPlaceItems.get(position).getTitle());
+                        intent.putExtra("y", addPlaceItems.get(position).getTitle());
+                        setResult(RESULT_OK, intent);
+                        finish();
                     }
                 }
         );
@@ -92,11 +98,13 @@ public class AddPlaceActivity extends AppCompatActivity {
     }
 
     //장소 어댑터 아이템 추가
-    public void addItem(String title, String type, String addr) {
-        AddPlaceItem item = new AddPlaceItem(title, type, addr);
+    public void addItem(String title, String type, String addr, double x, double y) {
+        AddPlaceItem item = new AddPlaceItem(title, type, addr, x, y);
         item.setTitle(title);
         item.setType(type);
         item.setAddr(addr);
+        item.setMapx(x);
+        item.setMapy(y);
         addPlaceItems.add(item);
     }
 
@@ -311,8 +319,8 @@ public class AddPlaceActivity extends AppCompatActivity {
                     }
                 }
 
-                addItem(title, type, sigungu);
-                Log.d("search", addPlaceItems.get(addPlaceItems.size()-1).getType());
+                addItem(title, type, sigungu, Double.parseDouble(mapx), Double.parseDouble(mapy));
+                Log.d("search", String.valueOf(addPlaceItems.get(addPlaceItems.size()-1).getMapx()));
             }
             Log.d("adapter", String.valueOf(addPlaceAdapter.getItemCount()));
             addPlaceRecyclerView.setAdapter(addPlaceAdapter);

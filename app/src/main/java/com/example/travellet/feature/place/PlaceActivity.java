@@ -21,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
@@ -91,6 +92,9 @@ public class PlaceActivity extends AppCompatActivity {
     ArrayList<Boolean> placeLike = new ArrayList<Boolean>();
     ArrayList<Integer> getLikeId = new ArrayList<>(); //get 해온 좋아요 목록 id 저장하는 arraylist
 
+    //결과코드
+    static int DETAIL_PLACE_RESULT = 101;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,9 +120,11 @@ public class PlaceActivity extends AppCompatActivity {
                         intent.putExtra("title", placeTitle.get(position));
                         intent.putExtra("address", placeAddr.get(position));
                         intent.putExtra("like", placeLike.get(position));
+                        Log.d("go detail", "like state is " + String.valueOf(placeLike.get(position)));
                         intent.putExtra("x", placeX.get(position));
                         intent.putExtra("y", placeY.get(position));
-                        startActivity(intent);
+                        intent.putExtra("position", position); //detail 화면 destroy 이후 좋아요 상태를 변경하기 위해 넣어줌.
+                        startActivityForResult(intent, DETAIL_PLACE_RESULT);
                     }
                 }
         );
@@ -323,7 +329,6 @@ public class PlaceActivity extends AppCompatActivity {
                 cultureState = false;
                 leisureState = false;
                 transportationState = false;
-                Log.d("type", String.valueOf(searchType));
                 if(keywordState){
                     searchType = 82;
                     placeItems.clear();
@@ -358,7 +363,6 @@ public class PlaceActivity extends AppCompatActivity {
                 cultureState = false;
                 leisureState = false;
                 transportationState = false;
-                Log.d("type", String.valueOf(searchType));
                 if(keywordState){
                     searchType = 76;
                     placeItems.clear();
@@ -439,6 +443,24 @@ public class PlaceActivity extends AppCompatActivity {
 
     }
 
+    //detail activity에서 다시 돌아온 경우
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+
+        if(requestCode == DETAIL_PLACE_RESULT){
+            if(intent != null){
+                boolean thisLike = intent.getBooleanExtra("like", false); //해당 장소의 좋아요 상태를 인텐트로 가져옴.
+                Log.d("back", "like state is " + String.valueOf(thisLike));
+                int thisPos = intent.getIntExtra("position", 0); // 해당 장소의 position을 인텐트로 다시 가져옴.
+                //position으로 해당 장소의 아이템 찾기
+                placeItems.get(thisPos).setlikeState(thisLike);
+                placeLike.set(thisPos, thisLike);
+                placeRecyclerView.setAdapter(placeAdapter);
+            }
+        }
+    }
+
     //장소 어댑터 아이템 추가
     public void addItem(String thumb, String title, String addr, boolean like) {
         PlaceItem item = new PlaceItem(thumb, title, addr, like);
@@ -479,7 +501,6 @@ public class PlaceActivity extends AppCompatActivity {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Log.d("error", "SearchKeyword에러");
         }
     }
 
@@ -532,7 +553,6 @@ public class PlaceActivity extends AppCompatActivity {
                     for (int j = 0; j < getLikeId.size(); j++) {
                         if (getLikeId.get(j) == Integer.parseInt(id)) {
                             likeState = true;
-                            //Log.d("좋아요가 맞냐?", String.valueOf(id));
                             break;
                         } else{
                             likeState = false;
@@ -659,7 +679,6 @@ public class PlaceActivity extends AppCompatActivity {
                     placeLike.add(likeState);
                 } else {
                     addItem(thumbnail, title, sigungu, likeState);
-                    Log.d("좋아요 잘 처리되냐", id+", "+String.valueOf(likeState));
                     placeLike.add(likeState);
                 }
             }

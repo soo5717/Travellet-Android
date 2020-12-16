@@ -70,12 +70,10 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
         GradientDrawable drawable = (GradientDrawable) holder.itemView.getContext().getDrawable(R.drawable.image_rounding);
         holder.thumb.setBackground(drawable);
         if(!item.getPlaceListThumb().equals("NULL")){
-            Log.d("image not null", item.getPlaceListTitle());
             holder.thumb.setClipToOutline(true);
             Glide.with(holder.itemView.getContext()).load(item.getPlaceListThumb()).apply(new RequestOptions().centerCrop()).into(holder.thumb);
         }
         else{
-            Log.d("image null", item.getPlaceListTitle());
             holder.thumb.setBackground(drawable);
         }
         //장소 이름, 주소

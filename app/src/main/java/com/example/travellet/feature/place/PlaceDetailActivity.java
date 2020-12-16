@@ -54,7 +54,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 public class PlaceDetailActivity extends AppCompatActivity implements OnMapReadyCallback{
 
-    int placeID;
+    int placeID, position;
     TextView detailTitle, detailType, detailOverview, detailAddr, detailTel, moreButton;
     ImageView detailImage;
     ImageButton back, likeButton;
@@ -86,6 +86,8 @@ public class PlaceDetailActivity extends AppCompatActivity implements OnMapReady
         likeState = intent.getBooleanExtra("like", false);
 ;       x=intent.getDoubleExtra("x", 0);
         y=intent.getDoubleExtra("y", 0);
+        position = intent.getIntExtra("position", 0);
+
 
         //구글맵 보여주기
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -97,6 +99,11 @@ public class PlaceDetailActivity extends AppCompatActivity implements OnMapReady
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //뒤로가기 눌렀을 경우 좋아요의 상태를 이전 페이지에 전달
+                Intent intent = new Intent();
+                intent.putExtra("like", likeState);
+                intent.putExtra("position", position);
+                setResult(RESULT_OK, intent);
                 finish();
             }
         });
@@ -149,8 +156,16 @@ public class PlaceDetailActivity extends AppCompatActivity implements OnMapReady
 
         //장소 상세 정보 보여주기
         getPlaceDetail(placeID);
+    }
 
-
+    @Override
+    public void onBackPressed() {
+        //뒤로가기 눌렀을 경우 좋아요의 상태를 이전 페이지에 전달
+        Intent intent = new Intent();
+        intent.putExtra("like", likeState);
+        intent.putExtra("position", position);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     //tour api를 이용하여 장소 상세 정보 가져오는 메소드
