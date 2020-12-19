@@ -21,6 +21,7 @@ import retrofit2.http.GET;
 import retrofit2.http.HTTP;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 /**
  * Created by 수연 on 2020-11-18.
@@ -50,8 +51,8 @@ public interface ServiceAPI {
     @POST("/travels") //여행 생성
     Call<TravelCreateResponse> createTravel(@Body TravelCreateData data);
 
-    @POST("/travels/:travelid/plans") //일정 추가
-    Call<PlanCreateResponse> createPlan(@Body PlanCreateData data);
+    @POST("/travels/{travelid}/plans") //일정 추가
+    Call<PlanCreateResponse> createPlan(@Path("travelid") int travelId,  @Body PlanCreateData data);
 
 
     //장소 검색

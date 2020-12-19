@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,8 +25,11 @@ import com.example.travellet.data.responseBody.PlanCreateResponse;
 import com.example.travellet.databinding.ActivityAddPlanBinding;
 import com.example.travellet.databinding.ActivitySignUp2Binding;
 import com.example.travellet.feature.plan.AddPlace.AddPlaceActivity;
+import com.example.travellet.feature.travel.SetBudgetActivity;
 import com.example.travellet.feature.util.BaseActivity;
 import com.example.travellet.network.RetrofitClient;
+
+import java.util.Objects;
 
 public class AddPlanActivity extends BaseActivity {
     private ActivityAddPlanBinding binding;
@@ -230,7 +234,7 @@ public class AddPlanActivity extends BaseActivity {
         intent.putExtra("y", y);
 
         setResult(RESULT_OK, intent);
-        finish();
+        requestCreatePlan(new PlanCreateData("2020-01-01", hour+":"+min+": ", place, memo,1, 1, x, y, 1));
     }
 
     @Override
@@ -247,4 +251,25 @@ public class AddPlanActivity extends BaseActivity {
             }
         }
     }
+
+    private void requestCreatePlan(PlanCreateData data){
+        RetrofitClient.getService().createPlan(1, data).enqueue(new Callback<PlanCreateResponse>() {
+            @Override
+            public void onResponse(Call<PlanCreateResponse> call, Response<PlanCreateResponse> response) {
+                if(response.isSuccessful()) {
+                    PlanCreateResponse result = response.body();
+
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PlanCreateResponse> call, Throwable t) {
+                Toast.makeText(AddPlanActivity.this, "Plan Create Error", Toast.LENGTH_SHORT).show();
+                Log.e("일정 추가 에러", Objects.requireNonNull(t.getMessage()));
+            }
+        });
+    }
+
+
 }
