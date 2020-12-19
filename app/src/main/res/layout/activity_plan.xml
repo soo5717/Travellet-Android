@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar_place"
+        android:id="@+id/appbar_plan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
@@ -15,24 +15,20 @@
         app:elevation="0dp">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_place"
+            android:id="@+id/toolbar_plan"
             android:layout_height="?attr/actionBarSize"
             android:layout_width="match_parent"
             app:layout_scrollFlags="scroll|enterAlways">
 
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/place_search"
-                app:showAsAction="ifRoom"
-                app:iconifiedByDefault="false"
-                app:queryHint="Search the place"
-                android:title="search"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"/>
+            <ImageButton
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/ic_backspace_24dp"/>
         </androidx.appcompat.widget.Toolbar>
 
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_place"
+            android:id="@+id/tab_plan"
             android:overScrollMode="never"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,22 +37,41 @@
             app:tabSelectedTextColor="@color/text_blue"
             app:tabTextAppearance="@style/TabText"
             app:tabIndicatorColor="@color/text_blue"
+            app:tabMaxWidth="50dp"
             android:background="@drawable/bg_tablayout_line" >
         </com.google.android.material.tabs.TabLayout>
 
+        <TextView
+            android:id="@+id/text_fulldate_plan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#1aa8b6c8"
+            android:gravity="center_horizontal"
+            android:paddingTop="11dp"
+            android:paddingBottom="11dp"
+            android:text="10/10/2020 Saturday"
+            android:fontFamily="@font/noto_sans_medium"
+            android:textStyle="normal"
+            android:textSize="12sp"
+            android:textColor="@color/icon_grey"
+            android:lineSpacingExtra="16sp"
+            app:layout_scrollFlags="scroll|enterAlways"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_place"
+            android:id="@+id/recyclerview_plan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
             android:overScrollMode="never"/>
     </FrameLayout>
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

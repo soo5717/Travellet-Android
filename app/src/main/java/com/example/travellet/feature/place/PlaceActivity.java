@@ -74,26 +74,24 @@ public class PlaceActivity extends AppCompatActivity {
     String searchKeyword;
     int searchType;
 
-    MenuItem placeSearch;
-
     //리사이클러에 필요한 변수;
-    ArrayList<Integer> placeID = new ArrayList<Integer>();
-    ArrayList<Double> placeX = new ArrayList<Double>();
-    ArrayList<Double> placeY = new ArrayList<Double>();
-    ArrayList<String> placeTitle = new ArrayList<String>();
-    ArrayList<String> placeAddr = new ArrayList<String>();
+    ArrayList<Integer> placeID = new ArrayList<>();
+    ArrayList<Double> placeX = new ArrayList<>();
+    ArrayList<Double> placeY = new ArrayList<>();
+    ArrayList<String> placeTitle = new ArrayList<>();
+    ArrayList<String> placeAddr = new ArrayList<>();
 
     RecyclerView placeRecyclerView = null ;
     PlaceAdapter placeAdapter = null ;
-    ArrayList<PlaceItem> placeItems = new ArrayList<PlaceItem>();
+    ArrayList<PlaceItem> placeItems = new ArrayList<>();
     GridLayoutManager layoutManager;
 
-    //좋아요 관련 변수 //db연결하고 나면 초기화 수정해야 함/////////////////////
+    //좋아요 관련 변수
     ArrayList<Boolean> placeLike = new ArrayList<Boolean>();
     ArrayList<Integer> getLikeId = new ArrayList<>(); //get 해온 좋아요 목록 id 저장하는 arraylist
 
     //결과코드
-    static int DETAIL_PLACE_RESULT = 101;
+    final static int DETAIL_PLACE_RESULT = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,55 +110,46 @@ public class PlaceActivity extends AppCompatActivity {
 
         //리사이클러뷰 어댑터 클릭 이벤트
         placeAdapter.setOnItemClickListener(
-                new PlaceAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View v, int position) {
-                        Intent intent = new Intent(getApplicationContext(), PlaceDetailActivity.class);
-                        intent.putExtra("id", placeID.get(position));
-                        intent.putExtra("title", placeTitle.get(position));
-                        intent.putExtra("address", placeAddr.get(position));
-                        intent.putExtra("like", placeLike.get(position));
-                        Log.d("go detail", "like state is " + String.valueOf(placeLike.get(position)));
-                        intent.putExtra("x", placeX.get(position));
-                        intent.putExtra("y", placeY.get(position));
-                        intent.putExtra("position", position); //detail 화면 destroy 이후 좋아요 상태를 변경하기 위해 넣어줌.
-                        startActivityForResult(intent, DETAIL_PLACE_RESULT);
-                    }
+                (v, position) -> {
+                    Intent intent = new Intent(getApplicationContext(), PlaceDetailActivity.class);
+                    intent.putExtra("id", placeID.get(position));
+                    intent.putExtra("title", placeTitle.get(position));
+                    intent.putExtra("address", placeAddr.get(position));
+                    intent.putExtra("like", placeLike.get(position));
+                    Log.d("go detail", "like state is " + String.valueOf(placeLike.get(position)));
+                    intent.putExtra("x", placeX.get(position));
+                    intent.putExtra("y", placeY.get(position));
+                    intent.putExtra("position", position); //detail 화면 destroy 이후 좋아요 상태를 변경하기 위해 넣어줌.
+                    startActivityForResult(intent, DETAIL_PLACE_RESULT);
                 }
         );
 
         //좋아요 버튼 클릭 이벤트
         placeAdapter.setOnLikeClickListener(
-                new PlaceAdapter.OnLikeClickListener() {
-                    @Override
-                    public void onLikeClick(View v, int position) {
-                        ImageButton likeButton = v.findViewById(R.id.button_place_like);
-                        PlaceItem item = placeItems.get(position);
-                        int id = placeID.get(position);
-                        if(!item.getlikeState()){
-                            reqeustPlaceLike(new PlaceLikeData(id));
-                            likeButton.setImageResource(R.drawable.ic_favorite_selected_24_dp);
-                            item.setlikeState(true);
-                            placeLike.set(position, true);
-                        } else {
-                            requestDeleteLike(new PlaceLikeData(id));
-                            likeButton.setImageResource(R.drawable.ic_favorite_border_list_24dp);
-                            item.setlikeState(false);
-                            placeLike.set(position, false);
-                        }
+                (v, position) -> {
+                    ImageButton likeButton = v.findViewById(R.id.button_place_like);
+                    PlaceItem item = placeItems.get(position);
+                    int id = placeID.get(position);
+                    if(!item.getlikeState()){
+                        reqeustPlaceLike(new PlaceLikeData(id));
+                        likeButton.setImageResource(R.drawable.ic_favorite_selected_24_dp);
+                        item.setlikeState(true);
+                        placeLike.set(position, true);
+                    } else {
+                        requestDeleteLike(new PlaceLikeData(id));
+                        likeButton.setImageResource(R.drawable.ic_favorite_border_list_24dp);
+                        item.setlikeState(false);
+                        placeLike.set(position, false);
                     }
                 }
         );
     }
 
-    // 검색 확장, 축소를 버튼으로 생성
-
-
     //툴바 초기화 메소드
     private void initToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar_place);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_backspace_24dp);
 
         androidx.appcompat.widget.SearchView searchView = findViewById(R.id.place_search);
@@ -478,19 +467,19 @@ public class PlaceActivity extends AppCompatActivity {
             String serviceKey = "x%2FB48ucBtE1tDbI%2FOOc%2B0Qh3MP%2BlYEETjSL5Q8G0L912refn%2FEii%2FgZ5E0S%2Bdqs%2BAmxagAo%2B9%2BieRWWN80QxNA%3D%3D";
 
             StringBuilder urlBuilder1 = new StringBuilder("http://api.visitkorea.or.kr/openapi/service/rest/EngService/searchKeyword"); /*URL*/
-            urlBuilder1.append("?" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + serviceKey); /*Service Key*/
-            urlBuilder1.append("&" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + URLEncoder.encode(serviceKey, "UTF-8")); /*공공데이터포털에서 발급받은 인증키*/
-            urlBuilder1.append("&" + URLEncoder.encode("numOfRows", "UTF-8") + "=" + URLEncoder.encode("100", "UTF-8")); /*한 페이지 결과 수*/
-            urlBuilder1.append("&" + URLEncoder.encode("pageNo", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*현재 페이지 번호*/
-            urlBuilder1.append("&" + URLEncoder.encode("MobileOS", "UTF-8") + "=" + URLEncoder.encode("AND", "UTF-8")); /*IOS(아이폰),AND(안드로이드),WIN(원도우폰),ETC*/
-            urlBuilder1.append("&" + URLEncoder.encode("MobileApp", "UTF-8") + "=" + URLEncoder.encode("Travellet", "UTF-8")); /*서비스명=어플명*/
-            urlBuilder1.append("&" + URLEncoder.encode("listYN", "UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); /*목록 구분(Y=목록, N=개수)*/
-            urlBuilder1.append("&" + URLEncoder.encode("arrange", "UTF-8") + "=" + URLEncoder.encode("B", "UTF-8")); /*(A=제목순,B=조회순,C=수정일순,D=생성일순) 대표이미지가 반드시 있는 정렬(O=제목순, P=조회순, Q=수정일순, R=생성일순)*/
+            urlBuilder1.append("?").append(URLEncoder.encode("ServiceKey", "UTF-8")).append("=").append(serviceKey); /*Service Key*/
+            urlBuilder1.append("&").append(URLEncoder.encode("ServiceKey", "UTF-8")).append("=").append(URLEncoder.encode(serviceKey, "UTF-8")); /*공공데이터포털에서 발급받은 인증키*/
+            urlBuilder1.append("&").append(URLEncoder.encode("numOfRows", "UTF-8")).append("=").append(URLEncoder.encode("100", "UTF-8")); /*한 페이지 결과 수*/
+            urlBuilder1.append("&").append(URLEncoder.encode("pageNo", "UTF-8")).append("=").append(URLEncoder.encode("1", "UTF-8")); /*현재 페이지 번호*/
+            urlBuilder1.append("&").append(URLEncoder.encode("MobileOS", "UTF-8")).append("=").append(URLEncoder.encode("AND", "UTF-8")); /*IOS(아이폰),AND(안드로이드),WIN(원도우폰),ETC*/
+            urlBuilder1.append("&").append(URLEncoder.encode("MobileApp", "UTF-8")).append("=").append(URLEncoder.encode("Travellet", "UTF-8")); /*서비스명=어플명*/
+            urlBuilder1.append("&").append(URLEncoder.encode("listYN", "UTF-8")).append("=").append(URLEncoder.encode("Y", "UTF-8")); /*목록 구분(Y=목록, N=개수)*/
+            urlBuilder1.append("&").append(URLEncoder.encode("arrange", "UTF-8")).append("=").append(URLEncoder.encode("B", "UTF-8")); /*(A=제목순,B=조회순,C=수정일순,D=생성일순) 대표이미지가 반드시 있는 정렬(O=제목순, P=조회순, Q=수정일순, R=생성일순)*/
             if(searchType != -1){
-                urlBuilder1.append("&" + URLEncoder.encode("contentTypeId", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(searchType), "UTF-8")); /*관광타입(관광지, 숙박 등)ID*/
+                urlBuilder1.append("&").append(URLEncoder.encode("contentTypeId", "UTF-8")).append("=").append(URLEncoder.encode(String.valueOf(searchType), "UTF-8")); /*관광타입(관광지, 숙박 등)ID*/
             }
-            urlBuilder1.append("&" + URLEncoder.encode("areaCode", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*지역코드*/
-            urlBuilder1.append("&" + URLEncoder.encode("keyword", "UTF-8") + "=" + URLEncoder.encode(keyword, "UTF-8")); /*검색 요청할 키워드(국문=인코딩 필요)*/
+            urlBuilder1.append("&").append(URLEncoder.encode("areaCode", "UTF-8")).append("=").append(URLEncoder.encode("1", "UTF-8")); /*지역코드*/
+            urlBuilder1.append("&").append(URLEncoder.encode("keyword", "UTF-8")).append("=").append(URLEncoder.encode(keyword, "UTF-8")); /*검색 요청할 키워드(국문=인코딩 필요)*/
             URL url = new URL(urlBuilder1.toString());
 
             ConnectivityManager conManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -723,6 +712,7 @@ public class PlaceActivity extends AppCompatActivity {
         });
     }
 
+    //장소 좋아요 목록 조회 - GET : Retrofit2
     private void requestReadLike() {
         RetrofitClient.getService().readPlaceLike().enqueue(new Callback<PlaceLikeResponse>() {
             @Override

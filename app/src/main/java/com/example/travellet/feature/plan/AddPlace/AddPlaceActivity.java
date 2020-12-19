@@ -13,10 +13,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import android.view.View;
 
 import com.example.travellet.R;
-import com.example.travellet.feature.place.PlaceItem;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -27,6 +25,7 @@ import org.xml.sax.InputSource;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -34,7 +33,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 public class AddPlaceActivity extends AppCompatActivity {
 
     //리사이클러뷰에 필요한 변수
-    ArrayList<Integer> placeID = new ArrayList<Integer>();
+    ArrayList<Integer> placeID = new ArrayList<>();
     RecyclerView addPlaceRecyclerView;
     AddPlaceAdapter addPlaceAdapter;
     ArrayList<AddPlaceItem> addPlaceItems = new ArrayList<>();
@@ -57,17 +56,13 @@ public class AddPlaceActivity extends AppCompatActivity {
 
         //리사이클러뷰 어댑터 클릭 이벤트
         addPlaceAdapter.setOnItemClickListener(
-                new AddPlaceAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View v, int position) {
-                        //TODO: 거 뭐시기냐 누르면 화면 destroy하고 타이틀이랑, xy좌표 넘기기
-                        Intent intent=new Intent();
-                        intent.putExtra("title", addPlaceItems.get(position).getTitle());
-                        intent.putExtra("x", addPlaceItems.get(position).getTitle());
-                        intent.putExtra("y", addPlaceItems.get(position).getTitle());
-                        setResult(RESULT_OK, intent);
-                        finish();
-                    }
+                (v, position) -> {
+                    Intent intent=new Intent();
+                    intent.putExtra("title", addPlaceItems.get(position).getTitle());
+                    intent.putExtra("x", addPlaceItems.get(position).getMapx());
+                    intent.putExtra("y", addPlaceItems.get(position).getMapy());
+                    setResult(RESULT_OK, intent);
+                    finish();
                 }
         );
     }
@@ -76,7 +71,7 @@ public class AddPlaceActivity extends AppCompatActivity {
     private void initToolbar() {
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar_add_place);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_backspace_24dp);
         androidx.appcompat.widget.SearchView searchView = findViewById(R.id.place_add_search);
         searchView.setMaxWidth(Integer.MAX_VALUE);
@@ -113,18 +108,17 @@ public class AddPlaceActivity extends AppCompatActivity {
         try {
             String serviceKey = "x%2FB48ucBtE1tDbI%2FOOc%2B0Qh3MP%2BlYEETjSL5Q8G0L912refn%2FEii%2FgZ5E0S%2Bdqs%2BAmxagAo%2B9%2BieRWWN80QxNA%3D%3D";
 
-            StringBuilder urlBuilder1 = new StringBuilder("http://api.visitkorea.or.kr/openapi/service/rest/EngService/searchKeyword"); /*URL*/
-            urlBuilder1.append("?" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + serviceKey); /*Service Key*/
-            urlBuilder1.append("&" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + URLEncoder.encode(serviceKey, "UTF-8")); /*공공데이터포털에서 발급받은 인증키*/
-            urlBuilder1.append("&" + URLEncoder.encode("numOfRows", "UTF-8") + "=" + URLEncoder.encode("500", "UTF-8")); /*한 페이지 결과 수*/
-            urlBuilder1.append("&" + URLEncoder.encode("pageNo", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*현재 페이지 번호*/
-            urlBuilder1.append("&" + URLEncoder.encode("MobileOS", "UTF-8") + "=" + URLEncoder.encode("AND", "UTF-8")); /*IOS(아이폰),AND(안드로이드),WIN(원도우폰),ETC*/
-            urlBuilder1.append("&" + URLEncoder.encode("MobileApp", "UTF-8") + "=" + URLEncoder.encode("Travellet", "UTF-8")); /*서비스명=어플명*/
-            urlBuilder1.append("&" + URLEncoder.encode("listYN", "UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); /*목록 구분(Y=목록, N=개수)*/
-            urlBuilder1.append("&" + URLEncoder.encode("arrange", "UTF-8") + "=" + URLEncoder.encode("B", "UTF-8")); /*(A=제목순,B=조회순,C=수정일순,D=생성일순) 대표이미지가 반드시 있는 정렬(O=제목순, P=조회순, Q=수정일순, R=생성일순)*/
-            urlBuilder1.append("&" + URLEncoder.encode("areaCode", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*지역코드*/
-            urlBuilder1.append("&" + URLEncoder.encode("keyword", "UTF-8") + "=" + URLEncoder.encode(keyword, "UTF-8")); /*검색 요청할 키워드(국문=인코딩 필요)*/
-            URL url = new URL(urlBuilder1.toString());
+            String urlBuilder1 = "http://api.visitkorea.or.kr/openapi/service/rest/EngService/searchKeyword" + "?" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + serviceKey + /*Service Key*/
+                    "&" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + URLEncoder.encode(serviceKey, "UTF-8") + /*공공데이터포털에서 발급받은 인증키*/
+                    "&" + URLEncoder.encode("numOfRows", "UTF-8") + "=" + URLEncoder.encode("500", "UTF-8") + /*한 페이지 결과 수*/
+                    "&" + URLEncoder.encode("pageNo", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8") + /*현재 페이지 번호*/
+                    "&" + URLEncoder.encode("MobileOS", "UTF-8") + "=" + URLEncoder.encode("AND", "UTF-8") + /*IOS(아이폰),AND(안드로이드),WIN(원도우폰),ETC*/
+                    "&" + URLEncoder.encode("MobileApp", "UTF-8") + "=" + URLEncoder.encode("Travellet", "UTF-8") + /*서비스명=어플명*/
+                    "&" + URLEncoder.encode("listYN", "UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8") + /*목록 구분(Y=목록, N=개수)*/
+                    "&" + URLEncoder.encode("arrange", "UTF-8") + "=" + URLEncoder.encode("B", "UTF-8") + /*(A=제목순,B=조회순,C=수정일순,D=생성일순) 대표이미지가 반드시 있는 정렬(O=제목순, P=조회순, Q=수정일순, R=생성일순)*/
+                    "&" + URLEncoder.encode("areaCode", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8") + /*지역코드*/
+                    "&" + URLEncoder.encode("keyword", "UTF-8") + "=" + URLEncoder.encode(keyword, "UTF-8");/*URL*//*검색 요청할 키워드(국문=인코딩 필요)*/
+            URL url = new URL(urlBuilder1);
 
             ConnectivityManager conManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo netInfo = conManager.getActiveNetworkInfo();
@@ -145,7 +139,7 @@ public class AddPlaceActivity extends AppCompatActivity {
             URL url;
             Document doc = null;
             try {
-                url = new URL((String) urls[0]);
+                url = new URL(urls[0]);
                 DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
                 DocumentBuilder db = dbf.newDocumentBuilder();
                 doc = db.parse(new InputSource(url.openStream()));
@@ -320,9 +314,7 @@ public class AddPlaceActivity extends AppCompatActivity {
                 }
 
                 addItem(title, type, sigungu, Double.parseDouble(mapx), Double.parseDouble(mapy));
-                Log.d("search", String.valueOf(addPlaceItems.get(addPlaceItems.size()-1).getMapx()));
             }
-            Log.d("adapter", String.valueOf(addPlaceAdapter.getItemCount()));
             addPlaceRecyclerView.setAdapter(addPlaceAdapter);
         }
     }

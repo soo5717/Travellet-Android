@@ -86,7 +86,7 @@ public class SetBudgetActivity extends BaseActivity {
             public void onResponse(@NotNull Call<TravelCreateResponse> call, @NotNull Response<TravelCreateResponse> response) {
                 if(response.isSuccessful()) { //상태코드 200~300일 경우 (요청 성공 시)
                     TravelCreateResponse result = response.body();
-                    Toast.makeText(SetBudgetActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(SetBudgetActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
                     //여행 메인 페이지로 이동
                     Intent intent = new Intent(SetBudgetActivity.this, TravelActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -10,10 +10,13 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/AppTheme">
+        <activity android:name=".feature.plan.PlanActivity">
+
+        </activity>
         <activity
             android:name=".feature.util.SplashActivity"
             android:theme="@style/SplashTheme">
@@ -24,28 +27,18 @@
             </intent-filter>
         </activity>
         <activity android:name=".feature.util.BaseActivity" />
-
-        <activity android:name=".feature.sign.SignInActivity">
-
-        </activity>
+        <activity android:name=".feature.sign.SignInActivity"/>
         <activity android:name=".feature.sign.SignUp1Activity" />
         <activity android:name=".feature.sign.SignUp2Activity" />
         <activity android:name=".feature.setting.SettingActivity" />
-
         <activity android:name=".feature.travel.TravelActivity" />
         <activity android:name=".feature.travel.SetTitleActivity" />
         <activity android:name=".feature.travel.SetDateActivity" />
-        <activity android:name=".feature.travel.SetBudgetActivity">
-
-        </activity>
-
+        <activity android:name=".feature.travel.SetBudgetActivity"/>
         <activity android:name=".feature.place.PlaceDetailActivity" />
-        <activity android:name=".feature.place.PlaceActivity">
-        </activity>
-
-        <activity android:name=".feature.plan.AddPlace.AddPlaceActivity">
-
-        </activity>
+        <activity android:name=".feature.place.PlaceActivity"/>
+        <activity android:name=".feature.plan.AddPlace.AddPlaceActivity"/>
+        <activity android:name=".feature.plan.AddPlanActivity"/>
         <activity android:name=".feature.plan.input.InputCostActivity" />
         <activity android:name=".feature.plan.input.InputBudgetActivity" />
 
@@ -55,6 +48,7 @@
 
         <uses-library
             android:name="org.apache.http.legacy"
-            android:required="false"/>
+            android:required="false" />
     </application>
+
 </manifest>

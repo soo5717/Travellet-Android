@@ -1,9 +1,11 @@
 package com.example.travellet.network;
 
 import com.example.travellet.data.requestBody.PlaceLikeData;
+import com.example.travellet.data.requestBody.PlanCreateData;
 import com.example.travellet.data.requestBody.ProfileData;
 import com.example.travellet.data.requestBody.TravelCreateData;
 import com.example.travellet.data.responseBody.PlaceLikeResponse;
+import com.example.travellet.data.responseBody.PlanCreateResponse;
 import com.example.travellet.data.responseBody.ProfileResponse;
 import com.example.travellet.data.requestBody.SignInData;
 import com.example.travellet.data.responseBody.SignInResponse;
@@ -47,6 +49,9 @@ public interface ServiceAPI {
 
     @POST("/travels") //여행 생성
     Call<TravelCreateResponse> createTravel(@Body TravelCreateData data);
+
+    @POST("/travels/:travelid/plans") //일정 추가
+    Call<PlanCreateResponse> createPlan(@Body PlanCreateData data);
 
 
     //장소 검색
