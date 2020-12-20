@@ -41,7 +41,7 @@
             app:tabSelectedTextColor="@color/text_blue"
             app:tabTextAppearance="@style/TabText"
             app:tabIndicatorColor="@color/text_blue"
-            android:background="@drawable/bg_tablayout_line" >
+            android:background="@drawable/bg_grey_line" >
         </com.google.android.material.tabs.TabLayout>
 
     </com.google.android.material.appbar.AppBarLayout>

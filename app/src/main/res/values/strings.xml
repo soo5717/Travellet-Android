@@ -66,4 +66,9 @@
     <string name="past">past</string>
     <string name="upcomig">upcomig</string>
     <string name="saturday">Saturday</string>
+    <string name="distribute_the_remaining_budget">Distribute the remaining budget.</string>
+    <string name="budget">budget</string>
+    <string name="expense">expense</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -17,27 +17,29 @@
         <activity
             android:name=".feature.util.SplashActivity"
             android:theme="@style/SplashTheme">
-
         </activity>
         <activity android:name=".feature.util.BaseActivity" />
-        <activity android:name=".feature.sign.SignInActivity"/>
+        <activity android:name=".feature.sign.SignInActivity" />
         <activity android:name=".feature.sign.SignUp1Activity" />
         <activity android:name=".feature.sign.SignUp2Activity" />
         <activity android:name=".feature.setting.SettingActivity" />
         <activity android:name=".feature.travel.TravelActivity" />
         <activity android:name=".feature.travel.SetTitleActivity" />
         <activity android:name=".feature.travel.SetDateActivity" />
-        <activity android:name=".feature.travel.SetBudgetActivity"/>
+        <activity android:name=".feature.travel.SetBudgetActivity" />
+        <activity android:name=".feature.place.PlaceActivity" />
         <activity android:name=".feature.place.PlaceDetailActivity" />
-        <activity android:name=".feature.place.PlaceActivity"/>
-        <activity android:name=".feature.plan.AddPlace.AddPlaceActivity"/>
-        <activity android:name=".feature.plan.AddPlanActivity">
+        <activity android:name=".feature.plan.PlanActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".feature.plan.AddPlanActivity" />
+        <activity android:name=".feature.plan.AddPlaceActivity" />
+        <activity android:name=".feature.plan.DistributeBudgetActivity" />
+        <activity android:name=".feature.plan.PlanDetailActivity" />
         <activity android:name=".feature.plan.input.InputCostActivity" />
         <activity android:name=".feature.plan.input.InputBudgetActivity" />
 
