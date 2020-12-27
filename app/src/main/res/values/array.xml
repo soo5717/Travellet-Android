@@ -27,4 +27,13 @@
         <item>Edit</item>
         <item>Delete</item>
     </string-array>
+
+    <!-- 교통 수단 -->
+    <string-array name="transport">
+        <item>Walk</item>
+        <item>Bus</item>
+        <item>Subway</item>
+        <item>Taxi</item>
+        <item>Car</item>
+    </string-array>
 </resources>

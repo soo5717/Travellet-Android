@@ -20,6 +20,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import com.example.travellet.R;
+import com.example.travellet.data.StatusResponse;
 import com.example.travellet.data.requestBody.PlanCreateData;
 import com.example.travellet.data.responseBody.PlanCreateResponse;
 import com.example.travellet.databinding.ActivityAddPlanBinding;
@@ -34,10 +35,11 @@ import java.util.Objects;
 public class AddPlanActivity extends BaseActivity {
     private ActivityAddPlanBinding binding;
 
-    int hour, min, category; //category -> (1:lodging, 2:food, 3:shopping, 4:tourism, 5:etc)
+    int travelId, planId, hour, min, transport, category; //category -> (1:lodging, 2:food, 3:shopping, 4:tourism, 5:etc)
     double x, y;
-    String place, time;
+    String place, time, date;
     String memo="null";
+    boolean editState = false;
 
     final static int ADD_PLACE_RESULT = 102;
 
@@ -142,10 +144,16 @@ public class AddPlanActivity extends BaseActivity {
     public void setAddPlanActivity(){
         //plan에서 화면에서 넘긴 데이터들(plan 수정시 세팅해놓을 것들)
         Intent intent = getIntent();
+        date = intent.getStringExtra("date");
+        travelId = intent.getIntExtra("travelId", 0);
+        Log.d("travel id", String.valueOf(travelId));
+        planId = intent.getIntExtra("planId", 0);
         x = intent.getDoubleExtra("x", 0);
         y = intent.getDoubleExtra("y", 0);
+        transport = intent.getIntExtra("transport", 0);
         //선택되어 있는 place 보여주기
         if(intent.getStringExtra("place")!=null){
+            editState = true;
             binding.btnAdd.setText("EDIT");
             place = intent.getStringExtra("place");
             binding.place.setText(place);
@@ -155,14 +163,8 @@ public class AddPlanActivity extends BaseActivity {
         if(intent.getStringExtra("time")!=null){
             time = intent.getStringExtra("time");
             String[] arr = time.split(":"); //"00:00:00" string을 ':' 기준으로 split하고
-            String[] arr1 = arr[0].split(" "); //입력된 hour가 한자리수인지 두자리수인지 파악
-            if(arr1[0].equals("AM")) // am과 pm에 따라 hour 변경
-                hour = Integer.parseInt(arr1[1]);
-            else
-                hour = Integer.parseInt(arr1[1]+12);
-            min = Integer.parseInt(arr[1]);
-            binding.time.setHour(hour);
-            binding.time.setMinute(min);
+            binding.time.setHour(Integer.parseInt(arr[0]));
+            binding.time.setMinute(Integer.parseInt(arr[1]));
         }
 
         //입력되어 있는 메모 보여주기
@@ -234,7 +236,11 @@ public class AddPlanActivity extends BaseActivity {
         intent.putExtra("y", y);
 
         setResult(RESULT_OK, intent);
-        requestCreatePlan(new PlanCreateData("2020-01-01", hour+":"+min+": ", place, memo,1, 1, x, y, 1));
+        Log.d("edit state", String.valueOf(editState));
+        if(!editState)
+            requestCreatePlan(new PlanCreateData(date, hour+":"+min+": ", place, memo,category, 1, x, y, travelId));
+        else
+            requestUpdatePlan(new PlanCreateData(date,hour+":"+min+": ", place, memo,category, transport, x, y, travelId), planId);
     }
 
     @Override
@@ -252,13 +258,13 @@ public class AddPlanActivity extends BaseActivity {
         }
     }
 
+    //일정 생성 - POST: Retrofit2
     private void requestCreatePlan(PlanCreateData data){
-        RetrofitClient.getService().createPlan(1, data).enqueue(new Callback<PlanCreateResponse>() {
+        RetrofitClient.getService().createPlan(travelId, data).enqueue(new Callback<PlanCreateResponse>() {
             @Override
             public void onResponse(Call<PlanCreateResponse> call, Response<PlanCreateResponse> response) {
                 if(response.isSuccessful()) {
                     PlanCreateResponse result = response.body();
-
                     finish();
                 }
             }
@@ -271,5 +277,21 @@ public class AddPlanActivity extends BaseActivity {
         });
     }
 
+    //일정 수정 - PUT : Retrofit2
+    private void requestUpdatePlan(PlanCreateData data, int planId){
+        //TODO: TRAVEL 완성되면 TRAVEL ID 받아오게 수정해야 함.
+        RetrofitClient.getService().updatePlan(planId, 1, data).enqueue(new Callback<StatusResponse>() {
+            @Override
+            public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
+                StatusResponse result = response.body();
+                finish();
+            }
 
+            @Override
+            public void onFailure(Call<StatusResponse> call, Throwable t) {
+                Toast.makeText(AddPlanActivity.this, "Update Error", Toast.LENGTH_SHORT).show();
+                Log.e("일정 수정 에러", Objects.requireNonNull(t.getMessage()));
+            }
+        });
+    }
 }

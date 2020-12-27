@@ -6,6 +6,7 @@ import com.example.travellet.data.requestBody.ProfileData;
 import com.example.travellet.data.requestBody.TravelCreateData;
 import com.example.travellet.data.responseBody.PlaceLikeResponse;
 import com.example.travellet.data.responseBody.PlanCreateResponse;
+import com.example.travellet.data.responseBody.PlanResponse;
 import com.example.travellet.data.responseBody.ProfileResponse;
 import com.example.travellet.data.requestBody.SignInData;
 import com.example.travellet.data.responseBody.SignInResponse;
@@ -22,6 +23,7 @@ import retrofit2.http.HTTP;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by 수연 on 2020-11-18.
@@ -51,8 +53,14 @@ public interface ServiceAPI {
     @POST("/travels") //여행 생성
     Call<TravelCreateResponse> createTravel(@Body TravelCreateData data);
 
-    @POST("/travels/{travelid}/plans") //일정 추가
-    Call<PlanCreateResponse> createPlan(@Path("travelid") int travelId,  @Body PlanCreateData data);
+    @POST("/plans") //일정 추가
+    Call<PlanCreateResponse> createPlan(@Query("travelid") int travelId,  @Body PlanCreateData data);
+    @GET("/plans") //일정 목록 조회
+    Call<PlanResponse> readPlan(@Query("travelid") int travelId);
+    @PUT("/plans/{id}") // 일정 수정
+    Call<StatusResponse> updatePlan(@Path("id") int planId, @Query("travelid") int travelId, @Body PlanCreateData data);
+    @DELETE("/plans/{id}") // 일정 삭제
+    Call<StatusResponse> deletePlan(@Path("id") int planId, @Query("travelid") int travelId);
 
 
     //장소 검색

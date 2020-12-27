@@ -96,8 +96,8 @@ public class PlaceActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_place);
+
         initToolbar();
         initTab();
 
@@ -198,51 +198,7 @@ public class PlaceActivity extends AppCompatActivity {
                 return false;
             }
         });
-        /*searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            //검색 버튼을 눌렀을 경우
-            @Override
-            public boolean onQueryTextSubmit(String keyword) {
-                //스트링 변수 keyword는 입력한 검색어
-                keywordState = true;
-                searchKeyword = keyword;
-                if(lodgingState) {
-                    searchType = 80;
-                }
-                else if(foodState) {
-                    searchType = 82;
-                }
-                else if(shoppingState) {
-                    searchType = 79;
-                }
-                else if(tourismState) {
-                    searchType = 76;
-                }
-                else if(cultureState) {
-                    searchType = 78;
-                }
-                else if(leisureState) {
-                    searchType = 75;
-                }
-                else if(transportationState){
-                    searchType = 77;
-                }
-                else if(etcState) {
-                    searchType = 85;
-                }
-                else
-                    searchType = -1;
-                placeItems.clear();
-                placeID.clear();
-                getPlaceListData(keyword, searchType);
-                return true;
-            }
 
-            //텍스트가 바뀔 때마다 호출
-            @Override
-            public boolean onQueryTextChange(String place) {
-                return false;
-            }
-        });*/
 
     }
 
@@ -263,12 +219,10 @@ public class PlaceActivity extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                // TODO : tab의 상태가 선택되지 않음으로 변경.
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                // TODO : 이미 선택된 tab이 다시
             }
         });
     }
@@ -730,7 +684,7 @@ public class PlaceActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NotNull Call<PlaceLikeResponse> call, @NotNull Throwable t) {
-                Toast.makeText(PlaceActivity.this, "Cancel Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PlaceActivity.this, "Read Error", Toast.LENGTH_SHORT).show();
                 Log.e("좋아요 조회 에러", Objects.requireNonNull(t.getMessage()));
             }
         });

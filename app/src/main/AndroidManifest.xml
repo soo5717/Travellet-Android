@@ -35,6 +35,7 @@
         <activity android:name=".feature.place.PlaceActivity" />
         <activity android:name=".feature.place.PlaceDetailActivity" />
         <activity android:name=".feature.plan.PlanActivity">
+
         </activity>
         <activity android:name=".feature.plan.AddPlanActivity" />
         <activity android:name=".feature.plan.AddPlace.AddPlaceActivity" />
