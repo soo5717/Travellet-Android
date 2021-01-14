@@ -22,6 +22,7 @@
         <item>U.K</item>
         <item>Vietnam</item>
     </string-array>
+
     <!-- 수정/삭제  -->
     <string-array name="edit_delete">
         <item>Edit</item>
@@ -35,5 +36,10 @@
         <item>Subway</item>
         <item>Taxi</item>
         <item>Car</item>
+    </string-array>
+
+    <!--  삭제  -->
+    <string-array name="delete">
+        <item>Delete</item>
     </string-array>
 </resources>

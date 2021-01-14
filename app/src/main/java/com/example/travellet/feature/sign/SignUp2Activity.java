@@ -80,10 +80,8 @@ public class SignUp2Activity extends BaseActivity {
         builder.setItems(R.array.country, (dialog, which) ->
                 binding.buttonCountry.setText(arrayListCountry.get(which)));
         //Country 버튼 이벤트
-        binding.buttonCountry.setOnClickListener(v -> {
-            AlertDialog alertDialog = builder.create();
-            alertDialog.show();
-        });
+        final AlertDialog alertDialog = builder.create();
+        binding.buttonCountry.setOnClickListener(v -> alertDialog.show());
     }
 
     //Ok 버튼 클릭 이벤트 : 로그인 페이지로 이동
@@ -103,12 +101,6 @@ public class SignUp2Activity extends BaseActivity {
             //이름, 국가
             name = binding.editTextName.getText().toString();
             country = binding.buttonCountry.getText().toString();
-
-            //테스트 코드 => 추후 삭제
-            Log.d("이메일", email);
-            Log.d("비밀번호", encryptPwd);
-            Log.d("이름", name);
-            Log.d("국가", country);
 
             //회원가입 요청 메소드 호출
             reqeustSignUp(new SignUpData(email, encryptPwd, name, country));

@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by 수연 on 2020-11-18.
  * Class: SettingResponse
- * Description: 프로필 조회 요청 데이터
+ * Description: 프로필 조회 응답 데이터
  */
 public class ProfileResponse {
     @SerializedName("status")

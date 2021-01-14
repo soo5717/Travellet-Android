@@ -13,9 +13,9 @@ import com.example.travellet.data.responseBody.SignInResponse;
 import com.example.travellet.data.requestBody.SignUpData;
 import com.example.travellet.data.StatusResponse;
 import com.example.travellet.data.responseBody.TravelCreateResponse;
+import com.example.travellet.data.responseBody.TravelReadResponse;
 
 import retrofit2.Call;
-import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -52,6 +52,10 @@ public interface ServiceAPI {
 
     @POST("/travels") //여행 생성
     Call<TravelCreateResponse> createTravel(@Body TravelCreateData data);
+    @GET("/travels") //여행 목록 조회 요청
+    Call<TravelReadResponse> readTravel(@Query("date") String date);
+    @DELETE("/travels/{id}") //여행 삭제
+    Call<StatusResponse> deleteTravel(@Path("id") int id);
 
     @POST("/plans") //일정 추가
     Call<PlanCreateResponse> createPlan(@Query("travelid") int travelId,  @Body PlanCreateData data);
@@ -62,6 +66,4 @@ public interface ServiceAPI {
     @DELETE("/plans/{id}") // 일정 삭제
     Call<StatusResponse> deletePlan(@Path("id") int planId, @Query("travelid") int travelId);
 
-
-    //장소 검색
 }

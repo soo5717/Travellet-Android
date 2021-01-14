@@ -50,9 +50,8 @@ public class SettingActivity extends BaseActivity {
         setNameAlertDialog();
         setCountryAlertDialog();
 
-        //회원정보 요청 메소드 호출
+        //회원정보 요청
         requestReadProfile();
-        ProgressBarManager.showProgress(binding.progressBar, true);
     }
 
     @Override //Activity 뷰 바인딩
@@ -63,6 +62,7 @@ public class SettingActivity extends BaseActivity {
 
     //회원정보 요청 - GET : Retroifit2
     private void requestReadProfile() {
+        ProgressBarManager.showProgress(binding.progressBar, true);
         RetrofitClient.getService().readProfile().enqueue(new Callback<ProfileResponse>() {
             @Override
             public void onResponse(@NotNull Call<ProfileResponse> call, @NotNull Response<ProfileResponse> response) {

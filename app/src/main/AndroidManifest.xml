@@ -34,13 +34,11 @@
         <activity android:name=".feature.travel.SetBudgetActivity" />
         <activity android:name=".feature.place.PlaceActivity" />
         <activity android:name=".feature.place.PlaceDetailActivity" />
-        <activity android:name=".feature.plan.PlanActivity">
-
-        </activity>
+        <activity android:name=".feature.plan.PlanActivity" />
         <activity android:name=".feature.plan.AddPlanActivity" />
         <activity android:name=".feature.plan.AddPlace.AddPlaceActivity" />
         <activity android:name=".feature.plan.DistributeBudgetActivity" />
-        <activity android:name=".feature.plan.PlanDetailActivity" />
+        <activity android:name=".feature.plan.detail.PlanDetailActivity" />
         <activity android:name=".feature.plan.input.InputCostActivity" />
         <activity android:name=".feature.plan.input.InputBudgetActivity" />
 
@@ -52,5 +50,4 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
     </application>
-
 </manifest>

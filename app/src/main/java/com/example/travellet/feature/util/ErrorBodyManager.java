@@ -18,6 +18,7 @@ public class ErrorBodyManager {
     public static StatusResponse parseError(Response<?> response) {
         StatusResponse statusResponse = null;
         try {
+            assert response.errorBody() != null;
             statusResponse = new Gson().fromJson(response.errorBody().string(), StatusResponse.class);
         } catch (IOException e) {
             new StatusResponse();

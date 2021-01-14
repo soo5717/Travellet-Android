@@ -1,4 +1,4 @@
-package com.example.travellet.feature.plan;
+package com.example.travellet.feature.plan.detail;
 
 import android.os.Bundle;
 

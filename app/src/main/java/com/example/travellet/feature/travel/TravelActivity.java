@@ -1,25 +1,43 @@
 package com.example.travellet.feature.travel;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
-import com.example.travellet.R;
+import com.example.travellet.data.StatusResponse;
+import com.example.travellet.data.responseBody.TravelReadResponse;
 import com.example.travellet.databinding.ActivityTravelBinding;
 import com.example.travellet.feature.place.PlaceActivity;
 import com.example.travellet.feature.setting.SettingActivity;
+import com.example.travellet.feature.util.ProgressBarManager;
+import com.example.travellet.feature.util.TravelUtil;
+import com.example.travellet.feature.util.viewpager.ViewPagerAdapter;
+import com.example.travellet.feature.util.viewpager.ViewPagerCase;
+import com.example.travellet.feature.util.viewpager.ViewPagerData;
+import com.example.travellet.network.RetrofitClient;
+import com.google.android.material.tabs.TabLayoutMediator;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by 수연 on 2020-11-22.
  * Class: TravelActivity
- * Description: 메인 클래스 (미완성)
+ * Description: 메인 클래스
  * 로그인 후 바로 보이는 메인 화면으로 여행 목록를 담고 있음.
  */
 public class TravelActivity extends AppCompatActivity {
+    private final String[] TABS = {"upcoming", "past"}; //탭 선언
+    ArrayList<ViewPagerData> mList = new ArrayList<>(); //뷰페이저 리스트
     private ActivityTravelBinding binding; //바인딩 선언
 
     @Override
@@ -29,57 +47,60 @@ public class TravelActivity extends AppCompatActivity {
         binding = ActivityTravelBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        requestReadTravel(); //여행 목록 조회 요청
+        initButton(); //버튼 클릭 이벤트 설정
     }
 
-    //Upcoming 목록 요청 - GET : Retrofit2 => 미완성 코드
-    void requestUpcoming() {
-        
-    }
-    
-    //Past 목록 요청 메소드 호출 - GET : Retrofit2 => 미완성 코드
-    void requestPast() {
-
-    }
-
-    //Upcoming 버튼 클릭 이벤트
-    public void upcomingButtonClick(View view) {
-        //버튼 선택 시 Underline 및 text color 변경
-        binding.buttonUpcoming.setBackgroundResource(R.drawable.bg_underline_gradation);
-        binding.buttonUpcoming.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.text_blue));
-        binding.buttonPast.setBackgroundColor(Color.WHITE);
-        binding.buttonPast.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.icon_grey));
-
-        //Upcoming 목록 요청 메소드 호출
-//        requestUpcoming();
+    //버튼 클릭 이벤트 설정
+    private void initButton() {
+        //Add 버튼 클릭 이벤트 : 여행 추가 페이지로 이동
+        binding.buttonAdd.setOnClickListener(v -> {
+            Intent intent = new Intent(this, SetTitleActivity.class);
+            startActivity(intent);
+        });
+        //Search 버튼 클릭 이벤트 : 장소 검색 페이지로 이동
+        binding.buttonSearch.setOnClickListener(v -> {
+            Intent intent = new Intent(this, PlaceActivity.class);
+            startActivity(intent);
+        });
+        //Setting 버튼 클릭 이벤트 : 설정 페이지로 이동
+        binding.buttonSetting.setOnClickListener(v -> {
+            Intent intent = new Intent(this, SettingActivity.class);
+            startActivity(intent);
+        });
     }
 
-    //Past 버튼 클릭 이벤트
-    public void pastButtonClick(View view) {
-        //버튼 선택 시 Underline 및 text color 변경
-        binding.buttonUpcoming.setBackgroundColor(Color.WHITE);
-        binding.buttonUpcoming.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.icon_grey));
-        binding.buttonPast.setBackgroundResource(R.drawable.bg_underline_gradation);
-        binding.buttonPast.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.text_blue));
+    //리사이클러뷰 어댑터 설정
+    private void setTravelList(TravelReadResponse.Data data) {
+        ArrayList<TravelReadResponse.Data.Travel> upcoming = new ArrayList<>(data.getUpcoming());
+        ArrayList<TravelReadResponse.Data.Travel> past = new ArrayList<>(data.getPast());
 
-        //Past 목록 요청 메소드 호출
-//        requestPast();
+        //어댑터 설정 + 뷰페이저/탭 스와이프 설정
+        mList.add(new ViewPagerData(TravelActivity.this, upcoming));
+        mList.add(new ViewPagerData(TravelActivity.this, past));
+        binding.viewPager2.setAdapter(new ViewPagerAdapter(mList, ViewPagerCase.TRAVEL));
+        new TabLayoutMediator(binding.tabs, binding.viewPager2, (tab, position) -> tab.setText(TABS[position])).attach();
     }
 
-    //Add 버튼 클릭 이벤트 : 여행 추가 페이지로 이동
-    public void addButtonClick(View view) {
-        Intent intent = new Intent(this, SetTitleActivity.class);
-        startActivity(intent);
-    }
+    //여행 목록 조회 요청(Upcoming/Past) - GET : Retrofit2
+    private void requestReadTravel() {
+        ProgressBarManager.showProgress(binding.progressBar, true);
+        RetrofitClient.getService().readTravel(new TravelUtil().getToday()).enqueue(new Callback<TravelReadResponse>() {
+            @Override
+            public void onResponse(@NotNull Call<TravelReadResponse> call, @NotNull Response<TravelReadResponse> response) {
+                if(response.isSuccessful() && response.body() != null) {
+                    TravelReadResponse result = response.body();
+                    setTravelList(result.getData());
+                }
+                ProgressBarManager.showProgress(binding.progressBar, false);
+            }
 
-    //Search 버튼 클릭 이벤트 : 장소 검색 페이지로 이동
-    public void searchButtonClick(View view) {
-        Intent intent = new Intent(this, PlaceActivity.class);
-        startActivity(intent);
-    }
-
-    //Setting 버튼 클릭 이벤트 : 설정 페이지로 이동
-    public void settingButtonClick(View view) {
-        Intent intent = new Intent(this, SettingActivity.class);
-        startActivity(intent);
+            @Override
+            public void onFailure(@NotNull Call<TravelReadResponse> call, @NotNull Throwable t) {
+                Log.e("여행 목록 조회 에러", Objects.requireNonNull(t.getMessage()));
+                ProgressBarManager.showProgress(binding.progressBar, false);
+            }
+        });
     }
 }
