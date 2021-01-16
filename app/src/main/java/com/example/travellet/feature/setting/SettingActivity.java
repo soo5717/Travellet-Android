@@ -94,7 +94,7 @@ public class SettingActivity extends BaseActivity {
                     Toast.makeText(SettingActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
                     //로그인 페이지로 이동
                     Intent intent = new Intent(SettingActivity.this, SignInActivity.class);
-                    //회원가입 엑티비티 스택에서 제거하고 로그인만 남김
+                    //엑티비티 스택에서 제거하고 로그인만 남김
                     //TODO (suyeon) : 액티비티 스택 관련 조사 필요 => 제대로 된 코드 아닐 수도 있음.
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);

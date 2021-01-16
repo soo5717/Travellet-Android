@@ -29,6 +29,8 @@ import com.example.travellet.feature.util.BaseActivity;
 import com.example.travellet.network.RetrofitClient;
 import com.google.android.material.tabs.TabLayout;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -112,7 +114,7 @@ public class PlanActivity extends BaseActivity {
 
     //툴바 버튼 눌렀을 때
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home: { // 뒤로가기 버튼 눌렀을 때
                 finish();

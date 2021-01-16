@@ -1,6 +1,5 @@
 package com.example.travellet.feature.travel;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.travellet.R;
@@ -66,7 +66,7 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder
         public ViewHolder(@NonNull ItemTravelBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
-            
+
             // 리스너 객체 메소드 호출 {3번}
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
@@ -118,7 +118,7 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder
         holder.binding.textViewExpensePercent.setText(travelUtil.getExpensePercent(budget, sumBudget, sumExpense));
     }
 
-    //리사클러뷰 아이템 개수 리턴 : 필수적으로 지정해주어야 함!
+    //리사이클러뷰 아이템 개수 리턴 : 필수적으로 지정해주어야 함!
     @Override
     public int getItemCount() {
         return data.size();

@@ -14,8 +14,6 @@ import com.example.travellet.feature.place.PlaceActivity;
 import com.example.travellet.feature.setting.SettingActivity;
 import com.example.travellet.feature.util.ProgressBarManager;
 import com.example.travellet.feature.util.TravelUtil;
-import com.example.travellet.feature.util.viewpager.ViewPagerAdapter;
-import com.example.travellet.feature.util.viewpager.ViewPagerCase;
 import com.example.travellet.feature.util.viewpager.ViewPagerData;
 import com.example.travellet.network.RetrofitClient;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -52,25 +50,6 @@ public class TravelActivity extends AppCompatActivity {
         initButton(); //버튼 클릭 이벤트 설정
     }
 
-    //버튼 클릭 이벤트 설정
-    private void initButton() {
-        //Add 버튼 클릭 이벤트 : 여행 추가 페이지로 이동
-        binding.buttonAdd.setOnClickListener(v -> {
-            Intent intent = new Intent(this, SetTitleActivity.class);
-            startActivity(intent);
-        });
-        //Search 버튼 클릭 이벤트 : 장소 검색 페이지로 이동
-        binding.buttonSearch.setOnClickListener(v -> {
-            Intent intent = new Intent(this, PlaceActivity.class);
-            startActivity(intent);
-        });
-        //Setting 버튼 클릭 이벤트 : 설정 페이지로 이동
-        binding.buttonSetting.setOnClickListener(v -> {
-            Intent intent = new Intent(this, SettingActivity.class);
-            startActivity(intent);
-        });
-    }
-
     //리사이클러뷰 어댑터 설정
     private void setTravelList(TravelReadResponse.Data data) {
         ArrayList<TravelReadResponse.Data.Travel> upcoming = new ArrayList<>(data.getUpcoming());
@@ -79,12 +58,12 @@ public class TravelActivity extends AppCompatActivity {
         //어댑터 설정 + 뷰페이저/탭 스와이프 설정
         mList.add(new ViewPagerData(TravelActivity.this, upcoming));
         mList.add(new ViewPagerData(TravelActivity.this, past));
-        binding.viewPager2.setAdapter(new ViewPagerAdapter(mList, ViewPagerCase.TRAVEL));
+        binding.viewPager2.setAdapter(new TravelViewPagerAdapter(mList));
         new TabLayoutMediator(binding.tabs, binding.viewPager2, (tab, position) -> tab.setText(TABS[position])).attach();
     }
 
     //여행 목록 조회 요청(Upcoming/Past) - GET : Retrofit2
-    private void requestReadTravel() {
+    void requestReadTravel() {
         ProgressBarManager.showProgress(binding.progressBar, true);
         RetrofitClient.getService().readTravel(new TravelUtil().getToday()).enqueue(new Callback<TravelReadResponse>() {
             @Override
@@ -101,6 +80,42 @@ public class TravelActivity extends AppCompatActivity {
                 Log.e("여행 목록 조회 에러", Objects.requireNonNull(t.getMessage()));
                 ProgressBarManager.showProgress(binding.progressBar, false);
             }
+        });
+    }
+
+    //여행 삭제 요청 - DELTE : Retrofit2
+    void requestDeleteTravel(int id, TravelAdapter travelAdapter, int pos) {
+        RetrofitClient.getService().deleteTravel(id).enqueue(new Callback<StatusResponse>() {
+            @Override
+            public void onResponse(@NotNull Call<StatusResponse> call, @NotNull Response<StatusResponse> response) {
+                if(response.isSuccessful() && response.body() != null) {
+                    //리사이클러뷰 아이템 삭제
+                    travelAdapter.removeItem(pos);
+                }
+            }
+            @Override
+            public void onFailure(@NotNull Call<StatusResponse> call, @NotNull Throwable t) {
+                Log.d("여행 삭제 에러", Objects.requireNonNull(t.getMessage()));
+            }
+        });
+    }
+
+    //버튼 클릭 이벤트 설정
+    private void initButton() {
+        //Add 버튼 클릭 이벤트 : 여행 추가 페이지로 이동
+        binding.buttonAdd.setOnClickListener(v -> {
+            Intent intent = new Intent(this, SetTitleActivity.class);
+            startActivity(intent);
+        });
+        //Search 버튼 클릭 이벤트 : 장소 검색 페이지로 이동
+        binding.buttonSearch.setOnClickListener(v -> {
+            Intent intent = new Intent(this, PlaceActivity.class);
+            startActivity(intent);
+        });
+        //Setting 버튼 클릭 이벤트 : 설정 페이지로 이동
+        binding.buttonSetting.setOnClickListener(v -> {
+            Intent intent = new Intent(this, SettingActivity.class);
+            startActivity(intent);
         });
     }
 }

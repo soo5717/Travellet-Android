@@ -1,4 +1,4 @@
-package com.example.travellet.feature.plan;
+package com.example.travellet.feature.plan.distribute;
 
 import androidx.appcompat.app.AppCompatActivity;
 
