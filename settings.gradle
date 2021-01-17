@@ -1,3 +1,5 @@
+include ':ODsayAndroidSDK'
+include ':ODsayAndroidSDK'
 include ':AirCalendar'
 include ':app'
 project(':AirCalendar').projectDir = new File(rootDir, 'app/libs/AirCalendar-master/AirCalendar/')

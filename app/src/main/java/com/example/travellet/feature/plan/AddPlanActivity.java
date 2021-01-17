@@ -28,11 +28,14 @@ import com.example.travellet.databinding.ActivitySignUp2Binding;
 import com.example.travellet.feature.plan.AddPlace.AddPlaceActivity;
 import com.example.travellet.feature.travel.SetBudgetActivity;
 import com.example.travellet.feature.util.BaseActivity;
+import com.example.travellet.feature.util.ResultCode;
 import com.example.travellet.network.RetrofitClient;
 
 import java.util.Objects;
 
-public class AddPlanActivity extends BaseActivity {
+import javax.xml.transform.Result;
+
+public class AddPlanActivity extends BaseActivity implements ResultCode {
     private ActivityAddPlanBinding binding;
 
     int travelId, planId, hour, min, transport, category; //category -> (1:lodging, 2:food, 3:shopping, 4:tourism, 5:etc)
@@ -40,8 +43,6 @@ public class AddPlanActivity extends BaseActivity {
     String place, time, date;
     String memo="null";
     boolean editState = false;
-
-    final static int ADD_PLACE_RESULT = 102;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,6 +146,7 @@ public class AddPlanActivity extends BaseActivity {
         //plan에서 화면에서 넘긴 데이터들(plan 수정시 세팅해놓을 것들)
         Intent intent = getIntent();
         date = intent.getStringExtra("date");
+        Log.d("date", date);
         travelId = intent.getIntExtra("travelId", 0);
         Log.d("travel id", String.valueOf(travelId));
         planId = intent.getIntExtra("planId", 0);
@@ -238,9 +240,10 @@ public class AddPlanActivity extends BaseActivity {
         setResult(RESULT_OK, intent);
         Log.d("edit state", String.valueOf(editState));
         if(!editState)
-            requestCreatePlan(new PlanCreateData(date, hour+":"+min+": ", place, memo,category, 1, x, y, travelId));
+            requestCreatePlan(new PlanCreateData(date, hour+":"+min+": ", place, memo, category, 1, x, y, travelId));
+
         else
-            requestUpdatePlan(new PlanCreateData(date,hour+":"+min+": ", place, memo,category, transport, x, y, travelId), planId);
+            requestUpdatePlan(new PlanCreateData(date,hour+":"+min+": ", place, memo, category, transport, x, y, travelId), planId);
     }
 
     @Override

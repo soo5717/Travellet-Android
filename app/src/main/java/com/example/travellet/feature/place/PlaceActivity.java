@@ -42,6 +42,7 @@ import com.example.travellet.data.responseBody.ProfileResponse;
 import com.example.travellet.feature.setting.SettingActivity;
 import com.example.travellet.feature.sign.SignInActivity;
 import com.example.travellet.feature.sign.SignUp2Activity;
+import com.example.travellet.feature.util.ResultCode;
 import com.example.travellet.network.RetrofitClient;
 import com.google.android.material.tabs.TabLayout;
 
@@ -63,7 +64,7 @@ import java.util.Objects;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-public class PlaceActivity extends AppCompatActivity {
+public class PlaceActivity extends AppCompatActivity implements ResultCode {
     //탭 리스트
     List<String> tabList = Arrays.asList("all", "lodging", "food", "shopping",
                                                     "tourism", "culture","leisure", "transportation", "etc");
@@ -89,9 +90,6 @@ public class PlaceActivity extends AppCompatActivity {
     //좋아요 관련 변수
     ArrayList<Boolean> placeLike = new ArrayList<Boolean>();
     ArrayList<Integer> getLikeId = new ArrayList<>(); //get 해온 좋아요 목록 id 저장하는 arraylist
-
-    //결과코드
-    final static int DETAIL_PLACE_RESULT = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

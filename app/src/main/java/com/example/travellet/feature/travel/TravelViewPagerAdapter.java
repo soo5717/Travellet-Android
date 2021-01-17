@@ -54,6 +54,8 @@ public class TravelViewPagerAdapter extends RecyclerView.Adapter<TravelViewPager
             //아이템 클릭 이벤트: 일정 페이지로 이동 (travel_id 함께 전달)
             Intent intent = new Intent(v.getContext(), PlanActivity.class);
             intent.putExtra("travel_id", (int)travelAdapter.getItemId(pos));
+            intent.putExtra("startDate", arrayList.get(position).getData().get(pos).getStartDate());
+            intent.putExtra("endDate", arrayList.get(position).getData().get(pos).getEndDate());
             v.getContext().startActivity(intent);
         });
         travelAdapter.setmOnItemLongClickListener((v, pos) -> {

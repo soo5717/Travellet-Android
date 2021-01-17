@@ -43,6 +43,10 @@ public class PlanResponse {
         public Double x;
         @SerializedName("y")
         public Double y;
+        @SerializedName("sum_budget")
+        public Double sumBudget;
+        @SerializedName("sum_expense")
+        public Double sumExpense;
 
         public Integer getId() {
             return id;
@@ -114,6 +118,22 @@ public class PlanResponse {
 
         public void setY(Double y) {
             this.y = y;
+        }
+
+        public Double getSumBudget() {
+            return sumBudget;
+        }
+
+        public void setSumBudget(Double sumBudget) {
+            this.sumBudget = sumBudget;
+        }
+
+        public Double getSumExpense() {
+            return sumExpense;
+        }
+
+        public void setSumExpense(Double sumExpense) {
+            this.sumExpense = sumExpense;
         }
     }
 }
