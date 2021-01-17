@@ -9,7 +9,7 @@ import java.util.List;
  * Class: TravelReadResponse
  * Description: 여행 목록 조회 응답 데이터
  */
-public class TravelReadResponse {
+public class TravelResponse {
     @SerializedName("status")
     private Integer status;
     @SerializedName("success")

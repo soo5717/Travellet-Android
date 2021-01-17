@@ -8,13 +8,13 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.travellet.data.StatusResponse;
-import com.example.travellet.data.responseBody.TravelReadResponse;
+import com.example.travellet.data.responseBody.TravelResponse;
 import com.example.travellet.databinding.ActivityTravelBinding;
 import com.example.travellet.feature.place.PlaceActivity;
 import com.example.travellet.feature.setting.SettingActivity;
 import com.example.travellet.feature.util.ProgressBarManager;
 import com.example.travellet.feature.util.TravelUtil;
-import com.example.travellet.feature.util.viewpager.ViewPagerData;
+import com.example.travellet.data.viewpager.TravelViewPagerData;
 import com.example.travellet.network.RetrofitClient;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -35,7 +35,7 @@ import retrofit2.Response;
  */
 public class TravelActivity extends AppCompatActivity {
     private final String[] TABS = {"upcoming", "past"}; //탭 선언
-    ArrayList<ViewPagerData> mList = new ArrayList<>(); //뷰페이저 리스트
+    ArrayList<TravelViewPagerData> mList = new ArrayList<>(); //뷰페이저 리스트
     private ActivityTravelBinding binding; //바인딩 선언
 
     @Override
@@ -51,13 +51,13 @@ public class TravelActivity extends AppCompatActivity {
     }
 
     //리사이클러뷰 어댑터 설정
-    private void setTravelList(TravelReadResponse.Data data) {
-        ArrayList<TravelReadResponse.Data.Travel> upcoming = new ArrayList<>(data.getUpcoming());
-        ArrayList<TravelReadResponse.Data.Travel> past = new ArrayList<>(data.getPast());
+    private void setTravelList(TravelResponse.Data data) {
+        ArrayList<TravelResponse.Data.Travel> upcoming = new ArrayList<>(data.getUpcoming());
+        ArrayList<TravelResponse.Data.Travel> past = new ArrayList<>(data.getPast());
 
         //어댑터 설정 + 뷰페이저/탭 스와이프 설정
-        mList.add(new ViewPagerData(TravelActivity.this, upcoming));
-        mList.add(new ViewPagerData(TravelActivity.this, past));
+        mList.add(new TravelViewPagerData(this, upcoming));
+        mList.add(new TravelViewPagerData(this, past));
         binding.viewPager2.setAdapter(new TravelViewPagerAdapter(mList));
         new TabLayoutMediator(binding.tabs, binding.viewPager2, (tab, position) -> tab.setText(TABS[position])).attach();
     }
@@ -65,18 +65,18 @@ public class TravelActivity extends AppCompatActivity {
     //여행 목록 조회 요청(Upcoming/Past) - GET : Retrofit2
     void requestReadTravel() {
         ProgressBarManager.showProgress(binding.progressBar, true);
-        RetrofitClient.getService().readTravel(new TravelUtil().getToday()).enqueue(new Callback<TravelReadResponse>() {
+        RetrofitClient.getService().readTravel(new TravelUtil().getToday()).enqueue(new Callback<TravelResponse>() {
             @Override
-            public void onResponse(@NotNull Call<TravelReadResponse> call, @NotNull Response<TravelReadResponse> response) {
+            public void onResponse(@NotNull Call<TravelResponse> call, @NotNull Response<TravelResponse> response) {
                 if(response.isSuccessful() && response.body() != null) {
-                    TravelReadResponse result = response.body();
+                    TravelResponse result = response.body();
                     setTravelList(result.getData());
                 }
                 ProgressBarManager.showProgress(binding.progressBar, false);
             }
 
             @Override
-            public void onFailure(@NotNull Call<TravelReadResponse> call, @NotNull Throwable t) {
+            public void onFailure(@NotNull Call<TravelResponse> call, @NotNull Throwable t) {
                 Log.e("여행 목록 조회 에러", Objects.requireNonNull(t.getMessage()));
                 ProgressBarManager.showProgress(binding.progressBar, false);
             }

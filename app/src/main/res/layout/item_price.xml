@@ -29,7 +29,7 @@
         android:fontFamily="@font/noto_sans_medium"
         android:includeFontPadding="false"
         android:textAlignment="textEnd"
-        android:textColor="@color/four_grey"
+        android:textColor="@color/text_blue"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

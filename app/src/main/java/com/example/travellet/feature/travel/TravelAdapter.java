@@ -1,31 +1,17 @@
 package com.example.travellet.feature.travel;
 
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.travellet.R;
-import com.example.travellet.data.StatusResponse;
-import com.example.travellet.data.responseBody.TravelReadResponse;
+import com.example.travellet.data.responseBody.TravelResponse;
 import com.example.travellet.databinding.ItemTravelBinding;
-import com.example.travellet.feature.plan.PlanActivity;
 import com.example.travellet.feature.util.TravelUtil;
-import com.example.travellet.network.RetrofitClient;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Objects;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by 수연 on 2020-11-22.
@@ -34,7 +20,7 @@ import retrofit2.Response;
  * => viewbinding을 사용하였음!
  */
 public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder> {
-    private final ArrayList<TravelReadResponse.Data.Travel> data;
+    private final ArrayList<TravelResponse.Data.Travel> data;
 
     //커스텀 리스너 인터페이스 정의 {1번}
     public interface  OnItemClickListener {
@@ -56,7 +42,7 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder
     }
 
     //생성자
-    public TravelAdapter(ArrayList<TravelReadResponse.Data.Travel> data) {
+    public TravelAdapter(ArrayList<TravelResponse.Data.Travel> data) {
         this.data = data;
     }
 
@@ -124,7 +110,7 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder
         return data.size();
     }
 
-    //여행 아이디 리턴 : 페이지 이동 및 삭제를 위해 필요
+    //여행 아이디 반환 : 페이지 이동 및 삭제를 위해 필요
     @Override
     public long getItemId(int position) {
         return data.get(position).getId();
