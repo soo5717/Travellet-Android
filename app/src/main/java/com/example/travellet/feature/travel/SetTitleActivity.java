@@ -27,6 +27,9 @@ public class SetTitleActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //EditText 포커스
+        binding.titleTextSetTitle.requestFocus();
+
         Intent intent = getIntent();
         Edittext_title = (EditText) findViewById(R.id.title_text_set_title);
         //next 버튼 눌러서 다음 페이지로

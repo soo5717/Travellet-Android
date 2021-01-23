@@ -24,14 +24,19 @@
             </intent-filter>
         </activity>
         <activity android:name=".feature.util.BaseActivity" />
-        <activity android:name=".feature.sign.SignInActivity" />
-        <activity android:name=".feature.sign.SignUp1Activity" />
-        <activity android:name=".feature.sign.SignUp2Activity" />
+        <activity android:name=".feature.sign.SignInActivity"
+            android:windowSoftInputMode="stateVisible"/>
+        <activity android:name=".feature.sign.SignUp1Activity"
+            android:windowSoftInputMode="stateVisible"/>
+        <activity android:name=".feature.sign.SignUp2Activity"
+            android:windowSoftInputMode="stateVisible"/>
         <activity android:name=".feature.setting.SettingActivity" />
         <activity android:name=".feature.travel.TravelActivity" />
-        <activity android:name=".feature.travel.SetTitleActivity" />
+        <activity android:name=".feature.travel.SetTitleActivity"
+            android:windowSoftInputMode="stateVisible"/>
         <activity android:name=".feature.travel.SetDateActivity" />
-        <activity android:name=".feature.travel.SetBudgetActivity" />
+        <activity android:name=".feature.travel.SetBudgetActivity"
+            android:windowSoftInputMode="stateVisible"/>
         <activity android:name=".feature.place.PlaceActivity" />
         <activity android:name=".feature.place.PlaceDetailActivity" />
         <activity android:name=".feature.plan.PlanActivity" />

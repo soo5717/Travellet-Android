@@ -41,6 +41,9 @@ public class SetBudgetActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //EditText 포커스
+        binding.budgetEditSetBudget.requestFocus();
+
         Edittext_budget = (EditText) findViewById(R.id.budget_edit_set_budget);
         btn_Next = (Button) findViewById(R.id.next_button_set_budget);
         //btn_back = (ImageButton) findViewById(R.id.back_button_set_budget);

@@ -22,6 +22,9 @@ public class SignUp1Activity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //EditText 포커스
+        binding.editTextEmail.requestFocus();
+
         //EditText 입력 이벤트 (유효성 검증)
         mSignValidation = new SignValidation();
         mSignValidation.emailTextChanged(binding.editTextEmail);

@@ -36,6 +36,9 @@ public class SignUp2Activity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //EditText 포커스
+        binding.editTextName.requestFocus();
+
         //다이얼로그 설정
         setCountryAlertDialog();
     }

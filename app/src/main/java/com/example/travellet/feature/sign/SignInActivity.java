@@ -42,6 +42,9 @@ public class SignInActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+        //EditText 포커스
+        binding.editTextEmail.requestFocus();
+
         //EditText 입력 이벤트 (유효성 검증)
         mSignValidation = new SignValidation();
         mSignValidation.emailTextChanged(binding.editTextEmail);
