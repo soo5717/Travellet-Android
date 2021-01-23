@@ -21,6 +21,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -39,7 +40,7 @@ public interface ServiceAPI {
     Call<StatusResponse> signUp(@Body SignUpData data);
     @GET("/users") //회원정보 요청
     Call<ProfileResponse> readProfile();
-    @PUT("/users") //회원정보 수정 요청
+    @PATCH("/users") //회원정보 수정 요청
     Call<StatusResponse> updateProfile(@Body ProfileData data);
     @DELETE("/users") //회원탈퇴 요청
     Call<StatusResponse> deleteProfile();

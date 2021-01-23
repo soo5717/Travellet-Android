@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.travellet.R;
 import com.example.travellet.data.StatusResponse;
 import com.example.travellet.data.requestBody.ProfileData;
 import com.example.travellet.data.responseBody.ProfileResponse;
@@ -23,8 +22,6 @@ import com.example.travellet.network.RetrofitClient;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -33,25 +30,21 @@ import retrofit2.Response;
 
 /**
  * Created by 수연 on 2020-11-18.
- * Class: SettingActivity (기능 미완료)
+ * Class: SettingActivity
  * Description: 마이페이지 클래스
  * 사용자 정보에 대한 READ, UPDATE, DELETE 가능
  * => 이름 다이얼로그 디자인 수정 필요!!
  */
 public class SettingActivity extends BaseActivity {
     private ActivitySettingBinding binding; //바인딩 선언
-    private String mName, mCountry;
+    private String mName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //다이얼로그 구현
-        setNameAlertDialog();
-        setCountryAlertDialog();
-
-        //회원정보 요청
-        requestReadProfile();
+        requestReadProfile(); //회원정보 요청
+        setNameAlertDialog(); //다이얼로그 구현
     }
 
     @Override //Activity 뷰 바인딩
@@ -113,23 +106,18 @@ public class SettingActivity extends BaseActivity {
         });
     }
 
-    //회원정보 수정 요청 - PUT : Retrofit2
+    //회원정보 수정 요청 - PATCH : Retrofit2
     private void requestUpdateProfile(ProfileData data) {
         RetrofitClient.getService().updateProfile(data).enqueue(new Callback<StatusResponse>() {
             @Override
             public void onResponse(@NotNull Call<StatusResponse> call, @NotNull Response<StatusResponse> response) {
                 if(response.isSuccessful()){
                     binding.textViewName.setText(mName);
-                    binding.textViewCountry.setText(mCountry);
-                } else {
-                    StatusResponse result = ErrorBodyManager.parseError(response);
-                    Toast.makeText(SettingActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(@NotNull Call<StatusResponse> call, @NotNull Throwable t) {
-                Toast.makeText(SettingActivity.this, "회원정보 수정 에러", Toast.LENGTH_SHORT).show();
                 Log.e("회원정보 수정 에러", Objects.requireNonNull(t.getMessage()));
             }
         });
@@ -146,10 +134,9 @@ public class SettingActivity extends BaseActivity {
         //다이얼로그 OK 버튼 클릭 이벤트
         builder.setPositiveButton("OK", (dialog, which) -> {
             mName = editText.getText().toString();
-            mCountry = binding.textViewCountry.getText().toString();
 
             //회원정보 수정 요청 메소드 호출
-            requestUpdateProfile(new ProfileData(mName, mCountry));
+            requestUpdateProfile(new ProfileData(mName));
         });
         //다이얼로그 Cancel 버튼 클릭 이벤트
         builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
@@ -157,25 +144,6 @@ public class SettingActivity extends BaseActivity {
         //NameEdit 버튼 클릭 이벤트
         final AlertDialog alertDialog = builder.create();
         binding.buttonNameEdit.setOnClickListener(v -> alertDialog.show());
-    }
-
-    //CountryEdit 다이얼로그 설정
-    void setCountryAlertDialog() {
-        //String-Array -> ArrayList로 변환
-        ArrayList<String> arrayListCountry =
-                new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.country)));
-        //CountryEdit 다이얼로그 구현
-        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialog);
-        builder.setItems(R.array.country, (dialog, which) -> {
-            mName = binding.textViewName.getText().toString();
-            mCountry = arrayListCountry.get(which);
-
-            //회원정보 수정 요청 메소드 호출
-            requestUpdateProfile(new ProfileData(mName, mCountry));
-        });
-        //CountryEdit 버튼 이벤트
-        final AlertDialog alertDialog = builder.create();
-        binding.buttonCountryEdit.setOnClickListener(v -> alertDialog.show());
     }
 
     //SignOut 버튼 클릭 이벤트 : 로그아웃
@@ -189,7 +157,6 @@ public class SettingActivity extends BaseActivity {
 
     //DeleteAccount 버튼 클릭 이벤트 : 회원탈퇴
     public void deleteAccountButtonClick(View view) {
-        //Alert을 한 번 띄워야할까? 나중에 고민하자..^^
         //회원탈퇴 요청 메소드 호출
         requestDeleteProfile();
     }

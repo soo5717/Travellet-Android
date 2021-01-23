@@ -17,7 +17,11 @@
         <activity
             android:name=".feature.util.SplashActivity"
             android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".feature.util.BaseActivity" />
         <activity android:name=".feature.sign.SignInActivity" />
@@ -39,11 +43,6 @@
         </activity>
         <activity android:name=".feature.detail.expense.InputExpenseActivity" />
         <activity android:name=".feature.detail.budget.InputBudgetActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data

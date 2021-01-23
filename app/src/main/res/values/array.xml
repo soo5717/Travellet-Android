@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--  회원가입2 : 국가  -->
+    <!--  회원가입2 : 국가(환율 포함)  -->
     <string-array name="country">
-        <item>Australia</item>
-        <item>Canada</item>
-        <item>China</item>
-        <item>France</item>
-        <item>Germany</item>
-        <item>HongKong</item>
-        <item>India</item>
-        <item>Indonesia</item>
-        <item>Japan</item>
-        <item>Malaysia</item>
-        <item>MiddleEast</item>
-        <item>Philippines</item>
-        <item>Russia</item>
-        <item>Singapore</item>
-        <item>Taipei</item>
-        <item>Thailand</item>
-        <item>U.S.A</item>
-        <item>U.K</item>
-        <item>Vietnam</item>
+        <item>Australia - AUD</item>
+        <item>Canada - CAD</item>
+        <item>China - CNY</item>
+        <item>France - EUR</item>
+        <item>Germany - EUR</item>
+        <item>HongKong - HKD</item>
+        <item>India - INR</item>
+        <item>Indonesia - IDR</item>
+        <item>Japan - JPY</item>
+        <item>Korea - KRW</item>
+        <item>Malaysia - MYR</item>
+        <item>Philippines - PHP</item>
+        <item>Russia - RUB</item>
+        <item>Singapore - SGD</item>
+        <item>Taiwan - TWD</item>
+        <item>Thailand - THB</item>
+        <item>U.S.A - USD</item>
+        <item>U.K - GBP</item>
+        <item>Vietnam - VND</item>
     </string-array>
 
     <!--  삭제  -->

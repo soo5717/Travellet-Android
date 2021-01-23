@@ -209,23 +209,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-    <Button
-        android:id="@+id/button_country_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:background="@null"
-        android:fontFamily="@font/noto_sans_demilight"
-        android:includeFontPadding="false"
-        android:letterSpacing="0.03"
-        android:minWidth="0dp"
-        android:minHeight="0dp"
-        android:text="@string/edit"
-        android:textAllCaps="false"
-        android:textColor="@color/text_blue"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
