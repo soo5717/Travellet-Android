@@ -37,14 +37,16 @@ public class PlanDetailActivity extends BaseActivity {
     private final String[] TABS = {"budget", "expense"}; //탭 선언
     ArrayList<PlanDetailViewPagerData> mList = new ArrayList<>(); //뷰페이저 리스트
 
-    private int mPlanId = 9; //TODO (suyeon) : 고정 아이디 고쳐야 함.
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        initButton(); //버튼 클릭 이벤트 설정
-        requestReadPlanDetail(); //일정 조회 요청
+        //PlanId 받아오기
+        Intent intent = getIntent();
+        int planId= intent.getIntExtra("plan_id", 0);
+
+        initButton(planId); //버튼 클릭 이벤트 설정
+        requestReadPlanDetail(planId); //일정 조회 요청
     }
 
     @Override //Activity 뷰 바인딩
@@ -54,7 +56,7 @@ public class PlanDetailActivity extends BaseActivity {
     }
     
     //리사이클러뷰 어댑터 설정
-    private void setPlanDetailList(PlanDetailResponse.Data data) {
+    private void setPlanDetailList(PlanDetailResponse.Data data, int id) {
         String place = data.getPlace();
         String memo = data.getMemo();
         String startDate = data.getTravelStartDate();
@@ -65,22 +67,21 @@ public class PlanDetailActivity extends BaseActivity {
         ArrayList<PlanDetailResponse.Data.Datum> budgets = new ArrayList<>(data.getBudget());
         ArrayList<PlanDetailResponse.Data.Datum> expenses = new ArrayList<>(data.getExpense());
 
-        mList.add(new PlanDetailViewPagerData(this, ViewPagerCase.BUDGET, mPlanId, place, memo, startDate, date, totalBudget, currency, budgets));
-        mList.add(new PlanDetailViewPagerData(this, ViewPagerCase.EXPENSE, mPlanId, place, memo, startDate, date, totalExpense, currency, expenses));
+        mList.add(new PlanDetailViewPagerData(this, ViewPagerCase.BUDGET, id, place, memo, startDate, date, totalBudget, currency, budgets));
+        mList.add(new PlanDetailViewPagerData(this, ViewPagerCase.EXPENSE, id, place, memo, startDate, date, totalExpense, currency, expenses));
         binding.viewPager2.setAdapter(new PlanDetailViewPagerAdapter(mList));
         new TabLayoutMediator(binding.tabs, binding.viewPager2, ((tab, position) -> tab.setText(TABS[position]))).attach();
     }
 
     //일정 조회 요청 - GET : Retrofit2
-    void requestReadPlanDetail() {
+    void requestReadPlanDetail(int id) {
         ProgressBarManager.showProgress(binding.progressBar, true);
-        //TODO (suyeon) : 고정 아이디 고쳐야 함.
-        RetrofitClient.getService().readPlanDetail(mPlanId).enqueue(new Callback<PlanDetailResponse>() {
+        RetrofitClient.getService().readPlanDetail(id).enqueue(new Callback<PlanDetailResponse>() {
             @Override
             public void onResponse(@NotNull Call<PlanDetailResponse> call, @NotNull Response<PlanDetailResponse> response) {
                 if(response.isSuccessful() && response.body() != null) {
                     PlanDetailResponse result = response.body();
-                    setPlanDetailList(result.getData());
+                    setPlanDetailList(result.getData(), id);
                 }
                 ProgressBarManager.showProgress(binding.progressBar, false);
             }
@@ -128,19 +129,19 @@ public class PlanDetailActivity extends BaseActivity {
     }
 
     //버튼 클릭 이벤트 설정
-    private void initButton() {
+    private void initButton(int id) {
         //Add 버튼 클릭 이벤트 : 예산, 지출 추가 페이지로 이동
         binding.buttonAdd.setOnClickListener(v -> {
             Intent intent;
             switch (binding.tabs.getSelectedTabPosition()) {
                 case 0: // 예산 탭일 경우 예산 추가 페이지로 이동
                     intent = new Intent(this, AddBudgetActivity.class);
-                    intent.putExtra("plan_id", mPlanId);
+                    intent.putExtra("plan_id", id);
                     startActivity(intent);
                     break;
                 case 1: // 지출 탭일 경우 지출 추가 페이지로 이동
                     intent = new Intent(this, AddExpenseActivity.class);
-                    intent.putExtra("plan_id", mPlanId);
+                    intent.putExtra("plan_id", id);
                     startActivity(intent);
                     break;
             }
