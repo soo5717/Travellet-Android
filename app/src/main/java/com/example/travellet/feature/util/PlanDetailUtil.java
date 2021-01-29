@@ -44,12 +44,6 @@ public class PlanDetailUtil {
         return String.format(Locale.KOREA, mStrFormat, total);
     }
 
-    //금액 (￦1000)
-    public String getPrice(Double priceKrw) {
-        mStrFormat = "￦%,.0f";
-        return String.format(Locale.KOREA, mStrFormat, priceKrw);
-    }
-
     //카테고리 (숙박, 푸드, 쇼핑, 투어, 교통, 기타)
     public String getCategory(int category) {
         switch (category) {
@@ -77,7 +71,7 @@ public class PlanDetailUtil {
     }
 
     //환율 표기
-    public String getExchange(String currency, Double price) {
+    public String getPrice(String currency, Double price) {
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.getDefault());
         numberFormat.setCurrency(Currency.getInstance(currency));
 

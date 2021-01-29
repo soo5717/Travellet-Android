@@ -13,7 +13,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import com.example.travellet.R;
-import com.example.travellet.data.requestBody.TravelCreateData;
+import com.example.travellet.data.requestBody.TravelData;
 import com.example.travellet.data.responseBody.TravelCreateResponse;
 import com.example.travellet.databinding.ActivitySetBudgetBinding;
 import com.example.travellet.feature.util.BaseActivity;
@@ -75,7 +75,7 @@ public class SetBudgetActivity extends BaseActivity {
                     budget = Double.parseDouble(budgetStr);
 
                     Log.d("여행 생성 중", title+" / "+startDate+ " / " + endDate + " / " + budgetStr);
-                    reqeustCreateTravel(new TravelCreateData(title, startDate, endDate, budget));
+                    reqeustCreateTravel(new TravelData(title, startDate, endDate, budget));
                 }
 
             }
@@ -83,7 +83,7 @@ public class SetBudgetActivity extends BaseActivity {
     }
 
     //여행 생성 - POST : Retrofit2
-    private void reqeustCreateTravel(TravelCreateData data) {
+    private void reqeustCreateTravel(TravelData data) {
         RetrofitClient.getService().createTravel(data).enqueue(new Callback<TravelCreateResponse>() {
             @Override
             public void onResponse(@NotNull Call<TravelCreateResponse> call, @NotNull Response<TravelCreateResponse> response) {

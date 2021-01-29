@@ -15,21 +15,25 @@ import java.util.ArrayList;
 public class PlanDetailViewPagerData {
     private Context context;
     private ViewPagerCase viewPagerCase;
+    private Integer id;
     private String place;
     private String memo;
     private String startDate;
     private String date;
     private Integer total;
+    private String currency;
     private ArrayList<PlanDetailResponse.Data.Datum> arrayList;
 
-    public PlanDetailViewPagerData(Context context, ViewPagerCase viewPagerCase, String place, String memo, String startDate, String date, Integer total, ArrayList<PlanDetailResponse.Data.Datum> arrayList) {
+    public PlanDetailViewPagerData(Context context, ViewPagerCase viewPagerCase, Integer id, String place, String memo, String startDate, String date, Integer total, String currency, ArrayList<PlanDetailResponse.Data.Datum> arrayList) {
         this.context = context;
         this.viewPagerCase = viewPagerCase;
+        this.id = id;
         this.place = place;
         this.memo = memo;
         this.startDate = startDate;
         this.date = date;
         this.total = total;
+        this.currency = currency;
         this.arrayList = arrayList;
     }
 
@@ -39,6 +43,14 @@ public class PlanDetailViewPagerData {
 
     public void setContext(Context context) {
         this.context = context;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public ViewPagerCase getViewPagerCase() {
@@ -87,6 +99,22 @@ public class PlanDetailViewPagerData {
 
     public void setTotal(Integer total) {
         this.total = total;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public ArrayList<PlanDetailResponse.Data.Datum> getArrayList() {
+        return arrayList;
+    }
+
+    public void setArrayList(ArrayList<PlanDetailResponse.Data.Datum> arrayList) {
+        this.arrayList = arrayList;
     }
 
     public ArrayList<PlanDetailResponse.Data.Datum> getData() {

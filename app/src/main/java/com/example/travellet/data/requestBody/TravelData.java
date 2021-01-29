@@ -2,7 +2,7 @@ package com.example.travellet.data.requestBody;
 
 import com.google.gson.annotations.SerializedName;
 
-public class TravelCreateData {
+public class TravelData {
     @SerializedName("title")
     public String title;
     @SerializedName("startDate")
@@ -12,7 +12,7 @@ public class TravelCreateData {
     @SerializedName("budget")
     public double budget;
 
-    public TravelCreateData(String title, String startDate, String endDate, double budget){
+    public TravelData(String title, String startDate, String endDate, double budget){
         super();
         this.title = title;
         this.startDate = startDate;

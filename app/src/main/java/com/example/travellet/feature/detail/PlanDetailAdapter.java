@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.travellet.data.responseBody.PlanDetailResponse;
 import com.example.travellet.databinding.ItemPriceBinding;
-import com.example.travellet.feature.travel.TravelAdapter;
 import com.example.travellet.feature.util.PlanDetailUtil;
 
 import java.util.ArrayList;
@@ -21,6 +20,7 @@ import java.util.ArrayList;
  */
 public class PlanDetailAdapter extends RecyclerView.Adapter<PlanDetailAdapter.ViewHolder> {
     private final ArrayList<PlanDetailResponse.Data.Datum> data;
+    private final String currency;
 
     //커스텀 리스너 인터페이스 정의 {1번}
     public interface  OnItemLongClickListener {
@@ -35,8 +35,9 @@ public class PlanDetailAdapter extends RecyclerView.Adapter<PlanDetailAdapter.Vi
     }
 
     //생성자
-    public PlanDetailAdapter(ArrayList<PlanDetailResponse.Data.Datum> data) {
+    public PlanDetailAdapter(ArrayList<PlanDetailResponse.Data.Datum> data, String currency) {
         this.data = data;
+        this.currency = currency;
     }
 
     //아이템 뷰를 저장하는 뷰 홀더 클래스
@@ -75,16 +76,16 @@ public class PlanDetailAdapter extends RecyclerView.Adapter<PlanDetailAdapter.Vi
         //각 데이터 항목 get
         String currency = data.get(position).getCurrency();
         Double price = data.get(position).getPrice();
-        Double priceKrw = data.get(position).getPriceKrw();
+        Double priceTo = data.get(position).getPriceTo();
         String memo = data.get(position).getMemo();
         Integer category = data.get(position).getCategory();
         Boolean payment = data.get(position).getPayment();
 
         holder.binding.textViewTitle.setText(memo);
-        holder.binding.textViewPrice.setText(planDetailUtil.getPrice(priceKrw));
+        holder.binding.textViewPrice.setText(planDetailUtil.getPrice(currency, price));
         holder.binding.textViewCategory.setText(planDetailUtil.getCategory(category));
         holder.binding.textViewCredit.setText(planDetailUtil.getPayment(payment));
-        holder.binding.textViewExchange.setText(planDetailUtil.getExchange(currency, price));
+        holder.binding.textViewExchange.setText(planDetailUtil.getPrice(this.currency, priceTo));
     }
 
     //리사이클러뷰 아이템 개수 리턴 : 필수적으로 지정해주어야 함!

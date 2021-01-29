@@ -42,4 +42,10 @@
         <item>Taxi</item>
         <item>Car</item>
     </string-array>
+
+    <!--  지불 방식  -->
+    <string-array name="payment">
+        <item>Cash</item>
+        <item>Credit</item>
+    </string-array>
 </resources>

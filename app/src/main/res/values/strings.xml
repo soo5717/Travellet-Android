@@ -30,7 +30,7 @@
     <string name="do_you_travel">Do you Travel?</string>
     <string name="how_much">How Much</string>
     <string name="is_your_total_budget">Is Your Total Budget?</string>
-    <string name="please_enter_the_budget">Please enter the budget(￦)</string>
+    <string name="please_enter_the_budget">Please enter the budget (￦)</string>
     <string name="like">like</string>
     <string name="place">place</string>
     <string name="more">MORE</string>
@@ -39,8 +39,8 @@
     <string name="address">Address</string>
     <string name="more_info">MORE INFO</string>
     <string name="memo">Memo</string>
-    <string name="lodging">lodging</string>
-    <string name="food">food</string>
+    <string name="lodging">Lodging</string>
+    <string name="food">Food</string>
     <string name="add">ADD</string>
     <string name="krw">KRW</string>
     <string name="usd">usd</string>
@@ -63,12 +63,18 @@
     <string name="search_the_place">Search the place</string>
     <string name="place_thumbnail">Place thumbnail</string>
     <string name="like_button">Like button</string>
-    <string name="past">past</string>
-    <string name="upcomig">upcomig</string>
+    <string name="past">Past</string>
+    <string name="upcoming">Upcoming</string>
     <string name="saturday">Saturday</string>
     <string name="distribute_the_remaining_budget">Distribute the remaining budget.</string>
-    <string name="budget">budget</string>
-    <string name="expense">expense</string>
+    <string name="budget">Budget</string>
+    <string name="expense">Expense</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="etc">Etc</string>
+    <string name="transport">Transport</string>
+    <string name="tourism">Tourism</string>
+    <string name="shopping">Shopping</string>
+    <string name="cash">Cash</string>
+    <string name="change_currency">Change Currency</string>
 </resources>

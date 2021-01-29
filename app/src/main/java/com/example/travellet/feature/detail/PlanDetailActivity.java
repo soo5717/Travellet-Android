@@ -10,8 +10,8 @@ import com.example.travellet.data.responseBody.PlanDetailResponse;
 import com.example.travellet.data.viewpager.PlanDetailViewPagerData;
 import com.example.travellet.data.viewpager.ViewPagerCase;
 import com.example.travellet.databinding.ActivityPlanDetailBinding;
-import com.example.travellet.feature.detail.budget.InputBudgetActivity;
-import com.example.travellet.feature.detail.expense.InputExpenseActivity;
+import com.example.travellet.feature.detail.budget.AddBudgetActivity;
+import com.example.travellet.feature.detail.expense.AddExpenseActivity;
 import com.example.travellet.feature.util.BaseActivity;
 import com.example.travellet.feature.util.ProgressBarManager;
 import com.example.travellet.network.RetrofitClient;
@@ -26,17 +26,25 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Created by 수연 on 2021-01-29.
+ * Class: PlanDetailActivity
+ * Description: 일정 세부 조회(예산/지출) 페이지
+ */
 public class PlanDetailActivity extends BaseActivity {
+    private ActivityPlanDetailBinding binding; //바인딩 선언
+
     private final String[] TABS = {"budget", "expense"}; //탭 선언
     ArrayList<PlanDetailViewPagerData> mList = new ArrayList<>(); //뷰페이저 리스트
-    private ActivityPlanDetailBinding binding; //바인딩 선언
+
+    private int mPlanId = 9; //TODO (suyeon) : 고정 아이디 고쳐야 함.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        requestReadPlanDetail(); //일정 조회 요청
         initButton(); //버튼 클릭 이벤트 설정
+        requestReadPlanDetail(); //일정 조회 요청
     }
 
     @Override //Activity 뷰 바인딩
@@ -53,11 +61,12 @@ public class PlanDetailActivity extends BaseActivity {
         String date = data.getDate();
         int totalBudget = data.getSumBudget();
         int totalExpense = data.getSumExpense();
+        String currency = data.getCurrency();
         ArrayList<PlanDetailResponse.Data.Datum> budgets = new ArrayList<>(data.getBudget());
         ArrayList<PlanDetailResponse.Data.Datum> expenses = new ArrayList<>(data.getExpense());
 
-        mList.add(new PlanDetailViewPagerData(this, ViewPagerCase.BUDGET, place, memo, startDate, date, totalBudget, budgets));
-        mList.add(new PlanDetailViewPagerData(this, ViewPagerCase.EXPENSE, place, memo, startDate, date, totalExpense, expenses));
+        mList.add(new PlanDetailViewPagerData(this, ViewPagerCase.BUDGET, mPlanId, place, memo, startDate, date, totalBudget, currency, budgets));
+        mList.add(new PlanDetailViewPagerData(this, ViewPagerCase.EXPENSE, mPlanId, place, memo, startDate, date, totalExpense, currency, expenses));
         binding.viewPager2.setAdapter(new PlanDetailViewPagerAdapter(mList));
         new TabLayoutMediator(binding.tabs, binding.viewPager2, ((tab, position) -> tab.setText(TABS[position]))).attach();
     }
@@ -65,7 +74,8 @@ public class PlanDetailActivity extends BaseActivity {
     //일정 조회 요청 - GET : Retrofit2
     void requestReadPlanDetail() {
         ProgressBarManager.showProgress(binding.progressBar, true);
-        RetrofitClient.getService().readPlanDetail(9).enqueue(new Callback<PlanDetailResponse>() {
+        //TODO (suyeon) : 고정 아이디 고쳐야 함.
+        RetrofitClient.getService().readPlanDetail(mPlanId).enqueue(new Callback<PlanDetailResponse>() {
             @Override
             public void onResponse(@NotNull Call<PlanDetailResponse> call, @NotNull Response<PlanDetailResponse> response) {
                 if(response.isSuccessful() && response.body() != null) {
@@ -123,16 +133,14 @@ public class PlanDetailActivity extends BaseActivity {
         binding.buttonAdd.setOnClickListener(v -> {
             Intent intent;
             switch (binding.tabs.getSelectedTabPosition()) {
-                case 0:
-                    // 예산 탭일 경우
-                    Log.d("예산", "0");
-                    intent = new Intent(this, InputBudgetActivity.class);
+                case 0: // 예산 탭일 경우 예산 추가 페이지로 이동
+                    intent = new Intent(this, AddBudgetActivity.class);
+                    intent.putExtra("plan_id", mPlanId);
                     startActivity(intent);
                     break;
-                case 1:
-                    // 지출 탭일 경우
-                    Log.d("지출", "1");
-                    intent = new Intent(this, InputExpenseActivity.class);
+                case 1: // 지출 탭일 경우 지출 추가 페이지로 이동
+                    intent = new Intent(this, AddExpenseActivity.class);
+                    intent.putExtra("plan_id", mPlanId);
                     startActivity(intent);
                     break;
             }

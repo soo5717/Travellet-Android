@@ -1,9 +1,14 @@
 package com.example.travellet.network;
 
+import com.example.travellet.data.requestBody.BudgetData;
+import com.example.travellet.data.requestBody.ExpenseData;
 import com.example.travellet.data.requestBody.PlaceLikeData;
 import com.example.travellet.data.requestBody.PlanCreateData;
 import com.example.travellet.data.requestBody.ProfileData;
-import com.example.travellet.data.requestBody.TravelCreateData;
+import com.example.travellet.data.requestBody.TravelData;
+import com.example.travellet.data.responseBody.BudgetDetailResponse;
+import com.example.travellet.data.responseBody.ExchangeRateResponse;
+import com.example.travellet.data.responseBody.ExpenseDetailResponse;
 import com.example.travellet.data.responseBody.PlaceLikeResponse;
 import com.example.travellet.data.responseBody.PlanCreateResponse;
 import com.example.travellet.data.responseBody.PlanDetailResponse;
@@ -34,16 +39,18 @@ import retrofit2.http.Query;
  */
 public interface ServiceAPI {
 
-    @POST("/users/signin") //로그인 요청
+    @POST("/users/signin") //로그인
     Call<SignInResponse> signIn(@Body SignInData data);
-    @POST("/users/signup") //회원가입 요청
+    @POST("/users/signup") //회원가입
     Call<StatusResponse> signUp(@Body SignUpData data);
-    @GET("/users") //회원정보 요청
+    @GET("/users") //회원정보 조회
     Call<ProfileResponse> readProfile();
-    @PATCH("/users") //회원정보 수정 요청
+    @PATCH("/users") //회원정보 수정
     Call<StatusResponse> updateProfile(@Body ProfileData data);
-    @DELETE("/users") //회원탈퇴 요청
+    @DELETE("/users") //회원탈퇴
     Call<StatusResponse> deleteProfile();
+    @GET("/users/exchange-rate") //환율 조회
+    Call<ExchangeRateResponse> readExchangeRate(@Query("base") String base);
 
     @POST("/likes") // 장소 좋아요 추가
     Call<StatusResponse> createPlaceLike(@Body PlaceLikeData data);
@@ -53,7 +60,7 @@ public interface ServiceAPI {
     Call<PlaceLikeResponse> readPlaceLike();
 
     @POST("/travels") //여행 생성
-    Call<TravelCreateResponse> createTravel(@Body TravelCreateData data);
+    Call<TravelCreateResponse> createTravel(@Body TravelData data);
     @GET("/travels") //여행 목록 조회 요청
     Call<TravelResponse> readTravel(@Query("date") String date);
     @DELETE("/travels/{id}") //여행 삭제
@@ -70,9 +77,21 @@ public interface ServiceAPI {
     @DELETE("/plans/{id}") // 일정 삭제
     Call<StatusResponse> deletePlan(@Path("id") int planId, @Query("travelid") int travelId);
 
+    @POST("/budgets") //예산 생성
+    Call<StatusResponse> createBudget(@Body BudgetData data);
+    @GET("/budgets/{id}") //예산 내용 조회
+    Call<BudgetDetailResponse> readBudget(@Path("id") int id);
+    @PATCH("/budgets/{id}") //예산 수정
+    Call<StatusResponse> updateBudget(@Path("id") int id, @Body BudgetData data);
     @DELETE("/budgets/{id}") //예산 삭제
     Call<StatusResponse> deleteBudget(@Path("id") int id);
 
+    @POST("/expenses") //지출 생성
+    Call<StatusResponse> createExpense(@Body ExpenseData data);
+    @GET("/expenses/{id}") //지출 내용 조회
+    Call<ExpenseDetailResponse> readExpense(@Path("id") int id);
+    @PATCH("/expenses/{id}") //지출 수정
+    Call<StatusResponse> updateExpense(@Path("id") int id, @Body ExpenseData data);
     @DELETE("/expenses/{id}") //지출 삭제
     Call<StatusResponse> deleteExpense(@Path("id") int id);
 

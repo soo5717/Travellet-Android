@@ -42,6 +42,8 @@ public class PlanDetailResponse {
         private String memo;
         @SerializedName("Travel.start_date")
         private String travelStartDate;
+        @SerializedName("currency")
+        private String currency;
         @SerializedName("sum_budget")
         private Integer sumBudget;
         @SerializedName("sum_expense")
@@ -71,6 +73,10 @@ public class PlanDetailResponse {
             return travelStartDate;
         }
 
+        public String getCurrency() {
+            return currency;
+        }
+
         public Integer getSumBudget() {
             return sumBudget;
         }
@@ -94,6 +100,8 @@ public class PlanDetailResponse {
             private String currency;
             @SerializedName("price")
             private Double price;
+            @SerializedName("priceTo")
+            private Double priceTo;
             @SerializedName("priceKrw")
             private Double priceKrw;
             @SerializedName("memo")
@@ -113,6 +121,10 @@ public class PlanDetailResponse {
 
             public Double getPrice() {
                 return price;
+            }
+
+            public Double getPriceTo() {
+                return priceTo;
             }
 
             public Double getPriceKrw() {
