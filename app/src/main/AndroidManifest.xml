@@ -42,9 +42,7 @@
         <activity android:name=".feature.plan.PlanActivity" />
         <activity android:name=".feature.plan.AddPlanActivity" />
         <activity android:name=".feature.plan.AddPlace.AddPlaceActivity" />
-        <activity android:name=".feature.plan.distribute.DistributeBudgetActivity">
-
-        </activity>
+        <activity android:name=".feature.plan.distribute.DistributeBudgetActivity" />
         <activity android:name=".feature.detail.PlanDetailActivity" />
         <activity android:name=".feature.detail.expense.AddExpenseActivity" />
         <activity android:name=".feature.detail.budget.AddBudgetActivity" />

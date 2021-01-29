@@ -1,5 +1,6 @@
 package com.example.travellet.feature.travel;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -57,7 +58,7 @@ public class TravelViewPagerAdapter extends RecyclerView.Adapter<TravelViewPager
             intent.putExtra("travel_id", (int)travelAdapter.getItemId(pos));
             intent.putExtra("startDate", arrayList.get(position).getData().get(pos).getStartDate());
             intent.putExtra("endDate", arrayList.get(position).getData().get(pos).getEndDate());
-            v.getContext().startActivity(intent);
+            ((Activity)v.getContext()).startActivityForResult(intent, 200);
         });
         travelAdapter.setmOnItemLongClickListener((v, pos) -> {
             //아이템 롱 클릭 이벤트:

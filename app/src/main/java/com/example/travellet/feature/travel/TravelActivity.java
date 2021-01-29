@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.travellet.data.StatusResponse;
@@ -48,6 +49,13 @@ public class TravelActivity extends AppCompatActivity {
 
         requestReadTravel(); //여행 목록 조회 요청
         initButton(); //버튼 클릭 이벤트 설정
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        finish(); //액티비티 새로 고침
+        startActivity(getIntent()); //액티비티 새로 고침
     }
 
     //리사이클러뷰 어댑터 설정
