@@ -3,7 +3,7 @@ package com.example.travellet.data.requestBody;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class PlanCreateData {
+public class PlanData {
     @SerializedName("date")
     public String date;
     @SerializedName("time")
@@ -20,10 +20,10 @@ public class PlanCreateData {
     public Double x;
     @SerializedName("y")
     public Double y;
-    @SerializedName("travelId")
+    @SerializedName("travel_id")
     public Integer travelId;
 
-    public PlanCreateData(String date, String time, String place, String memo, Integer category, Integer transport, Double x, Double y, Integer travelId) {
+    public PlanData(String date, String time, String place, String memo, Integer category, Integer transport, Double x, Double y, Integer travelId) {
         this.date = date;
         this.time = time;
         this.place = place;

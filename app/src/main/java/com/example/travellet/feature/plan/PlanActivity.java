@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -21,17 +20,13 @@ import retrofit2.Response;
 
 import com.example.travellet.R;
 import com.example.travellet.data.StatusResponse;
-import com.example.travellet.data.requestBody.PlanCreateData;
-import com.example.travellet.data.responseBody.PlanCreateResponse;
+import com.example.travellet.data.requestBody.PlanData;
 import com.example.travellet.data.responseBody.PlanResponse;
 import com.example.travellet.databinding.ActivityPlanBinding;
 import com.example.travellet.feature.detail.PlanDetailActivity;
 import com.example.travellet.feature.util.BaseActivity;
-import com.example.travellet.feature.util.ProgressBarManager;
 import com.example.travellet.feature.util.ResultCode;
-import com.example.travellet.feature.util.TravelUtil;
 import com.example.travellet.network.RetrofitClient;
-import com.example.travellet.network.ServiceAPI;
 import com.google.android.material.tabs.TabLayout;
 
 import org.jetbrains.annotations.NotNull;
@@ -40,9 +35,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Objects;
-import java.util.StringTokenizer;
 
 public class PlanActivity extends BaseActivity implements ResultCode {
     private ActivityPlanBinding binding;
@@ -97,6 +90,7 @@ public class PlanActivity extends BaseActivity implements ResultCode {
                     selectEditOfDelete(position);
                 }
         );
+
 
         planAdapter.setOnItemClickListener(
                 (v, position) ->{
@@ -283,27 +277,27 @@ public class PlanActivity extends BaseActivity implements ResultCode {
             switch (transportArray.get(which)){
                 case "Walk":
                     planItems.get(pos).setTransport(1);
-                    requestUpdatePlan(new PlanCreateData(date, time, place, memo, category, 1, x, y, travelId), pos);
+                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 1, x, y, travelId), pos);
                     //requestReadPlan();
                     break;
                 case "Bus":
                     planItems.get(pos).setTransport(2);
-                    requestUpdatePlan(new PlanCreateData(date, time, place, memo, category, 2, x, y, travelId), pos);
+                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 2, x, y, travelId), pos);
                     //requestReadPlan();
                     break;
                 case "Subway":
                     planItems.get(pos).setTransport(3);
-                    requestUpdatePlan(new PlanCreateData(date, time, place, memo, category, 3, x, y, travelId), pos);
+                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 3, x, y, travelId), pos);
                     //requestReadPlan();
                     break;
                 case "Taxi":
                     planItems.get(pos).setTransport(4);
-                    requestUpdatePlan(new PlanCreateData(date, time, place, memo, category, 4, x, y, travelId), pos);
+                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 4, x, y, travelId), pos);
                     //requestReadPlan();
                     break;
                 case "Car":
                     planItems.get(pos).setTransport(5);
-                    requestUpdatePlan(new PlanCreateData(date, time, place, memo, category, 5, x, y, travelId), pos);
+                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 5, x, y, travelId), pos);
                     //requestReadPlan();
                     break;
                 default:
@@ -349,6 +343,8 @@ public class PlanActivity extends BaseActivity implements ResultCode {
         intent.putExtra("place", planItems.get(pos).getPlace());
         intent.putExtra("memo", planItems.get(pos).getMemo());
         intent.putExtra("type", planItems.get(pos).getType());
+        intent.putExtra("x", planItems.get(pos).getX());
+        intent.putExtra("y", planItems.get(pos).getY());
         intent.putExtra("transport", planItems.get(pos).getTransport());
         startActivityForResult(intent, ADD_EDIT_PLAN_RESULT);
     }
@@ -401,6 +397,7 @@ public class PlanActivity extends BaseActivity implements ResultCode {
                     planIds.clear();
                     for(int i=0; i<result.getData().size(); i++){
                         if(day == 0){
+                            double x = 0, y = 0;
                             planIds.add(result.getData().get(i).getId());
                             String date = result.getData().get(i).getDate();
                             String time = result.getData().get(i).getTime();
@@ -408,8 +405,10 @@ public class PlanActivity extends BaseActivity implements ResultCode {
                             String memo = result.getData().get(i).getMemo();
                             int category = result.getData().get(i).getCategory();
                             int transport = result.getData().get(i).getTransport();
-                            double x = result.getData().get(i).getX();
-                            double y = result.getData().get(i).getY();
+                            if(result.getData().get(i).getX() != null && result.getData().get(i).getY() != null){
+                                x = result.getData().get(i).getX();
+                                y = result.getData().get(i).getY();
+                            }
                             double budget = result.getData().get(i).getSumBudget();
                             double expense = result.getData().get(i).getSumExpense();
                             addItem(date, time, place, memo, category, transport, budget, expense, x, y);
@@ -424,6 +423,7 @@ public class PlanActivity extends BaseActivity implements ResultCode {
                             String pageDay = pageDate[2];
                             Log.d("date", planYear + " " + planMonth + " " + planDay + "-" + pageYear + " " + pageMonth + " " + pageDay);
                             if(planYear.equals(pageYear) && planMonth.equals(pageMonth) && planDay.equals(pageDay)){
+                                double x = 0, y = 0;
                                 planIds.add(result.getData().get(i).getId());
                                 String date = result.getData().get(i).getDate();
                                 String time = result.getData().get(i).getTime();
@@ -431,8 +431,11 @@ public class PlanActivity extends BaseActivity implements ResultCode {
                                 String memo = result.getData().get(i).getMemo();
                                 int category = result.getData().get(i).getCategory();
                                 int transport = result.getData().get(i).getTransport();
-                                double x = result.getData().get(i).getX();
-                                double y = result.getData().get(i).getY();
+                                if(result.getData().get(i).getX() != null && result.getData().get(i).getY() != null){
+                                    x = result.getData().get(i).getX();
+                                    y = result.getData().get(i).getY();
+                                }
+                                Log.d("x, y", result.getData().get(i).getX() + ", " + result.getData().get(i).getY());
                                 double budget = result.getData().get(i).getSumBudget();
                                 double expense = result.getData().get(i).getSumExpense();
                                 addItem(date, time, place, memo, category, transport, budget, expense, x, y);
@@ -451,7 +454,7 @@ public class PlanActivity extends BaseActivity implements ResultCode {
         });
     }
      //일정 수정(여기서는 transport 수정) - PUT : Retrofit2
-    private void requestUpdatePlan(PlanCreateData data, int pos){
+    private void requestUpdatePlan(PlanData data, int pos){
         int planId = planIds.get(pos);
         RetrofitClient.getService().updatePlan(planId, travelId, data).enqueue(new Callback<StatusResponse>() {
             @Override

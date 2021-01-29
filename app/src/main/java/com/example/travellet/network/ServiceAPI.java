@@ -3,10 +3,11 @@ package com.example.travellet.network;
 import com.example.travellet.data.requestBody.BudgetData;
 import com.example.travellet.data.requestBody.ExpenseData;
 import com.example.travellet.data.requestBody.PlaceLikeData;
-import com.example.travellet.data.requestBody.PlanCreateData;
+import com.example.travellet.data.requestBody.PlanData;
 import com.example.travellet.data.requestBody.ProfileData;
 import com.example.travellet.data.requestBody.TravelData;
 import com.example.travellet.data.responseBody.BudgetDetailResponse;
+import com.example.travellet.data.responseBody.DistributeBudgetResponse;
 import com.example.travellet.data.responseBody.ExchangeRateResponse;
 import com.example.travellet.data.responseBody.ExpenseDetailResponse;
 import com.example.travellet.data.responseBody.PlaceLikeResponse;
@@ -67,13 +68,13 @@ public interface ServiceAPI {
     Call<StatusResponse> deleteTravel(@Path("id") int id);
 
     @POST("/plans") //일정 추가
-    Call<PlanCreateResponse> createPlan(@Query("travelid") int travelId,  @Body PlanCreateData data);
+    Call<PlanCreateResponse> createPlan(@Query("travelid") int travelId,  @Body PlanData data);
     @GET("/plans/{id}") //일정 조회
     Call<PlanDetailResponse> readPlanDetail(@Path("id") int id);
     @GET("/plans") //일정 목록 조회
     Call<PlanResponse> readPlan(@Query("travelid") int travelId);
     @PUT("/plans/{id}") // 일정 수정
-    Call<StatusResponse> updatePlan(@Path("id") int planId, @Query("travelid") int travelId, @Body PlanCreateData data);
+    Call<StatusResponse> updatePlan(@Path("id") int planId, @Query("travelid") int travelId, @Body PlanData data);
     @DELETE("/plans/{id}") // 일정 삭제
     Call<StatusResponse> deletePlan(@Path("id") int planId, @Query("travelid") int travelId);
 
@@ -85,6 +86,8 @@ public interface ServiceAPI {
     Call<StatusResponse> updateBudget(@Path("id") int id, @Body BudgetData data);
     @DELETE("/budgets/{id}") //예산 삭제
     Call<StatusResponse> deleteBudget(@Path("id") int id);
+    @GET("/budgets/distribution") //예산 분배
+    Call<DistributeBudgetResponse> readDistributeBudget(@Query("travelid") int travelId);
 
     @POST("/expenses") //지출 생성
     Call<StatusResponse> createExpense(@Body ExpenseData data);
@@ -94,5 +97,6 @@ public interface ServiceAPI {
     Call<StatusResponse> updateExpense(@Path("id") int id, @Body ExpenseData data);
     @DELETE("/expenses/{id}") //지출 삭제
     Call<StatusResponse> deleteExpense(@Path("id") int id);
+
 
 }

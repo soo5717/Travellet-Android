@@ -2,38 +2,26 @@ package com.example.travellet.feature.plan;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.renderscript.ScriptGroup;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import com.example.travellet.R;
 import com.example.travellet.data.StatusResponse;
-import com.example.travellet.data.requestBody.PlanCreateData;
+import com.example.travellet.data.requestBody.PlanData;
 import com.example.travellet.data.responseBody.PlanCreateResponse;
 import com.example.travellet.databinding.ActivityAddPlanBinding;
-import com.example.travellet.databinding.ActivitySignUp2Binding;
 import com.example.travellet.feature.plan.AddPlace.AddPlaceActivity;
-import com.example.travellet.feature.travel.SetBudgetActivity;
 import com.example.travellet.feature.util.BaseActivity;
 import com.example.travellet.feature.util.ResultCode;
 import com.example.travellet.network.RetrofitClient;
 
 import java.util.Objects;
-
-import javax.xml.transform.Result;
 
 public class AddPlanActivity extends BaseActivity implements ResultCode {
     private ActivityAddPlanBinding binding;
@@ -239,11 +227,12 @@ public class AddPlanActivity extends BaseActivity implements ResultCode {
 
         setResult(RESULT_OK, intent);
         Log.d("edit state", String.valueOf(editState));
+        Log.d("data", date+", "+hour+":"+min+": "+", "+ place+", "+ memo+", "+ category+", "+ x+", "+ y+", "+ travelId );
         if(!editState)
-            requestCreatePlan(new PlanCreateData(date, hour+":"+min+": ", place, memo, category, 1, x, y, travelId));
+            requestCreatePlan(new PlanData(date, hour+":"+min+": ", place, memo, category, 1, x, y, travelId));
 
         else
-            requestUpdatePlan(new PlanCreateData(date,hour+":"+min+": ", place, memo, category, transport, x, y, travelId), planId);
+            requestUpdatePlan(new PlanData(date,hour+":"+min+": ", place, memo, category, transport, x, y, travelId), planId);
     }
 
     @Override
@@ -262,8 +251,8 @@ public class AddPlanActivity extends BaseActivity implements ResultCode {
     }
 
     //일정 생성 - POST: Retrofit2
-    private void requestCreatePlan(PlanCreateData data){
-        RetrofitClient.getService().createPlan(1, data).enqueue(new Callback<PlanCreateResponse>() {
+    private void requestCreatePlan(PlanData data){
+        RetrofitClient.getService().createPlan(travelId, data).enqueue(new Callback<PlanCreateResponse>() {
             @Override
             public void onResponse(Call<PlanCreateResponse> call, Response<PlanCreateResponse> response) {
                 if(response.isSuccessful()) {
@@ -281,9 +270,9 @@ public class AddPlanActivity extends BaseActivity implements ResultCode {
     }
 
     //일정 수정 - PUT : Retrofit2
-    private void requestUpdatePlan(PlanCreateData data, int planId){
+    private void requestUpdatePlan(PlanData data, int planId){
         //TODO: TRAVEL 완성되면 TRAVEL ID 받아오게 수정해야 함.
-        RetrofitClient.getService().updatePlan(planId, 1, data).enqueue(new Callback<StatusResponse>() {
+        RetrofitClient.getService().updatePlan(planId, travelId, data).enqueue(new Callback<StatusResponse>() {
             @Override
             public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
                 StatusResponse result = response.body();
