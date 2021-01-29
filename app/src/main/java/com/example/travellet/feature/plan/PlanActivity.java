@@ -60,7 +60,7 @@ public class PlanActivity extends BaseActivity implements ResultCode {
     //plan id 저장
     ArrayList<Integer> planIds = new ArrayList<>();
     //travel id 저장
-    int travelId;
+    int travelId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +82,6 @@ public class PlanActivity extends BaseActivity implements ResultCode {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), AddPlanActivity.class);
-                //travelActivity에서 받아온 데이터 저장
-                travelId = intent.getIntExtra("travel_id", 0);
                 //travel date 넘기기
                 String[] dateArr = dateList.get(pagePosition).split(" |/");
                 String date = dateArr[0]+"-"+dateArr[1]+"-"+dateArr[2];
@@ -144,11 +142,10 @@ public class PlanActivity extends BaseActivity implements ResultCode {
 
         //travelActivity에서 받아온 데이터 저장
         travelId = intent.getIntExtra("travel_id", 0);
+        Log.d("travel adapter id: ", String.valueOf(travelId));
         //날짜 테스트 데이터
         String[] startDate = intent.getStringExtra("startDate").split("-");
         String[] endDate = intent.getStringExtra("endDate").split("-");
-
-        Log.d("date", startDate + " - " + endDate);
 
         addDay(Integer.valueOf(startDate[0]), Integer.valueOf(startDate[1]), Integer.valueOf(startDate[2]), Integer.valueOf(endDate[0]), Integer.valueOf(endDate[1]), Integer.valueOf(endDate[2]));
 
@@ -357,8 +354,9 @@ public class PlanActivity extends BaseActivity implements ResultCode {
             public void onClick(DialogInterface dialogInterface, int i) {
                 int planId = planIds.get(pos);
                 requestDeletePlan(planId);
-                requestReadPlan(pos);
+                planItems.remove(pos);
                 planIds.remove(pos);
+                binding.recyclerViewPlan.setAdapter(planAdapter);
             }
         });
         //Cancel 버튼 누르면 아예 취소
@@ -407,15 +405,15 @@ public class PlanActivity extends BaseActivity implements ResultCode {
                             double expense = result.getData().get(i).getSumExpense();
                             addItem(date, time, place, memo, category, transport, budget, expense, x, y);
                         } else{
-                            StringTokenizer planDate = new StringTokenizer(result.getData().get(i).getDate(), "-");
-                            StringTokenizer pageDate = new StringTokenizer(dateList.get(day-1), "/ ");
-                            String planYear = planDate.nextToken();
-                            String planMonth = planDate.nextToken();
-                            String planDay = planDate.nextToken();
-                            String pageYear = pageDate.nextToken();
-                            String pageMonth = pageDate.nextToken();
-                            String pageDay = pageDate.nextToken();
-                            Log.d("date", planYear + " " + planMonth + " " + planDay + "=" + pageYear + " " + pageMonth + " " + pageDay);
+                            String[] planDate = result.getData().get(i).getDate().split("-");
+                            String[] pageDate = dateList.get(day).split(" |/");
+                            String planYear = planDate[0];
+                            String planMonth = planDate[1];
+                            String planDay = planDate[2];
+                            String pageYear = pageDate[0];
+                            String pageMonth = pageDate[1];
+                            String pageDay = pageDate[2];
+                            Log.d("date", planYear + " " + planMonth + " " + planDay + "-" + pageYear + " " + pageMonth + " " + pageDay);
                             if(planYear.equals(pageYear) && planMonth.equals(pageMonth) && planDay.equals(pageDay)){
                                 planIds.add(result.getData().get(i).getId());
                                 String date = result.getData().get(i).getDate();
@@ -446,7 +444,6 @@ public class PlanActivity extends BaseActivity implements ResultCode {
      //일정 수정(여기서는 transport 수정) - PUT : Retrofit2
     private void requestUpdatePlan(PlanCreateData data, int pos){
         int planId = planIds.get(pos);
-        //TODO: TRAVEL 완성되면 TRAVEL ID 받아오게 수정해야 함.
         RetrofitClient.getService().updatePlan(planId, travelId, data).enqueue(new Callback<StatusResponse>() {
             @Override
             public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
@@ -463,7 +460,6 @@ public class PlanActivity extends BaseActivity implements ResultCode {
 
     //일정 삭제 - DELETE : Retrofit2
     private void requestDeletePlan(int planId) {
-        //TODO: TRAVEL 완성되면 TRAVEL ID 받아오게 수정해야 함.
         RetrofitClient.getService().deletePlan(planId, travelId).enqueue(new Callback<StatusResponse>() {
             @Override
             public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {

@@ -263,7 +263,7 @@ public class AddPlanActivity extends BaseActivity implements ResultCode {
 
     //일정 생성 - POST: Retrofit2
     private void requestCreatePlan(PlanCreateData data){
-        RetrofitClient.getService().createPlan(travelId, data).enqueue(new Callback<PlanCreateResponse>() {
+        RetrofitClient.getService().createPlan(1, data).enqueue(new Callback<PlanCreateResponse>() {
             @Override
             public void onResponse(Call<PlanCreateResponse> call, Response<PlanCreateResponse> response) {
                 if(response.isSuccessful()) {
