@@ -123,6 +123,7 @@ public class AddExpenseActivity extends BaseActivity {
                 if(response.isSuccessful() && response.body() != null) {
                     //일정 세부 페이지로 이동
                     Intent intent = new Intent(AddExpenseActivity.this, PlanDetailActivity.class);
+                    intent.putExtra("plan_id", mPlanId);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }
@@ -181,6 +182,7 @@ public class AddExpenseActivity extends BaseActivity {
                 if(response.isSuccessful() && response.body() != null) {
                     //일정 세부 페이지로 이동
                     Intent intent = new Intent(AddExpenseActivity.this, PlanDetailActivity.class);
+                    intent.putExtra("plan_id", mPlanId);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }

@@ -45,8 +45,10 @@ public class PlanDetailActivity extends BaseActivity {
         Intent intent = getIntent();
         int planId= intent.getIntExtra("plan_id", 0);
 
-        initButton(planId); //버튼 클릭 이벤트 설정
-        requestReadPlanDetail(planId); //일정 조회 요청
+        if(planId != 0) {
+            initButton(planId); //버튼 클릭 이벤트 설정
+            requestReadPlanDetail(planId); //일정 조회 요청
+        }
     }
 
     @Override //Activity 뷰 바인딩
