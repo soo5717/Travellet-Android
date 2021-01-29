@@ -37,14 +37,12 @@ import retrofit2.Response;
  */
 public class SettingActivity extends BaseActivity {
     private ActivitySettingBinding binding; //바인딩 선언
-    private String mName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         requestReadProfile(); //회원정보 요청
-        setNameAlertDialog(); //다이얼로그 구현
     }
 
     @Override //Activity 뷰 바인딩
@@ -106,50 +104,10 @@ public class SettingActivity extends BaseActivity {
         });
     }
 
-    //회원정보 수정 요청 - PATCH : Retrofit2
-    private void requestUpdateProfile(ProfileData data) {
-        RetrofitClient.getService().updateProfile(data).enqueue(new Callback<StatusResponse>() {
-            @Override
-            public void onResponse(@NotNull Call<StatusResponse> call, @NotNull Response<StatusResponse> response) {
-                if(response.isSuccessful()){
-                    binding.textViewName.setText(mName);
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call<StatusResponse> call, @NotNull Throwable t) {
-                Log.e("회원정보 수정 에러", Objects.requireNonNull(t.getMessage()));
-            }
-        });
-    }
-
-    //TODO (suyeon) : 디자인 수정
-    //NameEdit 다이얼로그 설정
-    void setNameAlertDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        //EdiiText 설정
-        final EditText editText = new EditText(this);
-        editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
-        builder.setView(editText);
-        //다이얼로그 OK 버튼 클릭 이벤트
-        builder.setPositiveButton("OK", (dialog, which) -> {
-            mName = editText.getText().toString();
-
-            //회원정보 수정 요청 메소드 호출
-            requestUpdateProfile(new ProfileData(mName));
-        });
-        //다이얼로그 Cancel 버튼 클릭 이벤트
-        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
-
-        //NameEdit 버튼 클릭 이벤트
-        final AlertDialog alertDialog = builder.create();
-        binding.buttonNameEdit.setOnClickListener(v -> alertDialog.show());
-    }
-
     //SignOut 버튼 클릭 이벤트 : 로그아웃
     public void signOutButtonClick(View view) {
         PreferenceManager.removeKey("user_token"); //Token 삭제
-        //로그인 페이지로 이동 => 스택 비우는 코드 추가 필요!!! 이게 맞는 걸까?
+        //로그인 페이지로 이동 => 스택 비우는 코드
         Intent intent = new Intent(this, SignInActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
