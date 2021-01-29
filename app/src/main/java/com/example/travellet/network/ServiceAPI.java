@@ -46,8 +46,6 @@ public interface ServiceAPI {
     Call<StatusResponse> signUp(@Body SignUpData data);
     @GET("/users") //회원정보 조회
     Call<ProfileResponse> readProfile();
-    @PATCH("/users") //회원정보 수정
-    Call<StatusResponse> updateProfile(@Body ProfileData data);
     @DELETE("/users") //회원탈퇴
     Call<StatusResponse> deleteProfile();
     @GET("/users/exchange-rate") //환율 조회
