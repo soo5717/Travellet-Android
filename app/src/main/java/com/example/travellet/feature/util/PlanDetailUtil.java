@@ -41,7 +41,7 @@ public class PlanDetailUtil {
     //합계 (TOTAL ￦1000)
     public String getTotal(int total) {
         mStrFormat = "TOTAL ￦%,d";
-        return String.format(Locale.KOREA, mStrFormat, total);
+        return String.format(Locale.getDefault(), mStrFormat, total);
     }
 
     //카테고리 (숙박, 푸드, 쇼핑, 투어, 교통, 기타)
