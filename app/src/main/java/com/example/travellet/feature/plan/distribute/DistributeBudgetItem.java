@@ -1,20 +1,29 @@
 package com.example.travellet.feature.plan.distribute;
 
 public class DistributeBudgetItem {
-    String category;
+    int category, count;
     double budget;
 
-    public DistributeBudgetItem(String category, double budget) {
+    public DistributeBudgetItem(int category, int count, double budget) {
         this.category = category;
+        this.count = count;
         this.budget = budget;
     }
 
-    public String getCategory() {
+    public int getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(int category) {
         this.category = category;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     public double getBudget() {

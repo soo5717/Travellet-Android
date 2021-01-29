@@ -24,6 +24,7 @@ import com.example.travellet.data.requestBody.PlanData;
 import com.example.travellet.data.responseBody.PlanResponse;
 import com.example.travellet.databinding.ActivityPlanBinding;
 import com.example.travellet.feature.detail.PlanDetailActivity;
+import com.example.travellet.feature.plan.distribute.DistributeBudgetActivity;
 import com.example.travellet.feature.util.BaseActivity;
 import com.example.travellet.feature.util.ResultCode;
 import com.example.travellet.network.RetrofitClient;
@@ -131,8 +132,16 @@ public class PlanActivity extends BaseActivity implements ResultCode {
                 finish();
                 return true;
             }
+
+            case R.id.menu_report:{
+
+            }
+
             case R.id.menu_calculation: { // 오른쪽 상단 버튼 눌렀을 때
-                //Toast.makeText(context, "click", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), DistributeBudgetActivity.class);
+                intent.putExtra("travelId", travelId);
+                startActivity(intent);
+                return true;
             }
         }
         return super.onOptionsItemSelected(item);

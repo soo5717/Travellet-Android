@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_calculation"
-        android:title="report"
-        android:icon="@drawable/ic_add_24dp"
-        app:showAsAction="always" />
-    <item
         android:id="@+id/menu_report"
         android:title="report"
-        android:icon="@drawable/ic_add_24dp"
+        android:icon="@drawable/ic_insights_24dp"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_calculation"
+        android:title="report"
+        android:icon="@drawable/ic_calculate_24dp"
         app:showAsAction="always" />
 
 </menu>

@@ -1,6 +1,7 @@
 package com.example.travellet.network;
 
 import com.example.travellet.data.requestBody.BudgetData;
+import com.example.travellet.data.requestBody.DistributeBudgetData;
 import com.example.travellet.data.requestBody.ExpenseData;
 import com.example.travellet.data.requestBody.PlaceLikeData;
 import com.example.travellet.data.requestBody.PlanData;
@@ -84,8 +85,10 @@ public interface ServiceAPI {
     Call<StatusResponse> updateBudget(@Path("id") int id, @Body BudgetData data);
     @DELETE("/budgets/{id}") //예산 삭제
     Call<StatusResponse> deleteBudget(@Path("id") int id);
-    @GET("/budgets/distribution") //예산 분배
+    @GET("/budgets/distribution") //예산 분배 조회
     Call<DistributeBudgetResponse> readDistributeBudget(@Query("travelid") int travelId);
+    @PATCH("/budgets/distribution") //예산 분배
+    Call<StatusResponse> updateDistributeBudget(@Body DistributeBudgetData data);
 
     @POST("/expenses") //지출 생성
     Call<StatusResponse> createExpense(@Body ExpenseData data);
