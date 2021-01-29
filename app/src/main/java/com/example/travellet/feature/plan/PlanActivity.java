@@ -25,6 +25,7 @@ import com.example.travellet.data.requestBody.PlanCreateData;
 import com.example.travellet.data.responseBody.PlanCreateResponse;
 import com.example.travellet.data.responseBody.PlanResponse;
 import com.example.travellet.databinding.ActivityPlanBinding;
+import com.example.travellet.feature.detail.PlanDetailActivity;
 import com.example.travellet.feature.util.BaseActivity;
 import com.example.travellet.feature.util.ProgressBarManager;
 import com.example.travellet.feature.util.ResultCode;
@@ -94,6 +95,14 @@ public class PlanActivity extends BaseActivity implements ResultCode {
         planAdapter.setOnItemLongClickListener(
                 (v, position) -> {
                     selectEditOfDelete(position);
+                }
+        );
+
+        planAdapter.setOnItemClickListener(
+                (v, position) ->{
+                    Intent intent = new Intent(getApplicationContext(), PlanDetailActivity.class);
+                    intent.putExtra("plan_id", planIds.get(position));
+                    startActivity(intent);
                 }
         );
 
