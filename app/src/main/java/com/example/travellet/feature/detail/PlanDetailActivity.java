@@ -14,6 +14,7 @@ import com.example.travellet.feature.detail.budget.AddBudgetActivity;
 import com.example.travellet.feature.detail.expense.AddExpenseActivity;
 import com.example.travellet.feature.util.BaseActivity;
 import com.example.travellet.feature.util.ProgressBarManager;
+import com.example.travellet.feature.util.ResultCode;
 import com.example.travellet.network.RetrofitClient;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -31,7 +32,7 @@ import retrofit2.Response;
  * Class: PlanDetailActivity
  * Description: 일정 세부 조회(예산/지출) 페이지
  */
-public class PlanDetailActivity extends BaseActivity {
+public class PlanDetailActivity extends BaseActivity implements ResultCode {
     private ActivityPlanDetailBinding binding; //바인딩 선언
 
     private final String[] TABS = {"budget", "expense"}; //탭 선언
@@ -139,14 +140,24 @@ public class PlanDetailActivity extends BaseActivity {
                 case 0: // 예산 탭일 경우 예산 추가 페이지로 이동
                     intent = new Intent(this, AddBudgetActivity.class);
                     intent.putExtra("plan_id", id);
-                    startActivity(intent);
+                    startActivityForResult(intent, DETAIL_PLAN_RESULT);
                     break;
                 case 1: // 지출 탭일 경우 지출 추가 페이지로 이동
                     intent = new Intent(this, AddExpenseActivity.class);
                     intent.putExtra("plan_id", id);
-                    startActivity(intent);
+                    startActivityForResult(intent, DETAIL_PLAN_RESULT);
                     break;
             }
         });
+    }
+
+    //뒤로 가기 버튼(다시 plan 화면으로)
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
+        finish();
+
+        super.onBackPressed();
     }
 }

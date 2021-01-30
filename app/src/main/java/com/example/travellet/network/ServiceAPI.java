@@ -6,6 +6,7 @@ import com.example.travellet.data.requestBody.ExpenseData;
 import com.example.travellet.data.requestBody.PlaceLikeData;
 import com.example.travellet.data.requestBody.PlanData;
 import com.example.travellet.data.requestBody.ProfileData;
+import com.example.travellet.data.requestBody.TransportData;
 import com.example.travellet.data.requestBody.TravelData;
 import com.example.travellet.data.responseBody.BudgetDetailResponse;
 import com.example.travellet.data.responseBody.DistributeBudgetResponse;
@@ -76,6 +77,8 @@ public interface ServiceAPI {
     Call<StatusResponse> updatePlan(@Path("id") int planId, @Query("travelid") int travelId, @Body PlanData data);
     @DELETE("/plans/{id}") // 일정 삭제
     Call<StatusResponse> deletePlan(@Path("id") int planId, @Query("travelid") int travelId);
+    @POST("/plans/{id}") // 교통비 측정
+    Call<StatusResponse> calculateTransport(@Path("id") int planId, @Query("travelid") int travelId, @Body TransportData data);
 
     @POST("/budgets") //예산 생성
     Call<StatusResponse> createBudget(@Body BudgetData data);

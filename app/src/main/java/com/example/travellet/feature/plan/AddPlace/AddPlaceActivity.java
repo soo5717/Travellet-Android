@@ -185,35 +185,35 @@ public class AddPlaceActivity extends AppCompatActivity {
 
                     switch (typeid) {
                         case 76:
-                            type = "Tourism";
+                            type = "TOURISM";
                             break;
 
                         case 78:
-                            type = "Culture";
+                            type = "CULTURE";
                             break;
 
                         case 85:
-                            type = "Etc";
+                            type = "ETC.";
                             break;
 
                         case 75:
-                            type = "Leisure";
+                            type = "LEISURE";
                             break;
 
                         case 80:
-                            type = "Lodging";
+                            type = "LODGING";
                             break;
 
                         case 79:
-                            type = "Shopping";
+                            type = "SHOPPING";
                             break;
 
                         case 82:
-                            type = "Food";
+                            type = "FOOD";
                             break;
 
                         case 77:
-                            type = "Transportation";
+                            type = "TRANSPORTATION";
                             break;
                     }
                 }

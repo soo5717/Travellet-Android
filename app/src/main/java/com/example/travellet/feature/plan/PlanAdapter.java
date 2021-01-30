@@ -143,7 +143,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolder> {
                 holder.category.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_tourism_16dp, 0, 0, 0);
 
                 break;
-            case 5:
+            case 6:
                 holder.category.setText("Etc.");
                 holder.category.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_etc_16dp, 0, 0, 0);
                 break;

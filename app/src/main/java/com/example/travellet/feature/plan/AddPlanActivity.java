@@ -13,13 +13,20 @@ import retrofit2.Response;
 
 import com.example.travellet.R;
 import com.example.travellet.data.StatusResponse;
+import com.example.travellet.data.requestBody.BudgetData;
 import com.example.travellet.data.requestBody.PlanData;
+import com.example.travellet.data.responseBody.ExchangeRateResponse;
 import com.example.travellet.data.responseBody.PlanCreateResponse;
 import com.example.travellet.databinding.ActivityAddPlanBinding;
+import com.example.travellet.feature.detail.PlanDetailActivity;
+import com.example.travellet.feature.detail.budget.AddBudgetActivity;
 import com.example.travellet.feature.plan.AddPlace.AddPlaceActivity;
 import com.example.travellet.feature.util.BaseActivity;
+import com.example.travellet.feature.util.ProgressBarManager;
 import com.example.travellet.feature.util.ResultCode;
 import com.example.travellet.network.RetrofitClient;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -101,7 +108,7 @@ public class AddPlanActivity extends BaseActivity implements ResultCode {
         binding.btnEtc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category = 5;
+                category = 6;
                 binding.btnLodging.setBackgroundResource(R.drawable.ic_input_lodging_48dp);
                 binding.btnFood.setBackgroundResource(R.drawable.ic_input_food_48dp);
                 binding.btnShopping.setBackgroundResource(R.drawable.ic_input_shopping_48dp);
@@ -206,7 +213,6 @@ public class AddPlanActivity extends BaseActivity implements ResultCode {
                     memo = "Tourism";
                     break;
 
-
                 case 6:
                     memo = "etc";
                     break;
@@ -224,15 +230,16 @@ public class AddPlanActivity extends BaseActivity implements ResultCode {
         intent.putExtra("type", category);
         intent.putExtra("x", x);
         intent.putExtra("y", y);
+        intent.putExtra("planId", planId);
 
         setResult(RESULT_OK, intent);
-        Log.d("edit state", String.valueOf(editState));
-        Log.d("data", date+", "+hour+":"+min+": "+", "+ place+", "+ memo+", "+ category+", "+ x+", "+ y+", "+ travelId );
-        if(!editState)
-            requestCreatePlan(new PlanData(date, hour+":"+min+": ", place, memo, category, 1, x, y, travelId));
+        if(!editState) {
+            requestCreatePlan(new PlanData(date, hour + ":" + min + ": ", place, memo, category, 1, x, y, travelId));
+        }
 
-        else
-            requestUpdatePlan(new PlanData(date,hour+":"+min+": ", place, memo, category, transport, x, y, travelId), planId);
+        else {
+            requestUpdatePlan(new PlanData(date, hour + ":" + min + ": ", place, memo, category, transport, x, y, travelId), planId);
+        }
     }
 
     @Override
@@ -271,7 +278,6 @@ public class AddPlanActivity extends BaseActivity implements ResultCode {
 
     //일정 수정 - PUT : Retrofit2
     private void requestUpdatePlan(PlanData data, int planId){
-        //TODO: TRAVEL 완성되면 TRAVEL ID 받아오게 수정해야 함.
         RetrofitClient.getService().updatePlan(planId, travelId, data).enqueue(new Callback<StatusResponse>() {
             @Override
             public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {

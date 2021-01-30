@@ -36,6 +36,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.travellet.R;
+import com.example.travellet.databinding.ActivitySetDateBinding;
+import com.example.travellet.databinding.ActivitySetTitleBinding;
+import com.example.travellet.feature.util.BaseActivity;
 import com.yongbeom.aircalendar.core.AirCalendarIntent;
 import com.yongbeom.aircalendar.core.AirMonthAdapter;
 import com.yongbeom.aircalendar.core.DatePickerController;
@@ -56,7 +59,8 @@ import java.util.Locale;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-public class SetDateActivity extends AppCompatActivity implements DatePickerController {
+public class SetDateActivity extends BaseActivity implements DatePickerController {
+    private ActivitySetDateBinding binding; //바인딩 선언
 
     public final static String EXTRA_FLAG = "FLAG";
     public final static String EXTRA_IS_BOOIKNG = "IS_BOOING";
@@ -145,7 +149,6 @@ public class SetDateActivity extends AppCompatActivity implements DatePickerCont
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_set_date);
 
         Intent getData = getIntent();
         FLAG = getData.getStringExtra(EXTRA_FLAG) != null ? getData.getStringExtra(EXTRA_FLAG) : "all";
@@ -482,6 +485,12 @@ public class SetDateActivity extends AppCompatActivity implements DatePickerCont
         super.onBackPressed();
         finish();
         overridePendingTransition(0, 0);
+    }
+
+    @Override //Activity 뷰 바인딩
+    protected View getLayoutResource() {
+        binding = ActivitySetDateBinding.inflate(getLayoutInflater());
+        return binding.getRoot();
     }
 }
 

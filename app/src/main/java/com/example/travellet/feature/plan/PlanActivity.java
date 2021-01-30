@@ -20,12 +20,15 @@ import retrofit2.Response;
 
 import com.example.travellet.R;
 import com.example.travellet.data.StatusResponse;
+import com.example.travellet.data.requestBody.BudgetData;
 import com.example.travellet.data.requestBody.PlanData;
+import com.example.travellet.data.requestBody.TransportData;
 import com.example.travellet.data.responseBody.PlanResponse;
 import com.example.travellet.databinding.ActivityPlanBinding;
 import com.example.travellet.feature.detail.PlanDetailActivity;
 import com.example.travellet.feature.plan.distribute.DistributeBudgetActivity;
 import com.example.travellet.feature.util.BaseActivity;
+import com.example.travellet.feature.util.ProgressBarManager;
 import com.example.travellet.feature.util.ResultCode;
 import com.example.travellet.network.RetrofitClient;
 import com.google.android.material.tabs.TabLayout;
@@ -56,6 +59,8 @@ public class PlanActivity extends BaseActivity implements ResultCode {
     ArrayList<Integer> planIds = new ArrayList<>();
     //travel id 저장
     int travelId = 0;
+    //일별 budget, expense 저장
+    double dayBudget=0, dayExpense=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +102,7 @@ public class PlanActivity extends BaseActivity implements ResultCode {
                 (v, position) ->{
                     Intent intent = new Intent(getApplicationContext(), PlanDetailActivity.class);
                     intent.putExtra("plan_id", planIds.get(position));
-                    startActivity(intent);
+                    startActivityForResult(intent, DETAIL_PLAN_RESULT);
                 }
         );
 
@@ -107,6 +112,7 @@ public class PlanActivity extends BaseActivity implements ResultCode {
                     setTransportDialog(position);
                 }
         );
+
     }
 
     @Override //Activity 뷰 바인딩
@@ -174,11 +180,13 @@ public class PlanActivity extends BaseActivity implements ResultCode {
                     binding.textViewDatetime.setText(dateList.get(0));
                     pagePosition = 0;
                     requestReadPlan(0);
+                    binding.floatingActionButton.setVisibility(View.GONE);
                 }
                 else {
                     binding.textViewDatetime.setText(dateList.get(pos));
                     pagePosition = pos;
                     requestReadPlan(pagePosition);
+                    binding.floatingActionButton.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -275,49 +283,67 @@ public class PlanActivity extends BaseActivity implements ResultCode {
         String place = planItems.get(pos).getPlace();
         String memo = planItems.get(pos).getMemo();
         int category = planItems.get(pos).getType();
-        double x = planItems.get(pos).getX();
-        double y = planItems.get(pos).getY();
+        double sx = planItems.get(pos).getX();
+        double sy = planItems.get(pos).getY();
+        double ex = 0;
+        double ey = 0;
+        if(pos+1 < planItems.size()){
+            ex = planItems.get(pos+1).getX();
+            ey = planItems.get(pos+1).getY();
+            Log.d("ex, ey", ex + ", " + ey );
+        }
         //교통 배열 리스트 갖고 오기
         ArrayList<String> transportArray = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.transport)));
         //다이얼로그 구현
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialog);
+        double finalEx = ex;
+        double finalEy = ey;
         builder.setItems(R.array.transport, (dialog, which) -> {
             //다이얼로그에서 선택한 값에 따라 transport update함.
             switch (transportArray.get(which)){
                 case "Walk":
                     planItems.get(pos).setTransport(1);
-                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 1, x, y, travelId), pos);
-                    //requestReadPlan();
+                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 1, sx, sy, travelId), pos);
+                    requestCalculateTransport(planIds.get(pos), new TransportData(sx, sy, finalEx, finalEy, 1, "Walk"));
+                    requestReadPlan(pagePosition);
                     break;
                 case "Bus":
                     planItems.get(pos).setTransport(2);
-                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 2, x, y, travelId), pos);
-                    //requestReadPlan();
+                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 2, sx, sy, travelId), pos);
+                    requestCalculateTransport(planIds.get(pos), new TransportData(sx, sy, finalEx, finalEy, 2, "Bus"));
+                    requestReadPlan(pagePosition);
                     break;
                 case "Subway":
                     planItems.get(pos).setTransport(3);
-                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 3, x, y, travelId), pos);
-                    //requestReadPlan();
+                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 3, sx, sy, travelId), pos);
+                    requestCalculateTransport(planIds.get(pos), new TransportData(sx, sy, finalEx, finalEy, 3, "Subway"));
+                    requestReadPlan(pagePosition);
                     break;
                 case "Taxi":
                     planItems.get(pos).setTransport(4);
-                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 4, x, y, travelId), pos);
-                    //requestReadPlan();
+                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 4, sx, sy, travelId), pos);
+                    requestCalculateTransport(planIds.get(pos), new TransportData(sx, sy, finalEx, finalEy, 4, "Taxi"));
+                    requestReadPlan(pagePosition);
                     break;
                 case "Car":
                     planItems.get(pos).setTransport(5);
-                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 5, x, y, travelId), pos);
-                    //requestReadPlan();
+                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 5, sx, sy, travelId), pos);
+                    requestCalculateTransport(planIds.get(pos), new TransportData(sx, sy, finalEx, finalEy, 5, "Car"));
+                    requestReadPlan(pagePosition);
                     break;
                 default:
                     break;
             }
-            requestReadPlan(pos);
         });
         //plan 목록 조회해서 바뀐 결과 보여줌.
         //다이얼로그 창 뜨게 하는 거
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    public void getBusAndSubway(double SX, double SY, double EX, double EY, int transport){
+        // 싱글톤 생성, Key 값을 활용하여 객체 생성
+
     }
 
     // 일정 수정 or 삭제 다이얼로그 구현
@@ -344,7 +370,6 @@ public class PlanActivity extends BaseActivity implements ResultCode {
     public void editPlan(int pos){
         Intent intent = new Intent(getApplicationContext(), AddPlanActivity.class);
         //일정 수정 시 보여줘야 할 데이터 넘기기
-        //TODO: TRAVEL 완성되면 TRAVEL ID 직접 받아오도록 해야 함.
         intent.putExtra("travelId", travelId);
         intent.putExtra("planId", planIds.get(pos));
         intent.putExtra("date", planItems.get(pos).getDate());
@@ -368,9 +393,9 @@ public class PlanActivity extends BaseActivity implements ResultCode {
             public void onClick(DialogInterface dialogInterface, int i) {
                 int planId = planIds.get(pos);
                 requestDeletePlan(planId);
-                planItems.remove(pos);
-                planIds.remove(pos);
-                binding.recyclerViewPlan.setAdapter(planAdapter);
+                //planItems.remove(pos);
+                //planIds.remove(pos);
+                //binding.recyclerViewPlan.setAdapter(planAdapter);
             }
         });
         //Cancel 버튼 누르면 아예 취소
@@ -385,18 +410,44 @@ public class PlanActivity extends BaseActivity implements ResultCode {
         alertDialog.show();
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
+        requestReadPlan(pagePosition);
         if(requestCode == ADD_EDIT_PLAN_RESULT){
             if(intent != null){
-                requestReadPlan(pagePosition);
+                int category = intent.getIntExtra("type", 0);
+                int editPlanId = intent.getIntExtra("planId", 0);
+                String memo = " ";
+                switch (category){
+                    case 1:
+                        memo = "Lodging";
+                        break;
+                    case 2:
+                        memo = "Food";
+                        break;
+                    case 3:
+                        memo = "Shopping";
+                        break;
+                    case 4:
+                        memo = "Tourism";
+                        break;
+                    case 6:
+                        memo = "etc";
+                        break;
+                    default:
+                        memo = "null";
+                        break;
+                }
+                requestInitPlanBudget(memo, category, editPlanId);
             }
         }
     }
 
     //일정 목록 조회 - GET : Retrofit2
     private void requestReadPlan(int day){
+        ProgressBarManager.showProgress(binding.progressBar, true);
         RetrofitClient.getService().readPlan(travelId).enqueue(new Callback<PlanResponse>( ){
             @Override
             public void onResponse(Call<PlanResponse> call, Response<PlanResponse> response) {
@@ -404,6 +455,7 @@ public class PlanActivity extends BaseActivity implements ResultCode {
                     PlanResponse result = response.body();
                     planItems.clear();
                     planIds.clear();
+                    dayBudget = 0; dayExpense = 0;
                     for(int i=0; i<result.getData().size(); i++){
                         if(day == 0){
                             double x = 0, y = 0;
@@ -419,7 +471,9 @@ public class PlanActivity extends BaseActivity implements ResultCode {
                                 y = result.getData().get(i).getY();
                             }
                             double budget = result.getData().get(i).getSumBudget();
+                            dayBudget  += budget;
                             double expense = result.getData().get(i).getSumExpense();
+                            dayExpense += expense;
                             addItem(date, time, place, memo, category, transport, budget, expense, x, y);
                         } else{
                             String[] planDate = result.getData().get(i).getDate().split("-");
@@ -430,7 +484,6 @@ public class PlanActivity extends BaseActivity implements ResultCode {
                             String pageYear = pageDate[0];
                             String pageMonth = pageDate[1];
                             String pageDay = pageDate[2];
-                            Log.d("date", planYear + " " + planMonth + " " + planDay + "-" + pageYear + " " + pageMonth + " " + pageDay);
                             if(planYear.equals(pageYear) && planMonth.equals(pageMonth) && planDay.equals(pageDay)){
                                 double x = 0, y = 0;
                                 planIds.add(result.getData().get(i).getId());
@@ -444,14 +497,50 @@ public class PlanActivity extends BaseActivity implements ResultCode {
                                     x = result.getData().get(i).getX();
                                     y = result.getData().get(i).getY();
                                 }
-                                Log.d("x, y", result.getData().get(i).getX() + ", " + result.getData().get(i).getY());
+                                Log.d("x, y", result.getData().get(i).getPlace() + ", " + result.getData().get(i).getPlace());
                                 double budget = result.getData().get(i).getSumBudget();
+                                dayBudget  += budget;
                                 double expense = result.getData().get(i).getSumExpense();
+                                dayExpense += expense;
                                 addItem(date, time, place, memo, category, transport, budget, expense, x, y);
                             }
                         }
                     }
                     binding.recyclerViewPlan.setAdapter(planAdapter);
+                    binding.textViewTotalBudget.setText(Double.toString(dayBudget));
+                    binding.textViewTotalExpense.setText(Double.toString(dayExpense));
+                }
+                ProgressBarManager.showProgress(binding.progressBar, false);
+            }
+
+            @Override
+            public void onFailure(Call<PlanResponse> call, Throwable t) {
+                Toast.makeText(PlanActivity.this, "Read Error", Toast.LENGTH_SHORT).show();
+                Log.e("일정 조회 에러", Objects.requireNonNull(t.getMessage()));
+                ProgressBarManager.showProgress(binding.progressBar, false);
+            }
+        });
+    }
+
+    //예산 초기화(일정 카테고리 예산, 교통 예산 0원 설정) OR 예산 수정(일정 수정 시 카테고리 수정)
+    private void requestInitPlanBudget(String memo, int category, int id){
+        planIds.clear();
+        RetrofitClient.getService().readPlan(travelId).enqueue(new Callback<PlanResponse>( ){
+            @Override
+            public void onResponse(Call<PlanResponse> call, Response<PlanResponse> response) {
+                if(response.isSuccessful()){
+                    PlanResponse result = response.body();
+                    //가장 최근에 만들어진 plan id 불러오기
+                    for(int i=0; i<result.getData().size(); i++) {
+                        planIds.add(result.getData().get(i).getId());
+                    }
+                    //일정 새로 생성했을 경우
+                    if(id == 0){
+                        requestCreateBudget(new BudgetData(planIds.get(planIds.size()-1), "KRW", 10.0, 10.0, 10, memo, category)); //예산 생성 요청(일정 카테고리)
+                        requestCreateBudget(new BudgetData(planIds.get(planIds.size()-1), "KRW", 10.0, 10.0, 10, "transportation", 5)); //예산 생성 요청(교통 카테고리)
+                    } else{
+                        requestUpdateBudget(id, new BudgetData(planIds.get(planIds.size()-1), "KRW", 10.0, 10.0, 10, memo, category));
+                    }
                 }
             }
 
@@ -484,6 +573,7 @@ public class PlanActivity extends BaseActivity implements ResultCode {
         RetrofitClient.getService().deletePlan(planId, travelId).enqueue(new Callback<StatusResponse>() {
             @Override
             public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
+                requestReadPlan(pagePosition);
                 Toast.makeText(PlanActivity.this, "Successfully deleted.", Toast.LENGTH_LONG).show();
             }
 
@@ -491,6 +581,54 @@ public class PlanActivity extends BaseActivity implements ResultCode {
             public void onFailure(Call<StatusResponse> call, Throwable t) {
                 Toast.makeText(PlanActivity.this, "Delete Error", Toast.LENGTH_SHORT).show();
                 Log.e("일정 삭제 에러", Objects.requireNonNull(t.getMessage()));
+            }
+        });
+    }
+
+    //예산 생성 요청 - POST : Retrofit2
+    void requestCreateBudget(BudgetData data) {
+        RetrofitClient.getService().createBudget(data).enqueue(new Callback<StatusResponse>() {
+            @Override
+            public void onResponse(@NotNull Call<StatusResponse> call, @NotNull Response<StatusResponse> response) {
+                if(response.isSuccessful() && response.body() != null) {
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<StatusResponse> call, @NotNull Throwable t) {
+                Log.e("예산 생성 에러", Objects.requireNonNull(t.getMessage()));
+            }
+        });
+    }
+
+    //예산 수정 요청 - PATCH : Retrofit2
+    void requestUpdateBudget(int id, BudgetData data) {
+        RetrofitClient.getService().updateBudget(id, data).enqueue(new Callback<StatusResponse>() {
+            @Override
+            public void onResponse(@NotNull Call<StatusResponse> call, @NotNull Response<StatusResponse> response) {
+                if(response.isSuccessful() && response.body() != null) {
+                    requestReadPlan(pagePosition);
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<StatusResponse> call, @NotNull Throwable t) {
+                Log.e("예산 수정 에러", Objects.requireNonNull(t.getMessage()));
+            }
+        });
+    }
+
+    // 교통비 측정 - POST : Retrofit2
+    void requestCalculateTransport(int planId, TransportData data){
+        RetrofitClient.getService().calculateTransport(planId, travelId, data).enqueue(new Callback<StatusResponse>() {
+            @Override
+            public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<StatusResponse> call, Throwable t) {
+
             }
         });
     }
