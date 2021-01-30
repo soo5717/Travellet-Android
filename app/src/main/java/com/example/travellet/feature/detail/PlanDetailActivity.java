@@ -64,8 +64,8 @@ public class PlanDetailActivity extends BaseActivity implements ResultCode {
         String memo = data.getMemo();
         String startDate = data.getTravelStartDate();
         String date = data.getDate();
-        int totalBudget = data.getSumBudget();
-        int totalExpense = data.getSumExpense();
+        int totalBudget = data.getSumBudget() != null ? data.getSumBudget() : 0;
+        int totalExpense = data.getSumExpense() != null? data.getSumExpense() : 0;
         String currency = data.getCurrency();
         ArrayList<PlanDetailResponse.Data.Datum> budgets = new ArrayList<>(data.getBudget());
         ArrayList<PlanDetailResponse.Data.Datum> expenses = new ArrayList<>(data.getExpense());
