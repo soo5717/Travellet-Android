@@ -40,13 +40,13 @@ public class PlanDetailResponse {
         private String place;
         @SerializedName("memo")
         private String memo;
-        @SerializedName("Travel.start_date")
+        @SerializedName("Travel.startDate")
         private String travelStartDate;
         @SerializedName("currency")
         private String currency;
-        @SerializedName("sum_budget")
+        @SerializedName("sumBudget")
         private Integer sumBudget;
-        @SerializedName("sum_expense")
+        @SerializedName("sumExpense")
         private Integer sumExpense;
         @SerializedName("budget")
         private List<Datum> budget = null;

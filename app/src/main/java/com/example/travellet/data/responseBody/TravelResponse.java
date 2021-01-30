@@ -56,17 +56,17 @@ public class TravelResponse {
             private Integer id;
             @SerializedName("title")
             private String title;
-            @SerializedName("start_date")
+            @SerializedName("startDate")
             private String startDate;
-            @SerializedName("end_date")
+            @SerializedName("endDate")
             private String endDate;
             @SerializedName("budget")
             private Double budget;
-            @SerializedName("user_id")
+            @SerializedName("UserId")
             private Integer userId;
-            @SerializedName("sum_budget")
+            @SerializedName("sumBudget")
             private String sumBudget;
-            @SerializedName("sum_expense")
+            @SerializedName("sumExpense")
             private String sumExpense;
 
             public Integer getId() {
