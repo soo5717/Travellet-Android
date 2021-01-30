@@ -27,7 +27,7 @@ public class PlanDetailUtil {
             //밀리 초 -> 초로 변환
             final int ONE_DAY = 24 * 60 * 60 * 1000;
             long result = (startDate.getTime() - targetDate.getTime())/ONE_DAY;
-            result = Math.abs(result);
+            result = Math.abs(result) + 1;
 
             mStrFormat = "DAY %d";
             return String.format(Locale.getDefault(), mStrFormat, result);
