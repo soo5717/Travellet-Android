@@ -88,7 +88,6 @@ public class PlaceActivity extends AppCompatActivity implements ResultCode {
     GridLayoutManager layoutManager;
 
     //좋아요 관련 변수
-    ArrayList<Boolean> placeLike = new ArrayList<Boolean>();
     ArrayList<Integer> getLikeId = new ArrayList<>(); //get 해온 좋아요 목록 id 저장하는 arraylist
     boolean likeState = false;
 
@@ -141,12 +140,10 @@ public class PlaceActivity extends AppCompatActivity implements ResultCode {
                         reqeustPlaceLike(new PlaceLikeData(id));
                         likeButton.setImageResource(R.drawable.ic_favorite_selected_24_dp);
                         item.setlikeState(true);
-                        placeLike.set(position, true);
                     } else {
                         requestDeleteLike(new PlaceLikeData(id));
                         likeButton.setImageResource(R.drawable.ic_favorite_border_list_24dp);
                         item.setlikeState(false);
-                        placeLike.set(position, false);
                     }
                 }
         );
@@ -405,7 +402,6 @@ public class PlaceActivity extends AppCompatActivity implements ResultCode {
                 int thisPos = intent.getIntExtra("position", 0); // 해당 장소의 position을 인텐트로 다시 가져옴.
                 //position으로 해당 장소의 아이템 찾기
                 placeItems.get(thisPos).setlikeState(thisLike);
-                placeLike.set(thisPos, thisLike);
                 placeRecyclerView.setAdapter(placeAdapter);
             }
         }

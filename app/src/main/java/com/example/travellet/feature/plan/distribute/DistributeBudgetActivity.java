@@ -44,6 +44,7 @@ public class DistributeBudgetActivity extends BaseActivity {
         //여행 아이디 받아오기
         Intent intent = getIntent();
         travelId = intent.getIntExtra("travelId", 0);
+        Log.d("travel Id", String.valueOf(travelId));
 
         //라사이클럽 어댑터
         budgetAdapter = new DistributeBudgetAdapter(budgetItems);

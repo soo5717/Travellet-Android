@@ -119,13 +119,13 @@ public class DistributeBudgetAdapter extends RecyclerView.Adapter<DistributeBudg
                     int position = getAdapterPosition();
                     DistributeBudgetItem item = mData.get(position);
                     if(position != RecyclerView.NO_POSITION){
-                        if (i % 10 == 0) {
+                        if (i % 100 == 0) {
                             budget.setText(Currency.getInstance(Locale.KOREA).getSymbol() + " " +formatter.format(i));
                             item.setBudget(i);
                         } else {
-                            seekBar.setProgress((i / 10) * 10);
-                            budget.setText(Currency.getInstance(Locale.KOREA).getSymbol() + " " + formatter.format((i / 10) * 10));
-                            item.setBudget((i / 10) * 10);
+                            seekBar.setProgress((i / 100) * 100);
+                            budget.setText(Currency.getInstance(Locale.KOREA).getSymbol() + " " + formatter.format((i / 100) * 100));
+                            item.setBudget((i / 100) * 100);
                         }
                         for(int j=0; j<mData.size(); j++){
                             settingBudget += mData.get(j).getBudget();
