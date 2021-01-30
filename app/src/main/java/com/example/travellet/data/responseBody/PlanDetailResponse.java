@@ -1,10 +1,14 @@
 package com.example.travellet.data.responseBody;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+/**
+ * Created by 수연 on 2021-01-30.
+ * Class: PlanDetailResponse
+ * Description: 예산/지출 목록 조회 요청 데이터
+ */
 public class PlanDetailResponse {
     @SerializedName("status")
     private Integer status;
@@ -40,13 +44,13 @@ public class PlanDetailResponse {
         private String place;
         @SerializedName("memo")
         private String memo;
-        @SerializedName("Travel.start_date")
+        @SerializedName("Travel.startDate")
         private String travelStartDate;
         @SerializedName("currency")
         private String currency;
-        @SerializedName("sum_budget")
+        @SerializedName("sumBudget")
         private Integer sumBudget;
-        @SerializedName("sum_expense")
+        @SerializedName("sumExpense")
         private Integer sumExpense;
         @SerializedName("budget")
         private List<Datum> budget = null;

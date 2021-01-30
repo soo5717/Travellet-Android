@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
  * Description: 예산 생성/수정 요청 데이터
  */
 public class BudgetData {
-    @SerializedName("planId")
+    @SerializedName("PlanId")
     private Integer planId;
     @SerializedName("currency")
     private String currency;
