@@ -234,11 +234,11 @@ public class AddPlanActivity extends BaseActivity implements ResultCode {
 
         setResult(RESULT_OK, intent);
         if(!editState) {
-            requestCreatePlan(new PlanData(date, hour + ":" + min + ": ", place, memo, category, 1, x, y, travelId));
+            requestCreatePlan(new PlanData(date, hour + ":" + min + ": ", place, memo, category, 1, x, y, travelId, new PlanData.Budgets(memo, category)));
         }
 
         else {
-            requestUpdatePlan(new PlanData(date, hour + ":" + min + ": ", place, memo, category, transport, x, y, travelId), planId);
+            requestUpdatePlan(new PlanData(date, hour + ":" + min + ": ", place, memo, category, transport, x, y, travelId, null), planId);
         }
     }
 

@@ -20,10 +20,36 @@ public class PlanData {
     public Double x;
     @SerializedName("y")
     public Double y;
-    @SerializedName("travel_id")
+    @SerializedName("TravelId")
     public Integer travelId;
+    @SerializedName("Budgets")
+    public Budgets budgests;
 
-    public PlanData(String date, String time, String place, String memo, Integer category, Integer transport, Double x, Double y, Integer travelId) {
+    public static class Budgets{
+        @SerializedName("currency")
+        public String currency;
+        @SerializedName("price")
+        public Double price;
+        @SerializedName("priceTo")
+        public Double priceTo;
+        @SerializedName("priceKrw")
+        public Integer priceKrw;
+        @SerializedName("memo")
+        public String memo;
+        @SerializedName("category")
+        public Integer category;
+
+        public Budgets(String memo, Integer category) {
+            this.currency = "KRW";
+            this.price = 0.0;
+            this.priceTo = 0.0;
+            this.priceKrw = 0;
+            this.memo = memo;
+            this.category = category;
+        }
+    }
+
+    public PlanData(String date, String time, String place, String memo, Integer category, Integer transport, Double x, Double y, Integer travelId, Budgets budgests) {
         this.date = date;
         this.time = time;
         this.place = place;
@@ -33,5 +59,8 @@ public class PlanData {
         this.x = x;
         this.y = y;
         this.travelId = travelId;
+        this.budgests = budgests;
     }
+
+
 }

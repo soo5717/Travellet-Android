@@ -35,10 +35,13 @@ import com.google.android.material.tabs.TabLayout;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Currency;
+import java.util.Locale;
 import java.util.Objects;
 
 public class PlanActivity extends BaseActivity implements ResultCode {
@@ -90,6 +93,8 @@ public class PlanActivity extends BaseActivity implements ResultCode {
                 startActivityForResult(intent, ADD_EDIT_PLAN_RESULT);
             }
         });
+
+        binding.floatingActionButton.setVisibility(View.GONE);
 
         planAdapter.setOnItemLongClickListener(
                 (v, position) -> {
@@ -303,33 +308,33 @@ public class PlanActivity extends BaseActivity implements ResultCode {
             switch (transportArray.get(which)){
                 case "Walk":
                     planItems.get(pos).setTransport(1);
-                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 1, sx, sy, travelId), pos);
+                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 1, sx, sy, travelId, null), pos);
                     requestCalculateTransport(planIds.get(pos), new TransportData(sx, sy, finalEx, finalEy, 1, "Walk"));
-                    requestReadPlan(pagePosition);
+                    //requestReadPlan(pagePosition);
                     break;
                 case "Bus":
                     planItems.get(pos).setTransport(2);
-                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 2, sx, sy, travelId), pos);
+                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 2, sx, sy, travelId, null), pos);
                     requestCalculateTransport(planIds.get(pos), new TransportData(sx, sy, finalEx, finalEy, 2, "Bus"));
-                    requestReadPlan(pagePosition);
+                    //requestReadPlan(pagePosition);
                     break;
                 case "Subway":
                     planItems.get(pos).setTransport(3);
-                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 3, sx, sy, travelId), pos);
+                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 3, sx, sy, travelId, null), pos);
                     requestCalculateTransport(planIds.get(pos), new TransportData(sx, sy, finalEx, finalEy, 3, "Subway"));
-                    requestReadPlan(pagePosition);
+                    //requestReadPlan(pagePosition);
                     break;
                 case "Taxi":
                     planItems.get(pos).setTransport(4);
-                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 4, sx, sy, travelId), pos);
+                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 4, sx, sy, travelId, null), pos);
                     requestCalculateTransport(planIds.get(pos), new TransportData(sx, sy, finalEx, finalEy, 4, "Taxi"));
-                    requestReadPlan(pagePosition);
+                    //requestReadPlan(pagePosition);
                     break;
                 case "Car":
                     planItems.get(pos).setTransport(5);
-                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 5, sx, sy, travelId), pos);
+                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 5, sx, sy, travelId, null), pos);
                     requestCalculateTransport(planIds.get(pos), new TransportData(sx, sy, finalEx, finalEy, 5, "Car"));
-                    requestReadPlan(pagePosition);
+                   // requestReadPlan(pagePosition);
                     break;
                 default:
                     break;
@@ -393,9 +398,6 @@ public class PlanActivity extends BaseActivity implements ResultCode {
             public void onClick(DialogInterface dialogInterface, int i) {
                 int planId = planIds.get(pos);
                 requestDeletePlan(planId);
-                //planItems.remove(pos);
-                //planIds.remove(pos);
-                //binding.recyclerViewPlan.setAdapter(planAdapter);
             }
         });
         //Cancel 버튼 누르면 아예 취소
@@ -497,7 +499,6 @@ public class PlanActivity extends BaseActivity implements ResultCode {
                                     x = result.getData().get(i).getX();
                                     y = result.getData().get(i).getY();
                                 }
-                                Log.d("x, y", result.getData().get(i).getPlace() + ", " + result.getData().get(i).getPlace());
                                 double budget = result.getData().get(i).getSumBudget();
                                 dayBudget  += budget;
                                 double expense = result.getData().get(i).getSumExpense();
@@ -507,8 +508,9 @@ public class PlanActivity extends BaseActivity implements ResultCode {
                         }
                     }
                     binding.recyclerViewPlan.setAdapter(planAdapter);
-                    binding.textViewTotalBudget.setText(Double.toString(dayBudget));
-                    binding.textViewTotalExpense.setText(Double.toString(dayExpense));
+                    DecimalFormat formatter = new DecimalFormat("###,###.##");
+                    binding.textViewTotalBudget.setText(Currency.getInstance(Locale.KOREA).getSymbol() + " " + formatter.format(dayBudget));
+                    binding.textViewTotalExpense.setText(Currency.getInstance(Locale.KOREA).getSymbol() + " " + formatter.format(dayExpense));
                 }
                 ProgressBarManager.showProgress(binding.progressBar, false);
             }
@@ -623,7 +625,7 @@ public class PlanActivity extends BaseActivity implements ResultCode {
         RetrofitClient.getService().calculateTransport(planId, travelId, data).enqueue(new Callback<StatusResponse>() {
             @Override
             public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
-
+                requestReadPlan(pagePosition);
             }
 
             @Override

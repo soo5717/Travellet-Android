@@ -74,11 +74,9 @@ public class DistributeBudgetAdapter extends RecyclerView.Adapter<DistributeBudg
             case 4:
                 category = "TOURISM - ";
                 break;
-            case 5:
-                category = "TRANSPORT - ";
-                break;
             case 6:
                 category = "ETC. - ";
+                break;
 
         }
 

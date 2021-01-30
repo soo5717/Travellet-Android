@@ -11,8 +11,11 @@ import android.widget.TextView;
 import com.example.travellet.R;
 import com.example.travellet.feature.place.PlaceAdapter;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -151,8 +154,9 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolder> {
                 break;
         }
 
-        holder.budget.setText("Budget " + String.valueOf(item.getBudget()));
-        holder.expense.setText("Expense " + String.valueOf(item.getExpense()));
+        DecimalFormat formatter = new DecimalFormat("###,###.##");
+        holder.budget.setText("Budget " + Currency.getInstance(Locale.KOREA).getSymbol() + " " + formatter.format(item.getBudget()));
+        holder.expense.setText("Expense " + Currency.getInstance(Locale.KOREA).getSymbol() + " " + formatter.format(item.getExpense()));
     }
 
     @Override
