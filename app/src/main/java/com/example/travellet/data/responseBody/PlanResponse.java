@@ -43,9 +43,9 @@ public class PlanResponse {
         public Double x;
         @SerializedName("y")
         public Double y;
-        @SerializedName("sum_budget")
+        @SerializedName("sumBudget")
         public Double sumBudget;
-        @SerializedName("sum_expense")
+        @SerializedName("sumExpense")
         public Double sumExpense;
 
         public Integer getId() {

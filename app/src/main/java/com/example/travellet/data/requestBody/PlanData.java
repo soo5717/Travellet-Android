@@ -23,7 +23,7 @@ public class PlanData {
     @SerializedName("TravelId")
     public Integer travelId;
     @SerializedName("Budgets")
-    public Budgets budgests;
+    public Budgets budgets;
 
     public static class Budgets{
         @SerializedName("currency")
@@ -49,7 +49,7 @@ public class PlanData {
         }
     }
 
-    public PlanData(String date, String time, String place, String memo, Integer category, Integer transport, Double x, Double y, Integer travelId, Budgets budgests) {
+    public PlanData(String date, String time, String place, String memo, Integer category, Integer transport, Double x, Double y, Integer travelId, Budgets budgets) {
         this.date = date;
         this.time = time;
         this.place = place;
@@ -59,7 +59,7 @@ public class PlanData {
         this.x = x;
         this.y = y;
         this.travelId = travelId;
-        this.budgests = budgests;
+        this.budgets = budgets;
     }
 
 

@@ -442,7 +442,7 @@ public class PlanActivity extends BaseActivity implements ResultCode {
                         memo = "null";
                         break;
                 }
-                requestInitPlanBudget(memo, category, editPlanId);
+                //requestInitPlanBudget(memo, category, editPlanId);
             }
         }
     }

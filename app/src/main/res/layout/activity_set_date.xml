@@ -66,7 +66,9 @@
         android:layout_height="400dp"
         android:background="#ffffff"
         app:layout_constraintTop_toBottomOf="@id/text1"
-        app:layout_constraintLeft_toLeftOf="parent">
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/nextButton"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:id="@+id/lin"
@@ -204,13 +206,11 @@
             android:layout_width="348dp"
             android:layout_height="373dp"
             android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/lin"
             calendar:drawRoundRect="true" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
 
     <Button
         android:id="@+id/nextButton"

@@ -68,16 +68,13 @@ public class AddPlanActivity extends BaseActivity implements ResultCode {
             }
         });
 
-        binding.btnFood.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                category = 2;
-                binding.btnLodging.setBackgroundResource(R.drawable.ic_input_lodging_48dp);
-                binding.btnFood.setBackgroundResource(R.drawable.ic_input_food_selected_48dp);
-                binding.btnShopping.setBackgroundResource(R.drawable.ic_input_shopping_48dp);
-                binding.btnTourism.setBackgroundResource(R.drawable.ic_input_tourism_48dp);
-                binding.btnEtc.setBackgroundResource(R.drawable.ic_input_etc_48dp);
-            }
+        binding.btnFood.setOnClickListener((View.OnClickListener) v -> {
+            category = 2;
+            binding.btnLodging.setBackgroundResource(R.drawable.ic_input_lodging_48dp);
+            binding.btnFood.setBackgroundResource(R.drawable.ic_input_food_selected_48dp);
+            binding.btnShopping.setBackgroundResource(R.drawable.ic_input_shopping_48dp);
+            binding.btnTourism.setBackgroundResource(R.drawable.ic_input_tourism_48dp);
+            binding.btnEtc.setBackgroundResource(R.drawable.ic_input_etc_48dp);
         });
 
         binding.btnShopping.setOnClickListener(new View.OnClickListener() {
