@@ -117,6 +117,9 @@ public class DistributeBudgetActivity extends BaseActivity {
                     budgetAdapter.setTotalBudget(result.getData().getSumBudget());
                     budgetItems.clear();
                     for(int i=0; i<result.getData().getCountCategory().size(); i++){
+                        if (result.getData().getCountCategory().get(i).getCategory() == 5){
+                            continue;
+                        }
                         addItem(result.getData().getCountCategory().get(i).getCategory(), result.getData().getCountCategory().get(i).getCount(), 0);
 
                     }

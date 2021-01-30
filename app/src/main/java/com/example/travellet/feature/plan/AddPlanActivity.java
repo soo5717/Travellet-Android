@@ -28,6 +28,7 @@ import com.example.travellet.network.RetrofitClient;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class AddPlanActivity extends BaseActivity implements ResultCode {
@@ -231,11 +232,12 @@ public class AddPlanActivity extends BaseActivity implements ResultCode {
 
         setResult(RESULT_OK, intent);
         if(!editState) {
-            requestCreatePlan(new PlanData(date, hour + ":" + min + ": ", place, memo, category, 1, x, y, travelId, new PlanData.Budgets(memo, category)));
+            requestCreatePlan(new PlanData(date, hour + ":" + min + ": ", place, memo, category, 1, x, y, travelId,
+                    new PlanData.Budgets(memo, category), new PlanData.Budgets("Walk", 5)));
         }
 
         else {
-            requestUpdatePlan(new PlanData(date, hour + ":" + min + ": ", place, memo, category, transport, x, y, travelId, null), planId);
+            requestUpdatePlan(new PlanData(date, hour + ":" + min + ": ", place, memo, category, transport, x, y, travelId, null, null), planId);
         }
     }
 

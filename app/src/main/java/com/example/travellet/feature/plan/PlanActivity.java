@@ -308,31 +308,31 @@ public class PlanActivity extends BaseActivity implements ResultCode {
             switch (transportArray.get(which)){
                 case "Walk":
                     planItems.get(pos).setTransport(1);
-                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 1, sx, sy, travelId, null), pos);
+                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 1, sx, sy, travelId, null, null), pos);
                     requestCalculateTransport(planIds.get(pos), new TransportData(sx, sy, finalEx, finalEy, 1, "Walk"));
                     //requestReadPlan(pagePosition);
                     break;
                 case "Bus":
                     planItems.get(pos).setTransport(2);
-                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 2, sx, sy, travelId, null), pos);
+                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 2, sx, sy, travelId, null, null), pos);
                     requestCalculateTransport(planIds.get(pos), new TransportData(sx, sy, finalEx, finalEy, 2, "Bus"));
                     //requestReadPlan(pagePosition);
                     break;
                 case "Subway":
                     planItems.get(pos).setTransport(3);
-                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 3, sx, sy, travelId, null), pos);
+                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 3, sx, sy, travelId, null, null), pos);
                     requestCalculateTransport(planIds.get(pos), new TransportData(sx, sy, finalEx, finalEy, 3, "Subway"));
                     //requestReadPlan(pagePosition);
                     break;
                 case "Taxi":
                     planItems.get(pos).setTransport(4);
-                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 4, sx, sy, travelId, null), pos);
+                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 4, sx, sy, travelId, null, null), pos);
                     requestCalculateTransport(planIds.get(pos), new TransportData(sx, sy, finalEx, finalEy, 4, "Taxi"));
                     //requestReadPlan(pagePosition);
                     break;
                 case "Car":
                     planItems.get(pos).setTransport(5);
-                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 5, sx, sy, travelId, null), pos);
+                    requestUpdatePlan(new PlanData(date, time, place, memo, category, 5, sx, sy, travelId, null, null), pos);
                     requestCalculateTransport(planIds.get(pos), new TransportData(sx, sy, finalEx, finalEy, 5, "Car"));
                    // requestReadPlan(pagePosition);
                     break;
@@ -537,12 +537,7 @@ public class PlanActivity extends BaseActivity implements ResultCode {
                         planIds.add(result.getData().get(i).getId());
                     }
                     //일정 새로 생성했을 경우
-                    if(id == 0){
-                        requestCreateBudget(new BudgetData(planIds.get(planIds.size()-1), "KRW", 10.0, 10.0, 10, memo, category)); //예산 생성 요청(일정 카테고리)
-                        requestCreateBudget(new BudgetData(planIds.get(planIds.size()-1), "KRW", 10.0, 10.0, 10, "transportation", 5)); //예산 생성 요청(교통 카테고리)
-                    } else{
-                        requestUpdateBudget(id, new BudgetData(planIds.get(planIds.size()-1), "KRW", 10.0, 10.0, 10, memo, category));
-                    }
+
                 }
             }
 

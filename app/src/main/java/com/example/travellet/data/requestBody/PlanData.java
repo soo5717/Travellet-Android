@@ -3,6 +3,8 @@ package com.example.travellet.data.requestBody;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class PlanData {
     @SerializedName("date")
     public String date;
@@ -23,7 +25,7 @@ public class PlanData {
     @SerializedName("TravelId")
     public Integer travelId;
     @SerializedName("Budgets")
-    public Budgets budgets;
+    public ArrayList<Budgets> budgets = new ArrayList<Budgets>();
 
     public static class Budgets{
         @SerializedName("currency")
@@ -49,7 +51,7 @@ public class PlanData {
         }
     }
 
-    public PlanData(String date, String time, String place, String memo, Integer category, Integer transport, Double x, Double y, Integer travelId, Budgets budgets) {
+    public PlanData(String date, String time, String place, String memo, Integer category, Integer transport, Double x, Double y, Integer travelId, Budgets budget1, Budgets budget2) {
         this.date = date;
         this.time = time;
         this.place = place;
@@ -59,8 +61,7 @@ public class PlanData {
         this.x = x;
         this.y = y;
         this.travelId = travelId;
-        this.budgets = budgets;
+        this.budgets.add(budget1);
+        this.budgets.add(budget2);
     }
-
-
 }

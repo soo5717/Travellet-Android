@@ -31,9 +31,9 @@ public class DistributeBudgetResponse {
     }
 
     public static class Data {
-        @SerializedName("sum_budget")
+        @SerializedName("sumBudget")
         private Double sumBudget;
-        @SerializedName("count_category")
+        @SerializedName("countCategory")
         private ArrayList<Item> countCategory;
 
         public Double getSumBudget() {
