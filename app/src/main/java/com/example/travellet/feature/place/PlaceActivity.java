@@ -90,6 +90,7 @@ public class PlaceActivity extends AppCompatActivity implements ResultCode {
     //좋아요 관련 변수
     ArrayList<Boolean> placeLike = new ArrayList<Boolean>();
     ArrayList<Integer> getLikeId = new ArrayList<>(); //get 해온 좋아요 목록 id 저장하는 arraylist
+    boolean likeState = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,8 +114,16 @@ public class PlaceActivity extends AppCompatActivity implements ResultCode {
                     intent.putExtra("id", placeID.get(position));
                     intent.putExtra("title", placeTitle.get(position));
                     intent.putExtra("address", placeAddr.get(position));
-                    intent.putExtra("like", placeLike.get(position));
-                    Log.d("go detail", "like state is " + String.valueOf(placeLike.get(position)));
+                    for(int i=0; i<getLikeId.size(); i++){
+
+                        Log.d("detail id, like id", String.valueOf(placeID.get(position)) + ", " + getLikeId.get(i));
+                        if((int)placeID.get(position) == (int)getLikeId.get(i)){
+                            likeState = true;
+                            break;
+                        }
+                    }
+                    intent.putExtra("like", likeState);
+                    Log.d("go detail", "like state is " + likeState);
                     intent.putExtra("x", placeX.get(position));
                     intent.putExtra("y", placeY.get(position));
                     intent.putExtra("position", position); //detail 화면 destroy 이후 좋아요 상태를 변경하기 위해 넣어줌.
@@ -617,10 +626,8 @@ public class PlaceActivity extends AppCompatActivity implements ResultCode {
                 //db에 좋아요 눌렀던 항목 저장, 리스트뷰에 추가할 때 db에 등록되어 있는 애들은 true로 넘길 수 있도록
                 if (thumbnail.equals(" ")) {
                     addItem("NULL", title, sigungu, likeState);
-                    placeLike.add(likeState);
                 } else {
                     addItem(thumbnail, title, sigungu, likeState);
-                    placeLike.add(likeState);
                 }
             }
 
@@ -674,7 +681,7 @@ public class PlaceActivity extends AppCompatActivity implements ResultCode {
                     getLikeId.clear();
                     for(int j=0; j<result.getData().getCount(); j++){
                         getLikeId.add(result.getData().getRow().get(j).getContentId());
-                        Log.d("좋아요 누른 아이디", String.valueOf(result.getData().getRow().get(j).getContentId()));
+                        Log.d("좋아요 누른 아이디", String.valueOf(getLikeId.get(j)));
                     }
 
                 }

@@ -31,10 +31,16 @@ public class DistributeBudgetResponse {
     }
 
     public static class Data {
+        @SerializedName("budget")
+        private Double budget;
         @SerializedName("sumBudget")
         private Double sumBudget;
         @SerializedName("countCategory")
         private ArrayList<Item> countCategory;
+
+        public Double getBudget() {
+            return budget;
+        }
 
         public Double getSumBudget() {
             return sumBudget;

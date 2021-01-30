@@ -20,6 +20,7 @@ import com.example.travellet.feature.plan.PlanActivity;
 import com.example.travellet.feature.util.BaseActivity;
 import com.example.travellet.network.RetrofitClient;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Locale;
@@ -53,7 +54,8 @@ public class DistributeBudgetActivity extends BaseActivity {
         //리사이클러뷰 시크바 이벤트
         budgetAdapter.setOnSeekbarChangeListener(
                 (s, position) -> {
-                    binding.textTotalBudget.setText(Currency.getInstance(Locale.KOREA).getSymbol() + " " +Double.toString(budgetAdapter.getTotalBudget()));
+                    DecimalFormat formatter = new DecimalFormat("###,###.##");
+                    binding.textTotalBudget.setText(Currency.getInstance(Locale.KOREA).getSymbol() + " " +formatter.format(budgetAdapter.getTotalBudget()));
                 }
         );
 
@@ -113,8 +115,9 @@ public class DistributeBudgetActivity extends BaseActivity {
             public void onResponse(Call<DistributeBudgetResponse> call, Response<DistributeBudgetResponse> response) {
                 if (response.isSuccessful()) {
                     DistributeBudgetResponse result = response.body();
-                    binding.textTotalBudget.setText(Currency.getInstance(Locale.KOREA).getSymbol() + " " + result.getData().getSumBudget());
-                    budgetAdapter.setTotalBudget(result.getData().getSumBudget());
+                    double remain = result.getData().getBudget() - result.getData().getSumBudget();
+                    binding.textTotalBudget.setText(Currency.getInstance(Locale.KOREA).getSymbol() + " " + remain);
+                    budgetAdapter.setTotalBudget(remain);
                     budgetItems.clear();
                     for(int i=0; i<result.getData().getCountCategory().size(); i++){
                         if (result.getData().getCountCategory().get(i).getCategory() == 5){

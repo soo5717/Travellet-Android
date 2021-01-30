@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.travellet.R;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Locale;
@@ -23,6 +24,7 @@ public class DistributeBudgetAdapter extends RecyclerView.Adapter<DistributeBudg
     private ArrayList<DistributeBudgetItem> mData = null;
     Context context;
     double totalBudget, itemBudget; //totalBudget -> 모든 카테고리의 총 예산, itemBudget -> 하나의 카테고리 예산
+    DecimalFormat formatter = new DecimalFormat("###,###.##");
 
     //생성자에서 데이터 리스트 객체를 전달받음.
     DistributeBudgetAdapter(ArrayList<DistributeBudgetItem> list) {
@@ -82,7 +84,7 @@ public class DistributeBudgetAdapter extends RecyclerView.Adapter<DistributeBudg
 
         holder.category.setText(category + item.getCount());
 
-        holder.budget.setText(Currency.getInstance(Locale.KOREA).getSymbol() + " " + item.getBudget());
+        holder.budget.setText(Currency.getInstance(Locale.KOREA).getSymbol() + " " + formatter.format(item.getBudget()));
 
         holder.seekBar.setMax((int)totalBudget);
     }
@@ -118,11 +120,11 @@ public class DistributeBudgetAdapter extends RecyclerView.Adapter<DistributeBudg
                     DistributeBudgetItem item = mData.get(position);
                     if(position != RecyclerView.NO_POSITION){
                         if (i % 10 == 0) {
-                            budget.setText(Currency.getInstance(Locale.KOREA).getSymbol() + " " +i);
+                            budget.setText(Currency.getInstance(Locale.KOREA).getSymbol() + " " +formatter.format(i));
                             item.setBudget(i);
                         } else {
                             seekBar.setProgress((i / 10) * 10);
-                            budget.setText(Currency.getInstance(Locale.KOREA).getSymbol() + " " + (i / 10) * 10);
+                            budget.setText(Currency.getInstance(Locale.KOREA).getSymbol() + " " + formatter.format((i / 10) * 10));
                             item.setBudget((i / 10) * 10);
                         }
                         for(int j=0; j<mData.size(); j++){
