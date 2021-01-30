@@ -1,5 +1,7 @@
 package com.example.travellet.feature.util;
 
+import android.text.format.DateFormat;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -18,8 +20,9 @@ public class TravelUtil {
     public String dateFormat(String target) {
         try {
             //문자열을 파싱해서 원하는 날짜 형식으로 변환
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM.dd.yyyy", Locale.getDefault());
-            Date date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(target);
+            String dateFormat = DateFormat.getBestDateTimePattern(Locale.getDefault(), "yyyyMMdd");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat, Locale.getDefault());
+            Date date = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA).parse(target);
 
             assert date != null;
             return simpleDateFormat.format(date);
