@@ -62,6 +62,10 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NotNull Call<ProfileResponse> call, @NotNull Throwable t) {
                 Log.e("자동 로그인 에러", Objects.requireNonNull(t.getMessage()));
+                //로그인 페이지로 이동
+                Intent intent = new Intent(SplashActivity.this, SignInActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

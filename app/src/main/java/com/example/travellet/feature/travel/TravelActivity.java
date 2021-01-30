@@ -36,7 +36,7 @@ import retrofit2.Response;
  */
 public class TravelActivity extends AppCompatActivity {
     private final String[] TABS = {"upcoming", "past"}; //탭 선언
-    ArrayList<TravelViewPagerData> mList = new ArrayList<>(); //뷰페이저 리스트
+    ArrayList<TravelViewPagerData> mList; //뷰페이저 리스트
     private ActivityTravelBinding binding; //바인딩 선언
 
     @Override
@@ -54,8 +54,9 @@ public class TravelActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        finish(); //액티비티 새로 고침
-        startActivity(getIntent()); //액티비티 새로 고침
+        requestReadTravel(); //여행 목록 조회 요청
+//        finish(); //액티비티 새로 고침
+//        startActivity(getIntent()); //액티비티 새로 고침
     }
 
     //리사이클러뷰 어댑터 설정
@@ -64,6 +65,7 @@ public class TravelActivity extends AppCompatActivity {
         ArrayList<TravelResponse.Data.Travel> past = new ArrayList<>(data.getPast());
 
         //어댑터 설정 + 뷰페이저/탭 스와이프 설정
+        mList = new ArrayList<>(); //초기화
         mList.add(new TravelViewPagerData(this, upcoming));
         mList.add(new TravelViewPagerData(this, past));
         binding.viewPager2.setAdapter(new TravelViewPagerAdapter(mList));
