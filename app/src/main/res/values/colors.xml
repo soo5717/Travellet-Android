@@ -21,4 +21,13 @@
 
     <!--  Etc color  -->
     <color name="coral_red">#f3534a</color>
+
+    <!-- Report(Category) color -->
+    <color name="category1">#213e7f</color>
+    <color name="category2">#2e57b2</color>
+    <color name="category3">#427dff</color>
+    <color name="category4">#7aa4ff</color>
+    <color name="category5">#b3cbff</color>
+    <color name="category6">#1a459efb</color>
+
 </resources>
