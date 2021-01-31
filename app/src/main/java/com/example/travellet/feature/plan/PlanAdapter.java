@@ -3,6 +3,7 @@ package com.example.travellet.feature.plan;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -65,6 +66,17 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolder> {
 
     public void setOnTransportClickListener(OnTransportClickListener listener) {
         this.tListener = listener;
+    }
+    
+    //ALL 탭에서 클릭 막는 인터페이스
+    public interface OnTouchBanListener{
+        boolean onTouchBan(View v, int pos);
+    }
+
+    private OnTouchBanListener banListener = null;
+
+    public void setOnTouchBanListener(OnTouchBanListener listener){
+        this.banListener = listener;
     }
 
     // onCreateViewHolder() - 아이템 뷰를 위한 뷰홀더 객체 생성하여 리턴.
@@ -178,7 +190,6 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolder> {
             budget = itemView.findViewById(R.id.text_view_budget);
             expense = itemView.findViewById(R.id.text_view_expense);
 
-
             //아이템 클릭이벤트처리
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -200,6 +211,20 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolder> {
                     if(position != RecyclerView.NO_POSITION)
                         mLongListener.onItemLongClick(v, position);
                     return true;
+                }
+            });
+
+            //교통 선택 이벤트 막기
+            transport.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    int position = getAdapterPosition();
+                    if(position != RecyclerView.NO_POSITION){
+                        if(banListener != null){
+                            return banListener.onTouchBan(v, position);
+                        }
+                    }
+                    return false;
                 }
             });
 

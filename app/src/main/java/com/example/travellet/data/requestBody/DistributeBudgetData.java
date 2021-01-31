@@ -3,7 +3,7 @@ package com.example.travellet.data.requestBody;
 import com.google.gson.annotations.SerializedName;
 
 public class DistributeBudgetData {
-    @SerializedName("travelId")
+    @SerializedName("TravelId")
     private Integer travelId;
     @SerializedName("lodging")
     private Integer lodging;

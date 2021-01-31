@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -57,6 +58,9 @@ public class PlanActivity extends BaseActivity implements ResultCode {
     PlanAdapter planAdapter = null ;
     ArrayList<PlanItem> planItems = new ArrayList<>();
     LinearLayoutManager layoutManager;
+
+    //all state
+    boolean allState = true;
 
     //plan id 저장
     ArrayList<Integer> planIds = new ArrayList<>();
@@ -151,7 +155,7 @@ public class PlanActivity extends BaseActivity implements ResultCode {
             case R.id.menu_calculation: { // 오른쪽 상단 버튼 눌렀을 때
                 Intent intent = new Intent(getApplicationContext(), DistributeBudgetActivity.class);
                 intent.putExtra("travelId", travelId);
-                startActivity(intent);
+                startActivityForResult(intent, DISTRIBUTE_BUDGET_RESULT);
                 return true;
             }
         }
@@ -186,12 +190,18 @@ public class PlanActivity extends BaseActivity implements ResultCode {
                     pagePosition = 0;
                     requestReadPlan(0);
                     binding.floatingActionButton.setVisibility(View.GONE);
+                    planAdapter.setOnTouchBanListener((v, position) ->{
+                        return true;
+                    });
                 }
                 else {
                     binding.textViewDatetime.setText(dateList.get(pos));
                     pagePosition = pos;
                     requestReadPlan(pagePosition);
                     binding.floatingActionButton.setVisibility(View.VISIBLE);
+                    planAdapter.setOnTouchBanListener((v, position) ->{
+                        return false;
+                    });
                 }
             }
 
@@ -442,6 +452,9 @@ public class PlanActivity extends BaseActivity implements ResultCode {
                         memo = "null";
                         break;
                 }
+                if(editPlanId != 0){
+
+                }
                 //requestInitPlanBudget(memo, category, editPlanId);
             }
         }
@@ -536,8 +549,6 @@ public class PlanActivity extends BaseActivity implements ResultCode {
                     for(int i=0; i<result.getData().size(); i++) {
                         planIds.add(result.getData().get(i).getId());
                     }
-                    //일정 새로 생성했을 경우
-
                 }
             }
 

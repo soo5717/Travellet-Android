@@ -69,6 +69,8 @@ public class DistributeBudgetActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 distribution();
+                Intent intent = new Intent();
+                setResult(RESULT_OK, intent);
                 finish();
             }
         });
@@ -96,14 +98,19 @@ public class DistributeBudgetActivity extends BaseActivity {
             switch (budgetItems.get(i).getCategory()) {
                 case 1:
                     lodgingBudget = (int)(budgetItems.get(i).getBudget() / budgetItems.get(i).getCount());
+                    break;
                 case 2:
                     foodBudget = (int)(budgetItems.get(i).getBudget() / budgetItems.get(i).getCount());
+                    break;
                 case 3:
                     shoppingBudget = (int)(budgetItems.get(i).getBudget() / budgetItems.get(i).getCount());
+                    break;
                 case 4:
                     tourismBudget = (int)(budgetItems.get(i).getBudget() / budgetItems.get(i).getCount());
+                    break;
                 case 6:
                     etcBudget = (int)(budgetItems.get(i).getBudget() / budgetItems.get(i).getCount());
+                    break;
             }
         }
         requestUpdateDistribute(lodgingBudget, foodBudget, shoppingBudget, tourismBudget, etcBudget);
@@ -155,5 +162,14 @@ public class DistributeBudgetActivity extends BaseActivity {
                 Log.e("distribution failure", Objects.requireNonNull(t.getMessage()));
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
+        finish();
+
+        super.onBackPressed();
     }
 }
