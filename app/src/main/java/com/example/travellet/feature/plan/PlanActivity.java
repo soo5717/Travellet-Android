@@ -150,7 +150,7 @@ public class PlanActivity extends BaseActivity implements ResultCode {
 
             case R.id.menu_report:{
                 Intent intent = new Intent(getApplicationContext(), ReportActivity.class);
-                intent.putExtra("travelId", travelId);
+                intent.putExtra("travel_id", travelId);
                 startActivity(intent);
                 return true;
             }

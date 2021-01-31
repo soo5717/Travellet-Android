@@ -1,5 +1,6 @@
 package com.example.travellet.feature.report;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -29,8 +30,12 @@ public class ReportActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //TravelId 받아오기
+        Intent intent = getIntent();
+        int travelId= intent.getIntExtra("travel_id", 0);
+
         initButton(); //버튼 클릭 이벤트 설정
-        initView(); //뷰 설정
+        initView(travelId); //뷰 설정
     }
 
     @Override //Activity 뷰 바인딩
@@ -40,10 +45,21 @@ public class ReportActivity extends BaseActivity {
     }
 
     //뷰 설정 : 탭, 뷰페이저, 프래그먼트
-    private void initView() {
+    private void initView(int travelId) {
+        //프래그먼트 데이터 전달을 위한 bundle
+        Fragment dailyFragment = new ReportDailyFragment();
+        Bundle bundle1 = new Bundle();
+        bundle1.putInt("travel_id", travelId);
+        dailyFragment.setArguments(bundle1);
+
+        Fragment categoryFragment = new ReportCategoryFragment();
+        Bundle bundle2 = new Bundle();
+        bundle2.putInt("travel_id", travelId);
+        categoryFragment.setArguments(bundle2);
+
         //프래그먼트 리스트에 추가
-        fragmentList.add(new ReportDailyFragment());
-        fragmentList.add(new ReportCategoryFragment());
+        fragmentList.add(dailyFragment);
+        fragmentList.add(categoryFragment);
 
         //뷰페이저 어댑터 설정
         binding.viewPager2.setAdapter(new FragmentStateAdapter(this) {
