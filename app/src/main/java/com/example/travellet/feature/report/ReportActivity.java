@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.travellet.R;
 import com.example.travellet.databinding.ActivityReportBinding;
 import com.example.travellet.feature.util.BaseActivity;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -24,12 +23,11 @@ public class ReportActivity extends BaseActivity {
     private ActivityReportBinding binding; //바인딩 선언
 
     private final String[] TABS = {"daily", "category"}; //탭 선언
-    private List<Fragment> fragmentList = new ArrayList<>();
+    private final List<Fragment> fragmentList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_report);
 
         initButton(); //버튼 클릭 이벤트 설정
         initView(); //뷰 설정
@@ -44,10 +42,8 @@ public class ReportActivity extends BaseActivity {
     //뷰 설정 : 탭, 뷰페이저, 프래그먼트
     private void initView() {
         //프래그먼트 리스트에 추가
-        fragmentList.add(ReportDailyFragment.newInstance(TABS[0], ""));
-        fragmentList.add(ReportDailyFragment.newInstance(TABS[1], ""));
-
-//        fragmentList.add(new ReportCategoryFragment());
+        fragmentList.add(new ReportDailyFragment());
+        fragmentList.add(new ReportCategoryFragment());
 
         //뷰페이저 어댑터 설정
         binding.viewPager2.setAdapter(new FragmentStateAdapter(this) {

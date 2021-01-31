@@ -51,8 +51,7 @@
         <activity android:name=".feature.detail.PlanDetailActivity" />
         <activity android:name=".feature.detail.expense.AddExpenseActivity" />
         <activity android:name=".feature.detail.budget.AddBudgetActivity" />
-        <activity android:name=".feature.report.ReportActivity">
-        </activity>
+        <activity android:name=".feature.report.ReportActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
