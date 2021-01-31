@@ -14,6 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ReportActivity"></activity>
         <activity
             android:name=".feature.util.SplashActivity"
             android:theme="@style/SplashTheme">
@@ -24,19 +25,24 @@
             </intent-filter>
         </activity>
         <activity android:name=".feature.util.BaseActivity" />
-        <activity android:name=".feature.sign.SignInActivity"
-            android:windowSoftInputMode="stateVisible"/>
-        <activity android:name=".feature.sign.SignUp1Activity"
-            android:windowSoftInputMode="stateVisible"/>
-        <activity android:name=".feature.sign.SignUp2Activity"
-            android:windowSoftInputMode="stateVisible"/>
+        <activity
+            android:name=".feature.sign.SignInActivity"
+            android:windowSoftInputMode="stateVisible" />
+        <activity
+            android:name=".feature.sign.SignUp1Activity"
+            android:windowSoftInputMode="stateVisible" />
+        <activity
+            android:name=".feature.sign.SignUp2Activity"
+            android:windowSoftInputMode="stateVisible" />
         <activity android:name=".feature.setting.SettingActivity" />
         <activity android:name=".feature.travel.TravelActivity" />
-        <activity android:name=".feature.travel.SetTitleActivity"
-            android:windowSoftInputMode="stateVisible"/>
+        <activity
+            android:name=".feature.travel.SetTitleActivity"
+            android:windowSoftInputMode="stateVisible" />
         <activity android:name=".feature.travel.SetDateActivity" />
-        <activity android:name=".feature.travel.SetBudgetActivity"
-            android:windowSoftInputMode="stateVisible"/>
+        <activity
+            android:name=".feature.travel.SetBudgetActivity"
+            android:windowSoftInputMode="stateVisible" />
         <activity android:name=".feature.place.PlaceActivity" />
         <activity android:name=".feature.place.PlaceDetailActivity" />
         <activity android:name=".feature.plan.PlanActivity" />
@@ -55,4 +61,5 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
     </application>
+
 </manifest>

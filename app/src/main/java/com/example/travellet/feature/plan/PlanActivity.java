@@ -20,6 +20,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import com.example.travellet.R;
+import com.example.travellet.ReportActivity;
 import com.example.travellet.data.StatusResponse;
 import com.example.travellet.data.requestBody.BudgetData;
 import com.example.travellet.data.requestBody.PlanData;
@@ -149,7 +150,10 @@ public class PlanActivity extends BaseActivity implements ResultCode {
             }
 
             case R.id.menu_report:{
-
+                Intent intent = new Intent(getApplicationContext(), ReportActivity.class);
+                intent.putExtra("travelId", travelId);
+                startActivity(intent);
+                return true;
             }
 
             case R.id.menu_calculation: { // 오른쪽 상단 버튼 눌렀을 때
