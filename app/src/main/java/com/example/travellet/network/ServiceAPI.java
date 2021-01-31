@@ -18,6 +18,7 @@ import com.example.travellet.data.responseBody.PlanDetailResponse;
 import com.example.travellet.data.responseBody.PlanResponse;
 import com.example.travellet.data.responseBody.ProfileResponse;
 import com.example.travellet.data.requestBody.SignInData;
+import com.example.travellet.data.responseBody.ReportDailyResponse;
 import com.example.travellet.data.responseBody.SignInResponse;
 import com.example.travellet.data.requestBody.SignUpData;
 import com.example.travellet.data.StatusResponse;
@@ -102,5 +103,7 @@ public interface ServiceAPI {
     @DELETE("/expenses/{id}") //지출 삭제
     Call<StatusResponse> deleteExpense(@Path("id") int id);
 
+    @GET("/expenses/report/daily") //일별 그래프
+    Call<ReportDailyResponse> readDaily(@Query("travelid") int travelId);
 
 }
