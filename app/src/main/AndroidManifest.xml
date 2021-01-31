@@ -14,7 +14,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".feature.report.ReportActivity"></activity>
         <activity
             android:name=".feature.util.SplashActivity"
             android:theme="@style/SplashTheme">
@@ -52,6 +51,8 @@
         <activity android:name=".feature.detail.PlanDetailActivity" />
         <activity android:name=".feature.detail.expense.AddExpenseActivity" />
         <activity android:name=".feature.detail.budget.AddBudgetActivity" />
+        <activity android:name=".feature.report.ReportActivity">
+        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
