@@ -14,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ReportActivity"></activity>
+        <activity android:name=".feature.report.ReportActivity"></activity>
         <activity
             android:name=".feature.util.SplashActivity"
             android:theme="@style/SplashTheme">

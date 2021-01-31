@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -20,7 +19,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import com.example.travellet.R;
-import com.example.travellet.ReportActivity;
+import com.example.travellet.feature.report.ReportActivity;
 import com.example.travellet.data.StatusResponse;
 import com.example.travellet.data.requestBody.BudgetData;
 import com.example.travellet.data.requestBody.PlanData;

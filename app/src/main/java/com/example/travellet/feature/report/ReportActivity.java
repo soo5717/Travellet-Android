@@ -1,8 +1,10 @@
-package com.example.travellet;
+package com.example.travellet.feature.report;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.travellet.R;
 
 public class ReportActivity extends AppCompatActivity {
     private final String[] TABS = {"DAILY", "CATEGORY"}; //탭 선언
