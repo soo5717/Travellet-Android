@@ -12,7 +12,7 @@ public class ReportDailyResponse {
     @SerializedName("message")
     private String message;
     @SerializedName("data")
-    private SignInResponse.Data data;
+    private Data data;
 
     public Integer getStatus() {
         return status;
@@ -26,7 +26,7 @@ public class ReportDailyResponse {
         return message;
     }
 
-    public SignInResponse.Data getData() {
+    public Data getData() {
         return data;
     }
 
@@ -56,7 +56,7 @@ public class ReportDailyResponse {
             @SerializedName("payment")
             private Integer payment;
             @SerializedName("priceTo")
-            private Double priceTo;
+            private Float priceTo;
             @SerializedName("priceKrw")
             private String priceKrw;
 
@@ -68,7 +68,7 @@ public class ReportDailyResponse {
                 return payment;
             }
 
-            public Double getPriceTo() {
+            public Float getPriceTo() {
                 return priceTo;
             }
 
@@ -87,9 +87,9 @@ public class ReportDailyResponse {
             @SerializedName("payment")
             private Integer payment;
             @SerializedName("priceTo")
-            private Double priceTo;
+            private Float priceTo;
             @SerializedName("priceKrw")
-            private Integer priceKrw;
+            private Float priceKrw;
 
             public String getDate() {
                 return date;
@@ -107,11 +107,11 @@ public class ReportDailyResponse {
                 return payment;
             }
 
-            public Double getPriceTo() {
+            public Float getPriceTo() {
                 return priceTo;
             }
 
-            public Integer getPriceKrw() {
+            public Float getPriceKrw() {
                 return priceKrw;
             }
         }
