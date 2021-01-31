@@ -38,7 +38,7 @@
         app:layout_constraintBottom_toTopOf="@id/line"/>
 
     <TextView
-        android:id="@+id/text_view_category_date"
+        android:id="@+id/text_view_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
