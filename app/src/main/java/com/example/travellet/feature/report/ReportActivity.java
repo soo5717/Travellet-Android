@@ -2,22 +2,14 @@ package com.example.travellet.feature.report;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-import com.example.travellet.R;
-import com.example.travellet.data.responseBody.ReportCategoryResponse;
 import com.example.travellet.databinding.ActivityReportBinding;
 import com.example.travellet.feature.util.BaseActivity;
-import com.example.travellet.feature.util.ProgressBarManager;
-import com.example.travellet.network.RetrofitClient;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
